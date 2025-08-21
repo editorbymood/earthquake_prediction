@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Earthquake Visualizations</title>
+  <style>
+    :root {
+      --bg: #0f172a; --panel:#0b1220; --muted:#94a3b8; --text:#e5e7eb; --border:#1e293b; --accent:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--border);background:rgba(15,23,42,.6);backdrop-filter:blur(6px);position:sticky;top:0;z-index:10}
+    .title{display:flex;align-items:center;gap:10px;font-weight:700}
+    .badge{background:var(--accent);color:#052e16;font-weight:800;border-radius:999px;padding:4px 10px;font-size:12px}
+    .container{max-width:1400px;margin:0 auto;padding:20px}
+    .nav{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+    .tab{background:#0e1526;border:1px solid var(--border);padding:8px 12px;border-radius:10px;color:#e2e8f0;cursor:pointer}
+    .tab.active{border-color:#2dd4bf;background:#0b1323}
+    .section{display:none}
+    .section.active{display:block}
+    .hint{color:var(--muted);font-size:13px;margin:8px 0 18px}
+    iframe{width:100%;height:820px;border:1px solid var(--border);border-radius:12px;background:#0b1220}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}
+    .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:1100px){.twocol{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">🌍 All Earthquake Visualizations <span class="badge">Unified</span></div>
+  </header>
+  <div class="container">
+    <div class="hint">Use the tabs below to switch between the live-data views and the project dashboard views. Each tab embeds your existing HTML outputs.</div>
+
+    <div class="nav" id="tabs">
+      <button class="tab active" data-target="#live">Live Data</button>
+      <button class="tab" data-target="#project">Project Dashboard</button>
+      <button class="tab" data-target="#others">Other Outputs</button>
+    </div>
+
+    <section id="live" class="section active">
+      <div class="grid">
+        <iframe src="live_earthquakes_only.html" title="Live Earthquakes Map"></iframe>
+        <div class="twocol">
+          <iframe src="live_earthquakes_timeline.html" title="Live Timeline"></iframe>
+          <iframe src="live_earthquakes_depth_magnitude.html" title="Live Depth vs Magnitude"></iframe>
+        </div>
+      </div>
+      <div class="hint">If a panel stays blank, confirm the corresponding HTML file exists in this folder and you have internet access for map tiles.</div>
+    </section>
+
+    <section id="project" class="section">
+      <div class="grid">
+        <iframe src="earthquake_dashboard_map.html" title="Project Map"></iframe>
+        <div class="twocol">
+          <iframe src="earthquake_dashboard_timeline.html" title="Project Timeline"></iframe>
+          <iframe src="earthquake_dashboard_depth_magnitude.html" title="Depth vs Magnitude"></iframe>
+        </div>
+        <div class="twocol">
+          <iframe src="earthquake_dashboard_magnitude_dist.html" title="Magnitude Distribution"></iframe>
+          <iframe src="earthquake_dashboard_geo_dist.html" title="Geographic Distribution"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="others" class="section">
+      <div class="grid">
+        <iframe src="earthquake_live_map.html" title="Demo Live Map"></iframe>
+        <iframe src="project_data_map.html" title="Project Data Map"></iframe>
+      </div>
+    </section>
+
+    <div class="hint">Tip: you can serve this page with <code>python view_maps.py</code> and open <code>http://localhost:8001/all_earthquake_dashboard.html</code>.</div>
+  </div>
+
+  <script>
+    // Simple tab switcher
+    document.querySelectorAll('#tabs .tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#tabs .tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.querySelector(btn.dataset.target);
+        if (target) target.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

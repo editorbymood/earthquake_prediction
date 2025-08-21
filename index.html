@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earthquake Visualizations Index</title>
+  <style>
+    :root {
+      --bg: #0f172a;        /* slate-900 */
+      --panel: #111827;     /* gray-900 */
+      --muted: #94a3b8;     /* slate-400 */
+      --text: #e5e7eb;      /* gray-200 */
+      --accent: #22c55e;    /* green-500 */
+      --accent2: #60a5fa;   /* blue-400 */
+      --chip: #1f2937;      /* gray-800 */
+      --border: #1f2937;    /* gray-800 */
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .title { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 22px; }
+    .title .badge { font-size: 13px; color: var(--bg); background: var(--accent); padding: 4px 10px; border-radius: 999px; font-weight: 700; }
+    .subtitle { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+    nav { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 24px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .chip { background: var(--chip); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 999px; font-size: 14px; }
+    section { margin-top: 28px; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: grid; gap: 8px; }
+    .card small { color: var(--muted); }
+    .card a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; background: #0b1220; border: 1px solid #0b1528; color: #e2e8f0; transition: border-color .15s ease, background .15s ease; }
+    .card a:hover { background: #0e1526; border-color: #1e293b; }
+    footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+    .hint { margin-top: 8px; color: var(--muted); font-size: 13px; }
+    .sep { height: 1px; background: var(--border); margin: 18px 0; border-radius: 1px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title">
+        <span>🌍 Earthquake Visualizations</span>
+        <span class="badge">Index</span>
+      </div>
+    </header>
+    <p class="subtitle">Quick links to all generated HTML maps and dashboards in this project. Open directly or serve via a local server.</p>
+
+    <nav>
+      <a class="chip" href="#live">Live Data Maps</a>
+      <a class="chip" href="#dash">Project Dashboards</a>
+      <a class="chip" href="#other">Other Maps</a>
+    </nav>
+
+    <section id="live">
+      <h2>📡 Live Data Maps</h2>
+      <div class="grid">
+        <div class="card">
+          <div>Live Earthquakes — Interactive Map</div>
+          <small>From USGS (last 7 days)</small>
+          <a href="live_earthquakes_only.html" target="_blank">Open live_earthquakes_only.html →</a>
+        </div>
+        <div class="card">
+          <div>Live Earthquakes — Timeline</div>
+          <small>Magnitude over time (Plotly)</small>
+          <a href="live_earthquakes_timeline.html" target="_blank">Open live_earthquakes_timeline.html →</a>
+        </div>
+        <div class="card">
+          <div>Live Earthquakes — Depth vs Magnitude</div>
+          <small>Scatter analysis (Plotly)</small>
+          <a href="live_earthquakes_depth_magnitude.html" target="_blank">Open live_earthquakes_depth_magnitude.html →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="dash">
+      <h2>📊 Project Dashboards</h2>
+      <div class="grid">
+        <div class="card">
+          <div>Dashboard — Map</div>
+          <small>Interactive folium map</small>
+          <a href="earthquake_dashboard_map.html" target="_blank">Open earthquake_dashboard_map.html →</a>
+        </div>
+        <div class="card">
+          <div>Dashboard — Timeline</div>
+          <small>Magnitude timeline (Plotly)</small>
+          <a href="earthquake_dashboard_timeline.html" target="_blank">Open earthquake_dashboard_timeline.html →</a>
+        </div>
+        <div class="card">
+          <div>Dashboard — Depth vs Magnitude</div>
+          <small>Scatter analysis</small>
+          <a href="earthquake_dashboard_depth_magnitude.html" target="_blank">Open earthquake_dashboard_depth_magnitude.html →</a>
+        </div>
+        <div class="card">
+          <div>Dashboard — Magnitude Distribution</div>
+          <small>Histogram</small>
+          <a href="earthquake_dashboard_magnitude_dist.html" target="_blank">Open earthquake_dashboard_magnitude_dist.html →</a>
+        </div>
+        <div class="card">
+          <div>Dashboard — Geographic Distribution</div>
+          <small>Global spread</small>
+          <a href="earthquake_dashboard_geo_dist.html" target="_blank">Open earthquake_dashboard_geo_dist.html →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="other">
+      <h2>🗂️ Other Maps</h2>
+      <div class="grid">
+        <div class="card">
+          <div>Live Map (Demo Output)</div>
+          <small>From demo script</small>
+          <a href="earthquake_live_map.html" target="_blank">Open earthquake_live_map.html →</a>
+        </div>
+        <div class="card">
+          <div>Project Data Map</div>
+          <small>Map using synthetic project data</small>
+          <a href="project_data_map.html" target="_blank">Open project_data_map.html →</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <footer>
+      Tips:
+      <div class="hint">• Double-click this file or open it via any web server. With the included viewer: run <code>python view_maps.py</code> then open <code>http://localhost:8001/index.html</code>.</div>
+      <div class="hint">• Live HTML loads external map tiles/JS; ensure internet connectivity for full functionality.</div>
+    </footer>
+  </div>
+</body>
+</html>
