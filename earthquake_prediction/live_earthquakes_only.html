@@ -1,0 +1,3579 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9f56af6ea21b87ee1be5ba0c0ff7ec2e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    bottom: 50px; left: 50px; width: 200px; height: 140px; 
+                    border:2px solid grey; z-index:9999; font-size:14px;
+                    background-color:white;
+                    ">
+        <p style="margin: 10px; font-weight: bold;">Earthquake Magnitude</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:green"></i> &lt; 4.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:yellow"></i> 4.5 - 5.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:orange"></i> 5.5 - 6.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:red"></i> 6.5 - 7.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:darkred"></i> &gt; 7.5</p>
+        </div>
+        
+    
+    <div style="position: fixed; 
+                top: 10px; right: 10px; width: 300px; height: 80px;
+                border: 2px solid #2E8B57; z-index: 9999; font-size: 12px;
+                background-color: rgba(255,255,255,0.95); border-radius: 5px;
+                padding: 10px;">
+        <h4 style="margin: 0; color: #2E8B57;">🌍 Live USGS Data</h4>
+        <p style="margin: 5px 0;">Last 7 days • Min Mag 4.0</p>
+        <p style="margin: 5px 0;">Total: 100 earthquakes</p>
+        <p style="margin: 5px 0;">Updated: 2025-08-08 12:26</p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_9f56af6ea21b87ee1be5ba0c0ff7ec2e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9f56af6ea21b87ee1be5ba0c0ff7ec2e = L.map(
+                "map_9f56af6ea21b87ee1be5ba0c0ff7ec2e",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_532547639b8c80e816d24ff11f8adeba = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_532547639b8c80e816d24ff11f8adeba.addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+            var tile_layer_5aa78cb62b1ce32fd44035a77b1b96cd = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_5aa78cb62b1ce32fd44035a77b1b96cd.addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+            var tile_layer_17766e9445243520d4954868fe5a148f = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_17766e9445243520d4954868fe5a148f.addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+            var tile_layer_ec6174f124c71a512dcac2146c4858da = L.tileLayer(
+                "Stamen Terrain",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Map tiles by Stamen Design, CC BY 3.0 \u2014 Map data \u00a9 OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ec6174f124c71a512dcac2146c4858da.addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+            var circle_marker_680c70306df58ea1620e6cbf84d129a2 = L.circleMarker(
+                [23.0406, 78.7945],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_cfa64d3c434d9ddd7c5af301238ab825 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fe6b287d87a027af7eb222209c6849de = $(`<div id="html_fe6b287d87a027af7eb222209c6849de" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-04 15:56:20 UTC<br>                 <b>📏 Coordinates:</b> 23.041, 78.794<br>                 <b>⬇️ Depth:</b> 0.9 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_cfa64d3c434d9ddd7c5af301238ab825.setContent(html_fe6b287d87a027af7eb222209c6849de);
+            
+        
+
+        circle_marker_680c70306df58ea1620e6cbf84d129a2.bindPopup(popup_cfa64d3c434d9ddd7c5af301238ab825)
+        ;
+
+        
+    
+    
+            circle_marker_680c70306df58ea1620e6cbf84d129a2.bindTooltip(
+                `<div>
+                     M4.3 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_72ca412407eca59dc83825bb91b41e6a = L.circleMarker(
+                [38.0956, 26.3742],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.200000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f23c986c51aa479068bd13d4a8fd3a3a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0a432955f3360f257138a08ecb8f6fe6 = $(`<div id="html_0a432955f3360f257138a08ecb8f6fe6" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.4</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-07 09:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.096, 26.374<br>                 <b>⬇️ Depth:</b> 5.4 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_f23c986c51aa479068bd13d4a8fd3a3a.setContent(html_0a432955f3360f257138a08ecb8f6fe6);
+            
+        
+
+        circle_marker_72ca412407eca59dc83825bb91b41e6a.bindPopup(popup_f23c986c51aa479068bd13d4a8fd3a3a)
+        ;
+
+        
+    
+    
+            circle_marker_72ca412407eca59dc83825bb91b41e6a.bindTooltip(
+                `<div>
+                     M4.4 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7408043744d8e9eb1ecc7037a3faf808 = L.circleMarker(
+                [35.1409, -122.9874],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_c2649970ec146d9a55b2c6087d2fc41f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_710eea8d35634ac6ebb7f9225dbc98fc = $(`<div id="html_710eea8d35634ac6ebb7f9225dbc98fc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-06 04:56:20 UTC<br>                 <b>📏 Coordinates:</b> 35.141, -122.987<br>                 <b>⬇️ Depth:</b> 4.0 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 68<br>             </div>             </div>`)[0];
+                popup_c2649970ec146d9a55b2c6087d2fc41f.setContent(html_710eea8d35634ac6ebb7f9225dbc98fc);
+            
+        
+
+        circle_marker_7408043744d8e9eb1ecc7037a3faf808.bindPopup(popup_c2649970ec146d9a55b2c6087d2fc41f)
+        ;
+
+        
+    
+    
+            circle_marker_7408043744d8e9eb1ecc7037a3faf808.bindTooltip(
+                `<div>
+                     M9.0 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a40d7aea3db202213055e09c33c3031c = L.circleMarker(
+                [39.533, 28.8508],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_cbb100ab8781925af8172e51c693708a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7161927e6f7a62e9a9968a8dc3f0343e = $(`<div id="html_7161927e6f7a62e9a9968a8dc3f0343e" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-07 22:56:20 UTC<br>                 <b>📏 Coordinates:</b> 39.533, 28.851<br>                 <b>⬇️ Depth:</b> 12.4 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 88<br>             </div>             </div>`)[0];
+                popup_cbb100ab8781925af8172e51c693708a.setContent(html_7161927e6f7a62e9a9968a8dc3f0343e);
+            
+        
+
+        circle_marker_a40d7aea3db202213055e09c33c3031c.bindPopup(popup_cbb100ab8781925af8172e51c693708a)
+        ;
+
+        
+    
+    
+            circle_marker_a40d7aea3db202213055e09c33c3031c.bindTooltip(
+                `<div>
+                     M9.0 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_96754d8f8e2da111e0bec7dcc085382b = L.circleMarker(
+                [39.1591, 30.8778],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a19b239568cab087fcc54d78e611b0b3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f014aef2c56ea0d76c69857df2451ac9 = $(`<div id="html_f014aef2c56ea0d76c69857df2451ac9" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.0</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-02 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> 39.159, 30.878<br>                 <b>⬇️ Depth:</b> 3.0 km<br>                 <b>🔢 Type:</b> ml<br>                                                                </div>             </div>`)[0];
+                popup_a19b239568cab087fcc54d78e611b0b3.setContent(html_f014aef2c56ea0d76c69857df2451ac9);
+            
+        
+
+        circle_marker_96754d8f8e2da111e0bec7dcc085382b.bindPopup(popup_a19b239568cab087fcc54d78e611b0b3)
+        ;
+
+        
+    
+    
+            circle_marker_96754d8f8e2da111e0bec7dcc085382b.bindTooltip(
+                `<div>
+                     M5.0 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b5cb41df31e8e4b72ff386222426aa2 = L.circleMarker(
+                [29.6932, 81.6088],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f22fd1b8c0affa1008fe33f1d230a2f4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76bf8ee3b06ae65cedc1a3b7b14dd1e6 = $(`<div id="html_76bf8ee3b06ae65cedc1a3b7b14dd1e6" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-06 15:56:20 UTC<br>                 <b>📏 Coordinates:</b> 29.693, 81.609<br>                 <b>⬇️ Depth:</b> 1.4 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 100<br>             </div>             </div>`)[0];
+                popup_f22fd1b8c0affa1008fe33f1d230a2f4.setContent(html_76bf8ee3b06ae65cedc1a3b7b14dd1e6);
+            
+        
+
+        circle_marker_2b5cb41df31e8e4b72ff386222426aa2.bindPopup(popup_f22fd1b8c0affa1008fe33f1d230a2f4)
+        ;
+
+        
+    
+    
+            circle_marker_2b5cb41df31e8e4b72ff386222426aa2.bindTooltip(
+                `<div>
+                     M9.0 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c013d5882f31318a101bb7e71044ed4 = L.circleMarker(
+                [21.0502, 80.8075],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.100000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_514d32d1d2e25c95049292cdc57b4992 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a66c1577b99561078f3a56686d911e64 = $(`<div id="html_a66c1577b99561078f3a56686d911e64" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.7</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-04 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> 21.050, 80.808<br>                 <b>⬇️ Depth:</b> 2.7 km<br>                 <b>🔢 Type:</b> mw<br>                                                                </div>             </div>`)[0];
+                popup_514d32d1d2e25c95049292cdc57b4992.setContent(html_a66c1577b99561078f3a56686d911e64);
+            
+        
+
+        circle_marker_0c013d5882f31318a101bb7e71044ed4.bindPopup(popup_514d32d1d2e25c95049292cdc57b4992)
+        ;
+
+        
+    
+    
+            circle_marker_0c013d5882f31318a101bb7e71044ed4.bindTooltip(
+                `<div>
+                     M4.7 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_45bb01160b3f595baf2cf4a650664820 = L.circleMarker(
+                [40.9815, -126.9336],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.299999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_70dafab7f988a9fdec5e2d71fdc46a97 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7d2b86f1fd7e6707af792571008e36cd = $(`<div id="html_7d2b86f1fd7e6707af792571008e36cd" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.1</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-06 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> 40.981, -126.934<br>                 <b>⬇️ Depth:</b> 14.0 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                 <b>👥 Felt Reports:</b> 67<br>             </div>             </div>`)[0];
+                popup_70dafab7f988a9fdec5e2d71fdc46a97.setContent(html_7d2b86f1fd7e6707af792571008e36cd);
+            
+        
+
+        circle_marker_45bb01160b3f595baf2cf4a650664820.bindPopup(popup_70dafab7f988a9fdec5e2d71fdc46a97)
+        ;
+
+        
+    
+    
+            circle_marker_45bb01160b3f595baf2cf4a650664820.bindTooltip(
+                `<div>
+                     M7.1 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_99729458d40ae9b388d93c7dd344a61d = L.circleMarker(
+                [45.0626, 35.7812],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_e3a18e8fc9dae7a8ca9b284a17d6fbe4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7a576ccafe1561674506d1253f890f80 = $(`<div id="html_7a576ccafe1561674506d1253f890f80" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.4</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-04 02:56:20 UTC<br>                 <b>📏 Coordinates:</b> 45.063, 35.781<br>                 <b>⬇️ Depth:</b> 9.6 km<br>                 <b>🔢 Type:</b> mw<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 85<br>             </div>             </div>`)[0];
+                popup_e3a18e8fc9dae7a8ca9b284a17d6fbe4.setContent(html_7a576ccafe1561674506d1253f890f80);
+            
+        
+
+        circle_marker_99729458d40ae9b388d93c7dd344a61d.bindPopup(popup_e3a18e8fc9dae7a8ca9b284a17d6fbe4)
+        ;
+
+        
+    
+    
+            circle_marker_99729458d40ae9b388d93c7dd344a61d.bindTooltip(
+                `<div>
+                     M8.4 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ed9a1813e824730120435e4aa0fc5449 = L.circleMarker(
+                [24.7013, -118.2905],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_0fc0964504f3b2a07ab3766045ceebd1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a1124ba93db183548d31e09027ab524a = $(`<div id="html_a1124ba93db183548d31e09027ab524a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.1</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-05 16:56:20 UTC<br>                 <b>📏 Coordinates:</b> 24.701, -118.290<br>                 <b>⬇️ Depth:</b> 1.7 km<br>                 <b>🔢 Type:</b> ms<br>                                                                </div>             </div>`)[0];
+                popup_0fc0964504f3b2a07ab3766045ceebd1.setContent(html_a1124ba93db183548d31e09027ab524a);
+            
+        
+
+        circle_marker_ed9a1813e824730120435e4aa0fc5449.bindPopup(popup_0fc0964504f3b2a07ab3766045ceebd1)
+        ;
+
+        
+    
+    
+            circle_marker_ed9a1813e824730120435e4aa0fc5449.bindTooltip(
+                `<div>
+                     M4.1 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7c3b96b8301c011910e9ac310c67bcae = L.circleMarker(
+                [27.5016, 78.9856],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_c72367ee3947593a262b776790768996 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_08d36943bee89a688f4eaf26317c2f6f = $(`<div id="html_08d36943bee89a688f4eaf26317c2f6f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.1</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-06 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.502, 78.986<br>                 <b>⬇️ Depth:</b> 21.1 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 58<br>             </div>             </div>`)[0];
+                popup_c72367ee3947593a262b776790768996.setContent(html_08d36943bee89a688f4eaf26317c2f6f);
+            
+        
+
+        circle_marker_7c3b96b8301c011910e9ac310c67bcae.bindPopup(popup_c72367ee3947593a262b776790768996)
+        ;
+
+        
+    
+    
+            circle_marker_7c3b96b8301c011910e9ac310c67bcae.bindTooltip(
+                `<div>
+                     M5.1 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3fd059125042f0ae40fdc6cdef4a960a = L.circleMarker(
+                [25.9512, 79.7663],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.5, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_e5e1a2fe5adf9634ee54faa0cb797342 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1008d423c897859aff2229b9872be554 = $(`<div id="html_1008d423c897859aff2229b9872be554" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.5</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-04 11:56:20 UTC<br>                 <b>📏 Coordinates:</b> 25.951, 79.766<br>                 <b>⬇️ Depth:</b> 11.6 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 77<br>             </div>             </div>`)[0];
+                popup_e5e1a2fe5adf9634ee54faa0cb797342.setContent(html_1008d423c897859aff2229b9872be554);
+            
+        
+
+        circle_marker_3fd059125042f0ae40fdc6cdef4a960a.bindPopup(popup_e5e1a2fe5adf9634ee54faa0cb797342)
+        ;
+
+        
+    
+    
+            circle_marker_3fd059125042f0ae40fdc6cdef4a960a.bindTooltip(
+                `<div>
+                     M8.5 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c7500152d8721b5990b85858c0fa1fdc = L.circleMarker(
+                [21.8531, 72.1046],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.200000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_3c630ffb64606ec70c8d6c9642ecd6cd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5cd6fdf82d1d8ebb160c794145dc83a9 = $(`<div id="html_5cd6fdf82d1d8ebb160c794145dc83a9" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.4</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-05 17:56:20 UTC<br>                 <b>📏 Coordinates:</b> 21.853, 72.105<br>                 <b>⬇️ Depth:</b> 11.5 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_3c630ffb64606ec70c8d6c9642ecd6cd.setContent(html_5cd6fdf82d1d8ebb160c794145dc83a9);
+            
+        
+
+        circle_marker_c7500152d8721b5990b85858c0fa1fdc.bindPopup(popup_3c630ffb64606ec70c8d6c9642ecd6cd)
+        ;
+
+        
+    
+    
+            circle_marker_c7500152d8721b5990b85858c0fa1fdc.bindTooltip(
+                `<div>
+                     M4.4 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9ef988aeae6f8496b5fc0d1f1a7a95b2 = L.circleMarker(
+                [38.8747, -132.5116],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_e31f02d40cb1aa764f9880925d14a5ce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83bd3399f177e476f043cb7e7d787e21 = $(`<div id="html_83bd3399f177e476f043cb7e7d787e21" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.4</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-06 03:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.875, -132.512<br>                 <b>⬇️ Depth:</b> 6.8 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 59<br>             </div>             </div>`)[0];
+                popup_e31f02d40cb1aa764f9880925d14a5ce.setContent(html_83bd3399f177e476f043cb7e7d787e21);
+            
+        
+
+        circle_marker_9ef988aeae6f8496b5fc0d1f1a7a95b2.bindPopup(popup_e31f02d40cb1aa764f9880925d14a5ce)
+        ;
+
+        
+    
+    
+            circle_marker_9ef988aeae6f8496b5fc0d1f1a7a95b2.bindTooltip(
+                `<div>
+                     M6.4 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0cc334201fd9675cd9cc60c97763adad = L.circleMarker(
+                [32.7912, 139.5792],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.399999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_7b3b4f8d1197dde53bdcf513d3ed377b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eb071cae436ce1f376a703fe07102796 = $(`<div id="html_eb071cae436ce1f376a703fe07102796" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.8</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-03 01:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.791, 139.579<br>                 <b>⬇️ Depth:</b> 15.1 km<br>                 <b>🔢 Type:</b> ml<br>                                                                </div>             </div>`)[0];
+                popup_7b3b4f8d1197dde53bdcf513d3ed377b.setContent(html_eb071cae436ce1f376a703fe07102796);
+            
+        
+
+        circle_marker_0cc334201fd9675cd9cc60c97763adad.bindPopup(popup_7b3b4f8d1197dde53bdcf513d3ed377b)
+        ;
+
+        
+    
+    
+            circle_marker_0cc334201fd9675cd9cc60c97763adad.bindTooltip(
+                `<div>
+                     M4.8 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51c9fd3b81360d264a261900c3ac7734 = L.circleMarker(
+                [27.5284, 73.754],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.799999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_b5d0c88d29b63abafec11e11a621b2a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d1c133b0f57952f5f7a997939cc4ca20 = $(`<div id="html_d1c133b0f57952f5f7a997939cc4ca20" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.6</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-05 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.528, 73.754<br>                 <b>⬇️ Depth:</b> 24.4 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> ORANGE<br>                              </div>             </div>`)[0];
+                popup_b5d0c88d29b63abafec11e11a621b2a4.setContent(html_d1c133b0f57952f5f7a997939cc4ca20);
+            
+        
+
+        circle_marker_51c9fd3b81360d264a261900c3ac7734.bindPopup(popup_b5d0c88d29b63abafec11e11a621b2a4)
+        ;
+
+        
+    
+    
+            circle_marker_51c9fd3b81360d264a261900c3ac7734.bindTooltip(
+                `<div>
+                     M4.6 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da6bff4ea3653bc9eb2bdfc741d8c964 = L.circleMarker(
+                [35.1405, 134.0146],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a93b7f0701e8a48d52d322a0df6cefba = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b343e90044d8efdaf6828c2efc295748 = $(`<div id="html_b343e90044d8efdaf6828c2efc295748" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.4</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-01 11:56:20 UTC<br>                 <b>📏 Coordinates:</b> 35.141, 134.015<br>                 <b>⬇️ Depth:</b> 29.3 km<br>                 <b>🔢 Type:</b> mw<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 60<br>             </div>             </div>`)[0];
+                popup_a93b7f0701e8a48d52d322a0df6cefba.setContent(html_b343e90044d8efdaf6828c2efc295748);
+            
+        
+
+        circle_marker_da6bff4ea3653bc9eb2bdfc741d8c964.bindPopup(popup_a93b7f0701e8a48d52d322a0df6cefba)
+        ;
+
+        
+    
+    
+            circle_marker_da6bff4ea3653bc9eb2bdfc741d8c964.bindTooltip(
+                `<div>
+                     M6.4 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cd6e5b54169c6b3ad7c43bac905d4055 = L.circleMarker(
+                [30.4029, 147.7497],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_2e7709a27e39fa337017589f58dc043e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a2f2fa7ecaf1de8bc4bef805d25d250f = $(`<div id="html_a2f2fa7ecaf1de8bc4bef805d25d250f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-02 00:56:20 UTC<br>                 <b>📏 Coordinates:</b> 30.403, 147.750<br>                 <b>⬇️ Depth:</b> 2.2 km<br>                 <b>🔢 Type:</b> mw<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                 <b>👥 Felt Reports:</b> 94<br>             </div>             </div>`)[0];
+                popup_2e7709a27e39fa337017589f58dc043e.setContent(html_a2f2fa7ecaf1de8bc4bef805d25d250f);
+            
+        
+
+        circle_marker_cd6e5b54169c6b3ad7c43bac905d4055.bindPopup(popup_2e7709a27e39fa337017589f58dc043e)
+        ;
+
+        
+    
+    
+            circle_marker_cd6e5b54169c6b3ad7c43bac905d4055.bindTooltip(
+                `<div>
+                     M9.0 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51d125acb43da588ab148de7b523df9d = L.circleMarker(
+                [26.4474, 140.5949],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_734d3a5cd7d25d3e5b883fbcca2b245b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e0153d53dadbceadce9eca2e2d31c2bc = $(`<div id="html_e0153d53dadbceadce9eca2e2d31c2bc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-06 18:56:20 UTC<br>                 <b>📏 Coordinates:</b> 26.447, 140.595<br>                 <b>⬇️ Depth:</b> 50.5 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 86<br>             </div>             </div>`)[0];
+                popup_734d3a5cd7d25d3e5b883fbcca2b245b.setContent(html_e0153d53dadbceadce9eca2e2d31c2bc);
+            
+        
+
+        circle_marker_51d125acb43da588ab148de7b523df9d.bindPopup(popup_734d3a5cd7d25d3e5b883fbcca2b245b)
+        ;
+
+        
+    
+    
+            circle_marker_51d125acb43da588ab148de7b523df9d.bindTooltip(
+                `<div>
+                     M9.0 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c4675c7ad0abbe19e18a961b429f5f9 = L.circleMarker(
+                [36.3726, -117.0735],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_af7b2d91e9f80b2f38b3bc37a6b6281a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0d451f3b08a60caa7d11e7cef823a67a = $(`<div id="html_0d451f3b08a60caa7d11e7cef823a67a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.4</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-03 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.373, -117.073<br>                 <b>⬇️ Depth:</b> 28.5 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 86<br>             </div>             </div>`)[0];
+                popup_af7b2d91e9f80b2f38b3bc37a6b6281a.setContent(html_0d451f3b08a60caa7d11e7cef823a67a);
+            
+        
+
+        circle_marker_5c4675c7ad0abbe19e18a961b429f5f9.bindPopup(popup_af7b2d91e9f80b2f38b3bc37a6b6281a)
+        ;
+
+        
+    
+    
+            circle_marker_5c4675c7ad0abbe19e18a961b429f5f9.bindTooltip(
+                `<div>
+                     M8.4 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d405e3dbd51d1bb33709936b04e8b0c8 = L.circleMarker(
+                [35.8742, 133.9157],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_03fd8642bb0348c865b040c23292d303 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1148e6daf29e456a65740d4292c3634c = $(`<div id="html_1148e6daf29e456a65740d4292c3634c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.4</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-01 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> 35.874, 133.916<br>                 <b>⬇️ Depth:</b> 15.8 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 70<br>             </div>             </div>`)[0];
+                popup_03fd8642bb0348c865b040c23292d303.setContent(html_1148e6daf29e456a65740d4292c3634c);
+            
+        
+
+        circle_marker_d405e3dbd51d1bb33709936b04e8b0c8.bindPopup(popup_03fd8642bb0348c865b040c23292d303)
+        ;
+
+        
+    
+    
+            circle_marker_d405e3dbd51d1bb33709936b04e8b0c8.bindTooltip(
+                `<div>
+                     M6.4 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4391f86fd8e4c362c8ef4b1275dbcaec = L.circleMarker(
+                [41.9103, -112.916],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_ed63f866e26be7b47f13528e74c63e9e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2fe52a20998f48b57457ae3017277fc5 = $(`<div id="html_2fe52a20998f48b57457ae3017277fc5" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.2</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-03 08:56:20 UTC<br>                 <b>📏 Coordinates:</b> 41.910, -112.916<br>                 <b>⬇️ Depth:</b> 6.9 km<br>                 <b>🔢 Type:</b> ml<br>                 <b>🌊 Tsunami:</b> Yes<br>                                               </div>             </div>`)[0];
+                popup_ed63f866e26be7b47f13528e74c63e9e.setContent(html_2fe52a20998f48b57457ae3017277fc5);
+            
+        
+
+        circle_marker_4391f86fd8e4c362c8ef4b1275dbcaec.bindPopup(popup_ed63f866e26be7b47f13528e74c63e9e)
+        ;
+
+        
+    
+    
+            circle_marker_4391f86fd8e4c362c8ef4b1275dbcaec.bindTooltip(
+                `<div>
+                     M4.2 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7e223fc010ce6b9cfd413918878f1627 = L.circleMarker(
+                [45.5526, 28.8514],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_b6e08d3b14150df63f8be3e1cc0b1685 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f811cef2b552ce909049dca1521a3b99 = $(`<div id="html_f811cef2b552ce909049dca1521a3b99" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.1</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-04 06:56:20 UTC<br>                 <b>📏 Coordinates:</b> 45.553, 28.851<br>                 <b>⬇️ Depth:</b> 6.5 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 45<br>             </div>             </div>`)[0];
+                popup_b6e08d3b14150df63f8be3e1cc0b1685.setContent(html_f811cef2b552ce909049dca1521a3b99);
+            
+        
+
+        circle_marker_7e223fc010ce6b9cfd413918878f1627.bindPopup(popup_b6e08d3b14150df63f8be3e1cc0b1685)
+        ;
+
+        
+    
+    
+            circle_marker_7e223fc010ce6b9cfd413918878f1627.bindTooltip(
+                `<div>
+                     M5.1 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4cb576ad4c078e6a94f5b3f2eea809b2 = L.circleMarker(
+                [28.8099, 76.5136],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.200000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_7249436b682f8551cf450110115ace06 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5db35d1f0849127b2731d176cd77482a = $(`<div id="html_5db35d1f0849127b2731d176cd77482a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.4</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-06 09:56:20 UTC<br>                 <b>📏 Coordinates:</b> 28.810, 76.514<br>                 <b>⬇️ Depth:</b> 42.3 km<br>                 <b>🔢 Type:</b> mb<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                              </div>             </div>`)[0];
+                popup_7249436b682f8551cf450110115ace06.setContent(html_5db35d1f0849127b2731d176cd77482a);
+            
+        
+
+        circle_marker_4cb576ad4c078e6a94f5b3f2eea809b2.bindPopup(popup_7249436b682f8551cf450110115ace06)
+        ;
+
+        
+    
+    
+            circle_marker_4cb576ad4c078e6a94f5b3f2eea809b2.bindTooltip(
+                `<div>
+                     M4.4 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7350ee5f9647d9fc9bf5a54d6729c7ec = L.circleMarker(
+                [40.3793, 32.7017],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_cc2e9dd8dfb3477f8da75124e2455265 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0dcb4363e306e2b8851498b0db429667 = $(`<div id="html_0dcb4363e306e2b8851498b0db429667" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-03 11:56:20 UTC<br>                 <b>📏 Coordinates:</b> 40.379, 32.702<br>                 <b>⬇️ Depth:</b> 49.7 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 83<br>             </div>             </div>`)[0];
+                popup_cc2e9dd8dfb3477f8da75124e2455265.setContent(html_0dcb4363e306e2b8851498b0db429667);
+            
+        
+
+        circle_marker_7350ee5f9647d9fc9bf5a54d6729c7ec.bindPopup(popup_cc2e9dd8dfb3477f8da75124e2455265)
+        ;
+
+        
+    
+    
+            circle_marker_7350ee5f9647d9fc9bf5a54d6729c7ec.bindTooltip(
+                `<div>
+                     M9.0 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_07071974411d96225bbf78993231f64e = L.circleMarker(
+                [-30.3495, -71.1376],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a3603f449c07267e3a168a13228b5655 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8285f4dee04c72dda497314a53712b95 = $(`<div id="html_8285f4dee04c72dda497314a53712b95" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.4</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-07 07:56:20 UTC<br>                 <b>📏 Coordinates:</b> -30.349, -71.138<br>                 <b>⬇️ Depth:</b> 12.7 km<br>                 <b>🔢 Type:</b> ml<br>                 <b>🌊 Tsunami:</b> Yes<br>                                  <b>👥 Felt Reports:</b> 54<br>             </div>             </div>`)[0];
+                popup_a3603f449c07267e3a168a13228b5655.setContent(html_8285f4dee04c72dda497314a53712b95);
+            
+        
+
+        circle_marker_07071974411d96225bbf78993231f64e.bindPopup(popup_a3603f449c07267e3a168a13228b5655)
+        ;
+
+        
+    
+    
+            circle_marker_07071974411d96225bbf78993231f64e.bindTooltip(
+                `<div>
+                     M6.4 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_107935e4af098223409a6f6d5973ca1c = L.circleMarker(
+                [-29.4858, -73.8465],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_2c230479a1f969eb9bceaef91e518491 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ba8293feb8dfaf1b4be4a12a9d09f5ac = $(`<div id="html_ba8293feb8dfaf1b4be4a12a9d09f5ac" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-06 16:56:20 UTC<br>                 <b>📏 Coordinates:</b> -29.486, -73.847<br>                 <b>⬇️ Depth:</b> 18.5 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_2c230479a1f969eb9bceaef91e518491.setContent(html_ba8293feb8dfaf1b4be4a12a9d09f5ac);
+            
+        
+
+        circle_marker_107935e4af098223409a6f6d5973ca1c.bindPopup(popup_2c230479a1f969eb9bceaef91e518491)
+        ;
+
+        
+    
+    
+            circle_marker_107935e4af098223409a6f6d5973ca1c.bindTooltip(
+                `<div>
+                     M4.3 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_033fabeae464915b2e285e69b2f84164 = L.circleMarker(
+                [-31.3248, -52.3363],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.6, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_27dea198589384f843e735b64fdcf06e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6be9786e3d6cd2ec260fcdec5d6bcb02 = $(`<div id="html_6be9786e3d6cd2ec260fcdec5d6bcb02" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.2</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-02 07:56:20 UTC<br>                 <b>📏 Coordinates:</b> -31.325, -52.336<br>                 <b>⬇️ Depth:</b> 15.7 km<br>                 <b>🔢 Type:</b> ml<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                 <b>👥 Felt Reports:</b> 69<br>             </div>             </div>`)[0];
+                popup_27dea198589384f843e735b64fdcf06e.setContent(html_6be9786e3d6cd2ec260fcdec5d6bcb02);
+            
+        
+
+        circle_marker_033fabeae464915b2e285e69b2f84164.bindPopup(popup_27dea198589384f843e735b64fdcf06e)
+        ;
+
+        
+    
+    
+            circle_marker_033fabeae464915b2e285e69b2f84164.bindTooltip(
+                `<div>
+                     M7.2 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6ec44a497a2eab4090aa5914fbd3419 = L.circleMarker(
+                [49.3733, -131.7363],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.100000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_8a99d5f0f3172b6cccf3a9fda738cc7b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b421ac4c0c47ff5b15e09f115f7ff2a1 = $(`<div id="html_b421ac4c0c47ff5b15e09f115f7ff2a1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.7</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-04 17:56:20 UTC<br>                 <b>📏 Coordinates:</b> 49.373, -131.736<br>                 <b>⬇️ Depth:</b> 13.4 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_8a99d5f0f3172b6cccf3a9fda738cc7b.setContent(html_b421ac4c0c47ff5b15e09f115f7ff2a1);
+            
+        
+
+        circle_marker_f6ec44a497a2eab4090aa5914fbd3419.bindPopup(popup_8a99d5f0f3172b6cccf3a9fda738cc7b)
+        ;
+
+        
+    
+    
+            circle_marker_f6ec44a497a2eab4090aa5914fbd3419.bindTooltip(
+                `<div>
+                     M4.7 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ddc2c16862b49bc09c93cfeaf6cdba8 = L.circleMarker(
+                [38.1214, -127.7887],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.700000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_9b68ac267b1a815da2107b761fece225 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fc0a25a5e54ed7c1efbdb1640fd31e07 = $(`<div id="html_fc0a25a5e54ed7c1efbdb1640fd31e07" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.9</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-08 02:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.121, -127.789<br>                 <b>⬇️ Depth:</b> 3.6 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 70<br>             </div>             </div>`)[0];
+                popup_9b68ac267b1a815da2107b761fece225.setContent(html_fc0a25a5e54ed7c1efbdb1640fd31e07);
+            
+        
+
+        circle_marker_5ddc2c16862b49bc09c93cfeaf6cdba8.bindPopup(popup_9b68ac267b1a815da2107b761fece225)
+        ;
+
+        
+    
+    
+            circle_marker_5ddc2c16862b49bc09c93cfeaf6cdba8.bindTooltip(
+                `<div>
+                     M6.9 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b448912d1721bceac03452c0c66f7dcc = L.circleMarker(
+                [22.0604, 67.247],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.1, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_064a3f6ba17b6a825183cee7e5e78622 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d0919dbc1aed014e0d48f55c31e82bbf = $(`<div id="html_d0919dbc1aed014e0d48f55c31e82bbf" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.7</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-03 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> 22.060, 67.247<br>                 <b>⬇️ Depth:</b> 4.3 km<br>                 <b>🔢 Type:</b> ml<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 65<br>             </div>             </div>`)[0];
+                popup_064a3f6ba17b6a825183cee7e5e78622.setContent(html_d0919dbc1aed014e0d48f55c31e82bbf);
+            
+        
+
+        circle_marker_b448912d1721bceac03452c0c66f7dcc.bindPopup(popup_064a3f6ba17b6a825183cee7e5e78622)
+        ;
+
+        
+    
+    
+            circle_marker_b448912d1721bceac03452c0c66f7dcc.bindTooltip(
+                `<div>
+                     M6.7 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f226b839b6541b2cbabb7a021851f5e6 = L.circleMarker(
+                [27.2559, 138.2844],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_6265a11aecc6b7449a0abc6f0a537427 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e2ea1a7b17b4aef8a3604e520c8b36ad = $(`<div id="html_e2ea1a7b17b4aef8a3604e520c8b36ad" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.2</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-03 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.256, 138.284<br>                 <b>⬇️ Depth:</b> 3.0 km<br>                 <b>🔢 Type:</b> mb<br>                                  <b>⚠️ Alert:</b> ORANGE<br>                              </div>             </div>`)[0];
+                popup_6265a11aecc6b7449a0abc6f0a537427.setContent(html_e2ea1a7b17b4aef8a3604e520c8b36ad);
+            
+        
+
+        circle_marker_f226b839b6541b2cbabb7a021851f5e6.bindPopup(popup_6265a11aecc6b7449a0abc6f0a537427)
+        ;
+
+        
+    
+    
+            circle_marker_f226b839b6541b2cbabb7a021851f5e6.bindTooltip(
+                `<div>
+                     M4.2 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2ae3541b50fe024970caaaca1a91cb88 = L.circleMarker(
+                [34.3658, 38.2186],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.799999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_fa7dffe70d51a3ac054b663bc5290f21 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_49fe9626bd33e542c8308f71224389b1 = $(`<div id="html_49fe9626bd33e542c8308f71224389b1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.6</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-04 17:56:20 UTC<br>                 <b>📏 Coordinates:</b> 34.366, 38.219<br>                 <b>⬇️ Depth:</b> 6.6 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_fa7dffe70d51a3ac054b663bc5290f21.setContent(html_49fe9626bd33e542c8308f71224389b1);
+            
+        
+
+        circle_marker_2ae3541b50fe024970caaaca1a91cb88.bindPopup(popup_fa7dffe70d51a3ac054b663bc5290f21)
+        ;
+
+        
+    
+    
+            circle_marker_2ae3541b50fe024970caaaca1a91cb88.bindTooltip(
+                `<div>
+                     M4.6 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_81afd9d9f1fa3e58fc3f08f7c0207495 = L.circleMarker(
+                [38.4955, 142.9995],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.700000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_4d4dc0027bae7b6dc121ab00ab8ec7fe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fe25537a2ea7acb1ba83b5dce281bc12 = $(`<div id="html_fe25537a2ea7acb1ba83b5dce281bc12" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.9</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-04 02:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.495, 143.000<br>                 <b>⬇️ Depth:</b> 9.4 km<br>                 <b>🔢 Type:</b> mw<br>                                                                </div>             </div>`)[0];
+                popup_4d4dc0027bae7b6dc121ab00ab8ec7fe.setContent(html_fe25537a2ea7acb1ba83b5dce281bc12);
+            
+        
+
+        circle_marker_81afd9d9f1fa3e58fc3f08f7c0207495.bindPopup(popup_4d4dc0027bae7b6dc121ab00ab8ec7fe)
+        ;
+
+        
+    
+    
+            circle_marker_81afd9d9f1fa3e58fc3f08f7c0207495.bindTooltip(
+                `<div>
+                     M4.9 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_faa842c9e8a8078fd64c25b0b265b4eb = L.circleMarker(
+                [27.9579, 74.8717],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_afc436a1dfb559c1816750878227cc97 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_78d6078725e0c5262f9631cba3958beb = $(`<div id="html_78d6078725e0c5262f9631cba3958beb" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.0</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-08 06:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.958, 74.872<br>                 <b>⬇️ Depth:</b> 10.5 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 45<br>             </div>             </div>`)[0];
+                popup_afc436a1dfb559c1816750878227cc97.setContent(html_78d6078725e0c5262f9631cba3958beb);
+            
+        
+
+        circle_marker_faa842c9e8a8078fd64c25b0b265b4eb.bindPopup(popup_afc436a1dfb559c1816750878227cc97)
+        ;
+
+        
+    
+    
+            circle_marker_faa842c9e8a8078fd64c25b0b265b4eb.bindTooltip(
+                `<div>
+                     M6.0 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_431a8931972baefd6d85f4ca7466e2d2 = L.circleMarker(
+                [36.7203, 144.6312],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.6, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_1c39b98c95d447013610c6b4688588fb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0c003afd96a263f6ff2216b9cbfd9b6b = $(`<div id="html_0c003afd96a263f6ff2216b9cbfd9b6b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.2</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-01 12:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.720, 144.631<br>                 <b>⬇️ Depth:</b> 17.0 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 81<br>             </div>             </div>`)[0];
+                popup_1c39b98c95d447013610c6b4688588fb.setContent(html_0c003afd96a263f6ff2216b9cbfd9b6b);
+            
+        
+
+        circle_marker_431a8931972baefd6d85f4ca7466e2d2.bindPopup(popup_1c39b98c95d447013610c6b4688588fb)
+        ;
+
+        
+    
+    
+            circle_marker_431a8931972baefd6d85f4ca7466e2d2.bindTooltip(
+                `<div>
+                     M7.2 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b8a2b90fe86709b56392a63ad4410eed = L.circleMarker(
+                [36.405, 136.8865],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_09ce31bfa252e02a6d422fa32a73bcb9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1fffe7f0d251d79d94f8a080f697eb2c = $(`<div id="html_1fffe7f0d251d79d94f8a080f697eb2c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.1</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-01 21:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.405, 136.887<br>                 <b>⬇️ Depth:</b> 5.8 km<br>                 <b>🔢 Type:</b> ml<br>                                                                </div>             </div>`)[0];
+                popup_09ce31bfa252e02a6d422fa32a73bcb9.setContent(html_1fffe7f0d251d79d94f8a080f697eb2c);
+            
+        
+
+        circle_marker_b8a2b90fe86709b56392a63ad4410eed.bindPopup(popup_09ce31bfa252e02a6d422fa32a73bcb9)
+        ;
+
+        
+    
+    
+            circle_marker_b8a2b90fe86709b56392a63ad4410eed.bindTooltip(
+                `<div>
+                     M4.1 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_890fff43327ce5eb4a90b8550fd7870e = L.circleMarker(
+                [44.7564, 139.7996],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.700000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_4604547a2f54910c4f9d4393125729d9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f56708791f6b993259b797621791e4dc = $(`<div id="html_f56708791f6b993259b797621791e4dc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.9</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-03 07:56:20 UTC<br>                 <b>📏 Coordinates:</b> 44.756, 139.800<br>                 <b>⬇️ Depth:</b> 41.4 km<br>                 <b>🔢 Type:</b> ms<br>                 <b>🌊 Tsunami:</b> Yes<br>                                               </div>             </div>`)[0];
+                popup_4604547a2f54910c4f9d4393125729d9.setContent(html_f56708791f6b993259b797621791e4dc);
+            
+        
+
+        circle_marker_890fff43327ce5eb4a90b8550fd7870e.bindPopup(popup_4604547a2f54910c4f9d4393125729d9)
+        ;
+
+        
+    
+    
+            circle_marker_890fff43327ce5eb4a90b8550fd7870e.bindTooltip(
+                `<div>
+                     M4.9 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_939f0c5c8e9c85618bd3db7e8a97f026 = L.circleMarker(
+                [31.3587, 73.6494],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.9, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_09c33771182a82b05adfba4b19a50f66 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ae45bc233a89251b45c706ecdbee0e49 = $(`<div id="html_ae45bc233a89251b45c706ecdbee0e49" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.3</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-06 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> 31.359, 73.649<br>                 <b>⬇️ Depth:</b> 69.9 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 84<br>             </div>             </div>`)[0];
+                popup_09c33771182a82b05adfba4b19a50f66.setContent(html_ae45bc233a89251b45c706ecdbee0e49);
+            
+        
+
+        circle_marker_939f0c5c8e9c85618bd3db7e8a97f026.bindPopup(popup_09c33771182a82b05adfba4b19a50f66)
+        ;
+
+        
+    
+    
+            circle_marker_939f0c5c8e9c85618bd3db7e8a97f026.bindTooltip(
+                `<div>
+                     M7.3 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eccde0edfec62172553991a044dade7a = L.circleMarker(
+                [36.3643, 75.0024],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.4, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_dc2c344827d7a6cf3e514a47c846f9bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ac198cbab87e1cab6a5dd53d019f48fd = $(`<div id="html_ac198cbab87e1cab6a5dd53d019f48fd" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.8</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-07 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.364, 75.002<br>                 <b>⬇️ Depth:</b> 1.6 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 64<br>             </div>             </div>`)[0];
+                popup_dc2c344827d7a6cf3e514a47c846f9bb.setContent(html_ac198cbab87e1cab6a5dd53d019f48fd);
+            
+        
+
+        circle_marker_eccde0edfec62172553991a044dade7a.bindPopup(popup_dc2c344827d7a6cf3e514a47c846f9bb)
+        ;
+
+        
+    
+    
+            circle_marker_eccde0edfec62172553991a044dade7a.bindTooltip(
+                `<div>
+                     M6.8 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e039a1324bddb4e6939c79be33ea3219 = L.circleMarker(
+                [32.9435, 144.9201],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_45d4d332095e016cdb304480c8d38f29 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_be82417f0b6481179b2f0bba476b3a54 = $(`<div id="html_be82417f0b6481179b2f0bba476b3a54" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-06 03:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.944, 144.920<br>                 <b>⬇️ Depth:</b> 16.9 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 75<br>             </div>             </div>`)[0];
+                popup_45d4d332095e016cdb304480c8d38f29.setContent(html_be82417f0b6481179b2f0bba476b3a54);
+            
+        
+
+        circle_marker_e039a1324bddb4e6939c79be33ea3219.bindPopup(popup_45d4d332095e016cdb304480c8d38f29)
+        ;
+
+        
+    
+    
+            circle_marker_e039a1324bddb4e6939c79be33ea3219.bindTooltip(
+                `<div>
+                     M9.0 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_62123c700f777a01da6edf8869616c7e = L.circleMarker(
+                [34.3906, 81.1583],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.299999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_41adea0126bc7c913516ee63f6f6812f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5cd1048ed4aa166ba7acf1b2284cc610 = $(`<div id="html_5cd1048ed4aa166ba7acf1b2284cc610" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.1</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-03 18:56:20 UTC<br>                 <b>📏 Coordinates:</b> 34.391, 81.158<br>                 <b>⬇️ Depth:</b> 23.4 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 73<br>             </div>             </div>`)[0];
+                popup_41adea0126bc7c913516ee63f6f6812f.setContent(html_5cd1048ed4aa166ba7acf1b2284cc610);
+            
+        
+
+        circle_marker_62123c700f777a01da6edf8869616c7e.bindPopup(popup_41adea0126bc7c913516ee63f6f6812f)
+        ;
+
+        
+    
+    
+            circle_marker_62123c700f777a01da6edf8869616c7e.bindTooltip(
+                `<div>
+                     M7.1 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e8f93962f3a33704a03a46d5f2b7478 = L.circleMarker(
+                [36.8725, 27.3931],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_76a97b7b0cb80ab27b760f8219181876 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8777632549e2701ae61070fd5b424230 = $(`<div id="html_8777632549e2701ae61070fd5b424230" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-02 06:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.873, 27.393<br>                 <b>⬇️ Depth:</b> 21.5 km<br>                 <b>🔢 Type:</b> mb<br>                                  <b>⚠️ Alert:</b> GREEN<br>                              </div>             </div>`)[0];
+                popup_76a97b7b0cb80ab27b760f8219181876.setContent(html_8777632549e2701ae61070fd5b424230);
+            
+        
+
+        circle_marker_2e8f93962f3a33704a03a46d5f2b7478.bindPopup(popup_76a97b7b0cb80ab27b760f8219181876)
+        ;
+
+        
+    
+    
+            circle_marker_2e8f93962f3a33704a03a46d5f2b7478.bindTooltip(
+                `<div>
+                     M4.3 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8da0a122ff677a1325afe43664d8eed0 = L.circleMarker(
+                [-29.469, -72.7685],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_5107bd662e3eb1e8d5618519302be43a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2112e905e8d515234c89c47034c34f1a = $(`<div id="html_2112e905e8d515234c89c47034c34f1a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-01 09:56:20 UTC<br>                 <b>📏 Coordinates:</b> -29.469, -72.769<br>                 <b>⬇️ Depth:</b> 10.8 km<br>                 <b>🔢 Type:</b> mw<br>                                                                </div>             </div>`)[0];
+                popup_5107bd662e3eb1e8d5618519302be43a.setContent(html_2112e905e8d515234c89c47034c34f1a);
+            
+        
+
+        circle_marker_8da0a122ff677a1325afe43664d8eed0.bindPopup(popup_5107bd662e3eb1e8d5618519302be43a)
+        ;
+
+        
+    
+    
+            circle_marker_8da0a122ff677a1325afe43664d8eed0.bindTooltip(
+                `<div>
+                     M4.3 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a63e66b0596576ecc86024419de12673 = L.circleMarker(
+                [30.0494, 76.2639],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.4, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_e7b4631e9a1cf3424d12bf93f6492c81 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b2d533b74b395252e61dfc864e71f153 = $(`<div id="html_b2d533b74b395252e61dfc864e71f153" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.8</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-01 16:56:20 UTC<br>                 <b>📏 Coordinates:</b> 30.049, 76.264<br>                 <b>⬇️ Depth:</b> 6.5 km<br>                 <b>🔢 Type:</b> mw<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 56<br>             </div>             </div>`)[0];
+                popup_e7b4631e9a1cf3424d12bf93f6492c81.setContent(html_b2d533b74b395252e61dfc864e71f153);
+            
+        
+
+        circle_marker_a63e66b0596576ecc86024419de12673.bindPopup(popup_e7b4631e9a1cf3424d12bf93f6492c81)
+        ;
+
+        
+    
+    
+            circle_marker_a63e66b0596576ecc86024419de12673.bindTooltip(
+                `<div>
+                     M5.8 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_308132b89155e701d99e5bc930488326 = L.circleMarker(
+                [34.929, -129.8599],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.1, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_e91a34cd342c3c1f8e9adb77204a7b57 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a1427c969737d356040709330e139553 = $(`<div id="html_a1427c969737d356040709330e139553" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.7</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-05 18:56:20 UTC<br>                 <b>📏 Coordinates:</b> 34.929, -129.860<br>                 <b>⬇️ Depth:</b> 20.3 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 54<br>             </div>             </div>`)[0];
+                popup_e91a34cd342c3c1f8e9adb77204a7b57.setContent(html_a1427c969737d356040709330e139553);
+            
+        
+
+        circle_marker_308132b89155e701d99e5bc930488326.bindPopup(popup_e91a34cd342c3c1f8e9adb77204a7b57)
+        ;
+
+        
+    
+    
+            circle_marker_308132b89155e701d99e5bc930488326.bindTooltip(
+                `<div>
+                     M5.7 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6a2c663e67a75737d0b9f92674fa84f3 = L.circleMarker(
+                [36.1205, 140.063],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_fdc047eeadf5f16b4d01f33a3ac8b57f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_67726a49501f6c46da0f1bfdb76f0403 = $(`<div id="html_67726a49501f6c46da0f1bfdb76f0403" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.2</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-07 11:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.120, 140.063<br>                 <b>⬇️ Depth:</b> 12.1 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_fdc047eeadf5f16b4d01f33a3ac8b57f.setContent(html_67726a49501f6c46da0f1bfdb76f0403);
+            
+        
+
+        circle_marker_6a2c663e67a75737d0b9f92674fa84f3.bindPopup(popup_fdc047eeadf5f16b4d01f33a3ac8b57f)
+        ;
+
+        
+    
+    
+            circle_marker_6a2c663e67a75737d0b9f92674fa84f3.bindTooltip(
+                `<div>
+                     M4.2 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f8a9f23db30502cf0d8649abded6c876 = L.circleMarker(
+                [41.0021, 149.0804],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.799999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_fa82e895d9e9e1201792bf4aef377aa5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61d362a132bc127ad752a9d528e013a0 = $(`<div id="html_61d362a132bc127ad752a9d528e013a0" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.6</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-07 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> 41.002, 149.080<br>                 <b>⬇️ Depth:</b> 0.7 km<br>                 <b>🔢 Type:</b> ml<br>                                  <b>⚠️ Alert:</b> ORANGE<br>                 <b>👥 Felt Reports:</b> 85<br>             </div>             </div>`)[0];
+                popup_fa82e895d9e9e1201792bf4aef377aa5.setContent(html_61d362a132bc127ad752a9d528e013a0);
+            
+        
+
+        circle_marker_f8a9f23db30502cf0d8649abded6c876.bindPopup(popup_fa82e895d9e9e1201792bf4aef377aa5)
+        ;
+
+        
+    
+    
+            circle_marker_f8a9f23db30502cf0d8649abded6c876.bindTooltip(
+                `<div>
+                     M8.6 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6e123307627e678932728ed464e3f133 = L.circleMarker(
+                [-34.6886, -78.3753],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.700000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f8b324108db6ee35eded06d2ae8a4636 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d50669ecdf0583ceb14974a2665a7ca2 = $(`<div id="html_d50669ecdf0583ceb14974a2665a7ca2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.9</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-04 02:56:20 UTC<br>                 <b>📏 Coordinates:</b> -34.689, -78.375<br>                 <b>⬇️ Depth:</b> 13.1 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_f8b324108db6ee35eded06d2ae8a4636.setContent(html_d50669ecdf0583ceb14974a2665a7ca2);
+            
+        
+
+        circle_marker_6e123307627e678932728ed464e3f133.bindPopup(popup_f8b324108db6ee35eded06d2ae8a4636)
+        ;
+
+        
+    
+    
+            circle_marker_6e123307627e678932728ed464e3f133.bindTooltip(
+                `<div>
+                     M4.9 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d9fe0478b77d2900769bc672b21cfbfd = L.circleMarker(
+                [31.7734, 131.9969],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.4, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_eed7329df596316eaf15e582067eba21 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e7415ee2e3c03564446ac42db1feaa5 = $(`<div id="html_9e7415ee2e3c03564446ac42db1feaa5" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.8</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-02 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> 31.773, 131.997<br>                 <b>⬇️ Depth:</b> 4.7 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 57<br>             </div>             </div>`)[0];
+                popup_eed7329df596316eaf15e582067eba21.setContent(html_9e7415ee2e3c03564446ac42db1feaa5);
+            
+        
+
+        circle_marker_d9fe0478b77d2900769bc672b21cfbfd.bindPopup(popup_eed7329df596316eaf15e582067eba21)
+        ;
+
+        
+    
+    
+            circle_marker_d9fe0478b77d2900769bc672b21cfbfd.bindTooltip(
+                `<div>
+                     M5.8 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d3273eb855355412b44780be84426369 = L.circleMarker(
+                [38.5012, 139.3385],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_ca510ddb5cf5062901c283c45b3cb056 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8b820eb0807ee34ff226a266ab328687 = $(`<div id="html_8b820eb0807ee34ff226a266ab328687" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.0</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-03 08:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.501, 139.339<br>                 <b>⬇️ Depth:</b> 0.7 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 83<br>             </div>             </div>`)[0];
+                popup_ca510ddb5cf5062901c283c45b3cb056.setContent(html_8b820eb0807ee34ff226a266ab328687);
+            
+        
+
+        circle_marker_d3273eb855355412b44780be84426369.bindPopup(popup_ca510ddb5cf5062901c283c45b3cb056)
+        ;
+
+        
+    
+    
+            circle_marker_d3273eb855355412b44780be84426369.bindTooltip(
+                `<div>
+                     M8.0 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d368d9b2ed0feb655a90d1034f364ef1 = L.circleMarker(
+                [39.1782, -121.0064],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_9f0309ed1ded17eab124a170a8ad7dfb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ae60e33011025c7d24a7979d930cba6b = $(`<div id="html_ae60e33011025c7d24a7979d930cba6b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.3</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-02 22:56:20 UTC<br>                 <b>📏 Coordinates:</b> 39.178, -121.006<br>                 <b>⬇️ Depth:</b> 8.0 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 61<br>             </div>             </div>`)[0];
+                popup_9f0309ed1ded17eab124a170a8ad7dfb.setContent(html_ae60e33011025c7d24a7979d930cba6b);
+            
+        
+
+        circle_marker_d368d9b2ed0feb655a90d1034f364ef1.bindPopup(popup_9f0309ed1ded17eab124a170a8ad7dfb)
+        ;
+
+        
+    
+    
+            circle_marker_d368d9b2ed0feb655a90d1034f364ef1.bindTooltip(
+                `<div>
+                     M5.3 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_58ea2a73f6bd7656b5d74c14f329d966 = L.circleMarker(
+                [28.157, 142.6775],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.6, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a19310d84dcb017a3074b5a8b0ed770d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_88ab6ebd75b848077d341f177e1e4eae = $(`<div id="html_88ab6ebd75b848077d341f177e1e4eae" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.2</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-04 11:56:20 UTC<br>                 <b>📏 Coordinates:</b> 28.157, 142.678<br>                 <b>⬇️ Depth:</b> 14.4 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 63<br>             </div>             </div>`)[0];
+                popup_a19310d84dcb017a3074b5a8b0ed770d.setContent(html_88ab6ebd75b848077d341f177e1e4eae);
+            
+        
+
+        circle_marker_58ea2a73f6bd7656b5d74c14f329d966.bindPopup(popup_a19310d84dcb017a3074b5a8b0ed770d)
+        ;
+
+        
+    
+    
+            circle_marker_58ea2a73f6bd7656b5d74c14f329d966.bindTooltip(
+                `<div>
+                     M6.2 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_55a5f670c93377a47d6bf663b7be1c14 = L.circleMarker(
+                [42.4854, -125.2466],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_0924cf50ebd8068017e8b3710cc1bb53 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2c042fa4f7eaa229bbef24a10612fcdd = $(`<div id="html_2c042fa4f7eaa229bbef24a10612fcdd" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-05 22:56:20 UTC<br>                 <b>📏 Coordinates:</b> 42.485, -125.247<br>                 <b>⬇️ Depth:</b> 1.4 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 97<br>             </div>             </div>`)[0];
+                popup_0924cf50ebd8068017e8b3710cc1bb53.setContent(html_2c042fa4f7eaa229bbef24a10612fcdd);
+            
+        
+
+        circle_marker_55a5f670c93377a47d6bf663b7be1c14.bindPopup(popup_0924cf50ebd8068017e8b3710cc1bb53)
+        ;
+
+        
+    
+    
+            circle_marker_55a5f670c93377a47d6bf663b7be1c14.bindTooltip(
+                `<div>
+                     M9.0 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_851231180bd697dc2dd8da8c4d15e7e0 = L.circleMarker(
+                [-32.8844, -71.3521],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.700000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_85a32b151cc540c8fd439ac9e25ce648 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_029dfbbe3bdccb3d9b960179f5cdb3dd = $(`<div id="html_029dfbbe3bdccb3d9b960179f5cdb3dd" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.9</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-05 00:56:20 UTC<br>                 <b>📏 Coordinates:</b> -32.884, -71.352<br>                 <b>⬇️ Depth:</b> 15.2 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 60<br>             </div>             </div>`)[0];
+                popup_85a32b151cc540c8fd439ac9e25ce648.setContent(html_029dfbbe3bdccb3d9b960179f5cdb3dd);
+            
+        
+
+        circle_marker_851231180bd697dc2dd8da8c4d15e7e0.bindPopup(popup_85a32b151cc540c8fd439ac9e25ce648)
+        ;
+
+        
+    
+    
+            circle_marker_851231180bd697dc2dd8da8c4d15e7e0.bindTooltip(
+                `<div>
+                     M5.9 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c26d9f6aa6cc799601180bc80da22fdd = L.circleMarker(
+                [29.7004, 67.7806],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_3510f24c74bf1f10cc4ebe86b7423bff = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_017508791121b59fcc0fd89551098a8c = $(`<div id="html_017508791121b59fcc0fd89551098a8c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.4</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-02 13:56:20 UTC<br>                 <b>📏 Coordinates:</b> 29.700, 67.781<br>                 <b>⬇️ Depth:</b> 23.9 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 49<br>             </div>             </div>`)[0];
+                popup_3510f24c74bf1f10cc4ebe86b7423bff.setContent(html_017508791121b59fcc0fd89551098a8c);
+            
+        
+
+        circle_marker_c26d9f6aa6cc799601180bc80da22fdd.bindPopup(popup_3510f24c74bf1f10cc4ebe86b7423bff)
+        ;
+
+        
+    
+    
+            circle_marker_c26d9f6aa6cc799601180bc80da22fdd.bindTooltip(
+                `<div>
+                     M6.4 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_df2423b5eb9f224caa8e80ba8cccf791 = L.circleMarker(
+                [35.2597, 25.9887],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.1, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_10ade2e99c5cb8684ac6c239c54acbfd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_07140edd5206ce3b95b6f99c9f7ebc21 = $(`<div id="html_07140edd5206ce3b95b6f99c9f7ebc21" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.7</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-03 16:56:20 UTC<br>                 <b>📏 Coordinates:</b> 35.260, 25.989<br>                 <b>⬇️ Depth:</b> 6.3 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 55<br>             </div>             </div>`)[0];
+                popup_10ade2e99c5cb8684ac6c239c54acbfd.setContent(html_07140edd5206ce3b95b6f99c9f7ebc21);
+            
+        
+
+        circle_marker_df2423b5eb9f224caa8e80ba8cccf791.bindPopup(popup_10ade2e99c5cb8684ac6c239c54acbfd)
+        ;
+
+        
+    
+    
+            circle_marker_df2423b5eb9f224caa8e80ba8cccf791.bindTooltip(
+                `<div>
+                     M5.7 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c132a1df49d22e41295c15f2c44831a1 = L.circleMarker(
+                [26.0307, 71.9039],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.5, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_839bcac6f7c5c682218b5aee2c03e819 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cf7fef60b55794a22a2517251ba21a12 = $(`<div id="html_cf7fef60b55794a22a2517251ba21a12" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.5</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-04 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> 26.031, 71.904<br>                 <b>⬇️ Depth:</b> 9.6 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 62<br>             </div>             </div>`)[0];
+                popup_839bcac6f7c5c682218b5aee2c03e819.setContent(html_cf7fef60b55794a22a2517251ba21a12);
+            
+        
+
+        circle_marker_c132a1df49d22e41295c15f2c44831a1.bindPopup(popup_839bcac6f7c5c682218b5aee2c03e819)
+        ;
+
+        
+    
+    
+            circle_marker_c132a1df49d22e41295c15f2c44831a1.bindTooltip(
+                `<div>
+                     M8.5 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1d0a0161954fb327b0be8dc8e2c94973 = L.circleMarker(
+                [27.4207, 76.8162],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.799999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_d409b507f407c9193cdc157c9ebc32a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_58c171d98ba282355ad71625d9948f84 = $(`<div id="html_58c171d98ba282355ad71625d9948f84" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.6</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-07 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.421, 76.816<br>                 <b>⬇️ Depth:</b> 11.5 km<br>                 <b>🔢 Type:</b> ml<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                 <b>👥 Felt Reports:</b> 52<br>             </div>             </div>`)[0];
+                popup_d409b507f407c9193cdc157c9ebc32a3.setContent(html_58c171d98ba282355ad71625d9948f84);
+            
+        
+
+        circle_marker_1d0a0161954fb327b0be8dc8e2c94973.bindPopup(popup_d409b507f407c9193cdc157c9ebc32a3)
+        ;
+
+        
+    
+    
+            circle_marker_1d0a0161954fb327b0be8dc8e2c94973.bindTooltip(
+                `<div>
+                     M5.6 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24f5c48a179176efa741091252e7b3ab = L.circleMarker(
+                [-31.3271, -65.5768],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_8550df0d610ac1b3e4837de0513fef05 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_52028a628b9182c5ad831a3dbe4fd2f9 = $(`<div id="html_52028a628b9182c5ad831a3dbe4fd2f9" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.2</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-05 16:56:20 UTC<br>                 <b>📏 Coordinates:</b> -31.327, -65.577<br>                 <b>⬇️ Depth:</b> 31.0 km<br>                 <b>🔢 Type:</b> ms<br>                                                                </div>             </div>`)[0];
+                popup_8550df0d610ac1b3e4837de0513fef05.setContent(html_52028a628b9182c5ad831a3dbe4fd2f9);
+            
+        
+
+        circle_marker_24f5c48a179176efa741091252e7b3ab.bindPopup(popup_8550df0d610ac1b3e4837de0513fef05)
+        ;
+
+        
+    
+    
+            circle_marker_24f5c48a179176efa741091252e7b3ab.bindTooltip(
+                `<div>
+                     M4.2 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_64ecbe9aebf3e98908b1b4cbe282b2d5 = L.circleMarker(
+                [35.9075, 136.1238],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_cf941472952ddf04ab9f43d57d68d460 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_03e574a1df41414e3935334a8258b5ac = $(`<div id="html_03e574a1df41414e3935334a8258b5ac" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-05 23:56:20 UTC<br>                 <b>📏 Coordinates:</b> 35.907, 136.124<br>                 <b>⬇️ Depth:</b> 11.5 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 91<br>             </div>             </div>`)[0];
+                popup_cf941472952ddf04ab9f43d57d68d460.setContent(html_03e574a1df41414e3935334a8258b5ac);
+            
+        
+
+        circle_marker_64ecbe9aebf3e98908b1b4cbe282b2d5.bindPopup(popup_cf941472952ddf04ab9f43d57d68d460)
+        ;
+
+        
+    
+    
+            circle_marker_64ecbe9aebf3e98908b1b4cbe282b2d5.bindTooltip(
+                `<div>
+                     M9.0 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6b77a3ad6af256777dcce4cec3f9ec97 = L.circleMarker(
+                [-31.0172, -70.0437],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_218ba0b2b22b54eb69df567418423e14 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9f94401ff1bbee0e6aebcbe65c5575d3 = $(`<div id="html_9f94401ff1bbee0e6aebcbe65c5575d3" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.4</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-07 13:56:20 UTC<br>                 <b>📏 Coordinates:</b> -31.017, -70.044<br>                 <b>⬇️ Depth:</b> 11.4 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 43<br>             </div>             </div>`)[0];
+                popup_218ba0b2b22b54eb69df567418423e14.setContent(html_9f94401ff1bbee0e6aebcbe65c5575d3);
+            
+        
+
+        circle_marker_6b77a3ad6af256777dcce4cec3f9ec97.bindPopup(popup_218ba0b2b22b54eb69df567418423e14)
+        ;
+
+        
+    
+    
+            circle_marker_6b77a3ad6af256777dcce4cec3f9ec97.bindTooltip(
+                `<div>
+                     M5.4 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9e50fc452fb3d11f3ec38f4dd958d0a6 = L.circleMarker(
+                [25.3671, 71.7923],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_8eb4e5163679776a22d989b08486c890 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1992847d9d0a51f0b3191d434d6853b0 = $(`<div id="html_1992847d9d0a51f0b3191d434d6853b0" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-07 06:56:20 UTC<br>                 <b>📏 Coordinates:</b> 25.367, 71.792<br>                 <b>⬇️ Depth:</b> 33.2 km<br>                 <b>🔢 Type:</b> ms<br>                                                                </div>             </div>`)[0];
+                popup_8eb4e5163679776a22d989b08486c890.setContent(html_1992847d9d0a51f0b3191d434d6853b0);
+            
+        
+
+        circle_marker_9e50fc452fb3d11f3ec38f4dd958d0a6.bindPopup(popup_8eb4e5163679776a22d989b08486c890)
+        ;
+
+        
+    
+    
+            circle_marker_9e50fc452fb3d11f3ec38f4dd958d0a6.bindTooltip(
+                `<div>
+                     M4.3 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bdcd7e66d39fbfa90e59c565768059a3 = L.circleMarker(
+                [-33.5132, -75.9064],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.4, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_473196389ad7288efeb6663f7e0d1c61 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7520bfd05755c035ed48d2bb2479774a = $(`<div id="html_7520bfd05755c035ed48d2bb2479774a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.8</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-03 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> -33.513, -75.906<br>                 <b>⬇️ Depth:</b> 20.5 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 55<br>             </div>             </div>`)[0];
+                popup_473196389ad7288efeb6663f7e0d1c61.setContent(html_7520bfd05755c035ed48d2bb2479774a);
+            
+        
+
+        circle_marker_bdcd7e66d39fbfa90e59c565768059a3.bindPopup(popup_473196389ad7288efeb6663f7e0d1c61)
+        ;
+
+        
+    
+    
+            circle_marker_bdcd7e66d39fbfa90e59c565768059a3.bindTooltip(
+                `<div>
+                     M5.8 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_060cce11031cd37cb730e121c99bd7f7 = L.circleMarker(
+                [-33.9561, -79.79],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.399999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_8b864be4140963661d7a94a3e6ffb436 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b75065295f682d9b713343f5e4d2cd99 = $(`<div id="html_b75065295f682d9b713343f5e4d2cd99" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.8</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-02 01:56:20 UTC<br>                 <b>📏 Coordinates:</b> -33.956, -79.790<br>                 <b>⬇️ Depth:</b> 40.7 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_8b864be4140963661d7a94a3e6ffb436.setContent(html_b75065295f682d9b713343f5e4d2cd99);
+            
+        
+
+        circle_marker_060cce11031cd37cb730e121c99bd7f7.bindPopup(popup_8b864be4140963661d7a94a3e6ffb436)
+        ;
+
+        
+    
+    
+            circle_marker_060cce11031cd37cb730e121c99bd7f7.bindTooltip(
+                `<div>
+                     M4.8 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8f778112381f7c4fa2e4c129e3737fb5 = L.circleMarker(
+                [32.5874, 77.926],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_90381e00298b1a4d8243164b3a779f48 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_46e523e4cce3bd7e7f9cf4bd77537270 = $(`<div id="html_46e523e4cce3bd7e7f9cf4bd77537270" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.0</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-04 09:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.587, 77.926<br>                 <b>⬇️ Depth:</b> 55.4 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> GREEN<br>                              </div>             </div>`)[0];
+                popup_90381e00298b1a4d8243164b3a779f48.setContent(html_46e523e4cce3bd7e7f9cf4bd77537270);
+            
+        
+
+        circle_marker_8f778112381f7c4fa2e4c129e3737fb5.bindPopup(popup_90381e00298b1a4d8243164b3a779f48)
+        ;
+
+        
+    
+    
+            circle_marker_8f778112381f7c4fa2e4c129e3737fb5.bindTooltip(
+                `<div>
+                     M4.0 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5f7d4688ee0758f7d2b6494d7182646e = L.circleMarker(
+                [-23.6834, -63.5019],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.100000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_cef2a1a0454698d24ddb02c422cc42d4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e1accde6874e516025d57d7997138a2a = $(`<div id="html_e1accde6874e516025d57d7997138a2a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.7</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-05 09:56:20 UTC<br>                 <b>📏 Coordinates:</b> -23.683, -63.502<br>                 <b>⬇️ Depth:</b> 22.0 km<br>                 <b>🔢 Type:</b> ml<br>                                                                </div>             </div>`)[0];
+                popup_cef2a1a0454698d24ddb02c422cc42d4.setContent(html_e1accde6874e516025d57d7997138a2a);
+            
+        
+
+        circle_marker_5f7d4688ee0758f7d2b6494d7182646e.bindPopup(popup_cef2a1a0454698d24ddb02c422cc42d4)
+        ;
+
+        
+    
+    
+            circle_marker_5f7d4688ee0758f7d2b6494d7182646e.bindTooltip(
+                `<div>
+                     M4.7 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_84f8fbd9fef17c72896e68642cb62486 = L.circleMarker(
+                [36.0793, 148.545],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.5, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_3187327968982da3829c87556a374514 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c6f68325c76feacd5ccefead93eee41 = $(`<div id="html_9c6f68325c76feacd5ccefead93eee41" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.5</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-06 17:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.079, 148.545<br>                 <b>⬇️ Depth:</b> 21.9 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 60<br>             </div>             </div>`)[0];
+                popup_3187327968982da3829c87556a374514.setContent(html_9c6f68325c76feacd5ccefead93eee41);
+            
+        
+
+        circle_marker_84f8fbd9fef17c72896e68642cb62486.bindPopup(popup_3187327968982da3829c87556a374514)
+        ;
+
+        
+    
+    
+            circle_marker_84f8fbd9fef17c72896e68642cb62486.bindTooltip(
+                `<div>
+                     M6.5 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f2257e7ceb8c6dd9b769c79376a449a4 = L.circleMarker(
+                [-23.5648, -81.3247],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.799999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a7eece18f30f84a8bb1562553555142b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dea1d35761fba6bf5c06a75419e71559 = $(`<div id="html_dea1d35761fba6bf5c06a75419e71559" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.6</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-01 07:56:20 UTC<br>                 <b>📏 Coordinates:</b> -23.565, -81.325<br>                 <b>⬇️ Depth:</b> 3.4 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 55<br>             </div>             </div>`)[0];
+                popup_a7eece18f30f84a8bb1562553555142b.setContent(html_dea1d35761fba6bf5c06a75419e71559);
+            
+        
+
+        circle_marker_f2257e7ceb8c6dd9b769c79376a449a4.bindPopup(popup_a7eece18f30f84a8bb1562553555142b)
+        ;
+
+        
+    
+    
+            circle_marker_f2257e7ceb8c6dd9b769c79376a449a4.bindTooltip(
+                `<div>
+                     M5.6 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_33200715c9bfb0966e6e075365373e30 = L.circleMarker(
+                [40.6854, -123.4152],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.799999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_dd2aa4dad8ce18b1ebb89b99a88833ed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a8964b6c33bbdbe551cbd34d0c8af8ea = $(`<div id="html_a8964b6c33bbdbe551cbd34d0c8af8ea" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.6</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-05 01:56:20 UTC<br>                 <b>📏 Coordinates:</b> 40.685, -123.415<br>                 <b>⬇️ Depth:</b> 50.3 km<br>                 <b>🔢 Type:</b> mb<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 66<br>             </div>             </div>`)[0];
+                popup_dd2aa4dad8ce18b1ebb89b99a88833ed.setContent(html_a8964b6c33bbdbe551cbd34d0c8af8ea);
+            
+        
+
+        circle_marker_33200715c9bfb0966e6e075365373e30.bindPopup(popup_dd2aa4dad8ce18b1ebb89b99a88833ed)
+        ;
+
+        
+    
+    
+            circle_marker_33200715c9bfb0966e6e075365373e30.bindTooltip(
+                `<div>
+                     M7.6 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_616c0b96a06cd4d3f1e8c93872be8d96 = L.circleMarker(
+                [28.0007, 77.7686],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.6, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_41bf15f3b09f0156c3532e748f1d4e6c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e1f0e7545ec027587fc4ed8f25b305a = $(`<div id="html_9e1f0e7545ec027587fc4ed8f25b305a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.2</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-07 01:56:20 UTC<br>                 <b>📏 Coordinates:</b> 28.001, 77.769<br>                 <b>⬇️ Depth:</b> 3.4 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 76<br>             </div>             </div>`)[0];
+                popup_41bf15f3b09f0156c3532e748f1d4e6c.setContent(html_9e1f0e7545ec027587fc4ed8f25b305a);
+            
+        
+
+        circle_marker_616c0b96a06cd4d3f1e8c93872be8d96.bindPopup(popup_41bf15f3b09f0156c3532e748f1d4e6c)
+        ;
+
+        
+    
+    
+            circle_marker_616c0b96a06cd4d3f1e8c93872be8d96.bindTooltip(
+                `<div>
+                     M7.2 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_41deb06b261d8733990cc6f5631c0946 = L.circleMarker(
+                [32.7012, 68.6636],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.9, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_004684461445049d00760fefe2a4ae01 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8a514b6ac735231c112db9d2a2d02ecc = $(`<div id="html_8a514b6ac735231c112db9d2a2d02ecc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.3</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-03 23:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.701, 68.664<br>                 <b>⬇️ Depth:</b> 9.0 km<br>                 <b>🔢 Type:</b> ml<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                 <b>👥 Felt Reports:</b> 64<br>             </div>             </div>`)[0];
+                popup_004684461445049d00760fefe2a4ae01.setContent(html_8a514b6ac735231c112db9d2a2d02ecc);
+            
+        
+
+        circle_marker_41deb06b261d8733990cc6f5631c0946.bindPopup(popup_004684461445049d00760fefe2a4ae01)
+        ;
+
+        
+    
+    
+            circle_marker_41deb06b261d8733990cc6f5631c0946.bindTooltip(
+                `<div>
+                     M6.3 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f18b968ae728a8e281aefc0678cecfa8 = L.circleMarker(
+                [36.6346, 138.9045],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_7f5a1e93d8d5483f82ee3fac33766033 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3b642a8174fe1d05d461304668cd8481 = $(`<div id="html_3b642a8174fe1d05d461304668cd8481" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.0</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-03 23:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.635, 138.905<br>                 <b>⬇️ Depth:</b> 11.8 km<br>                 <b>🔢 Type:</b> ms<br>                                                                </div>             </div>`)[0];
+                popup_7f5a1e93d8d5483f82ee3fac33766033.setContent(html_3b642a8174fe1d05d461304668cd8481);
+            
+        
+
+        circle_marker_f18b968ae728a8e281aefc0678cecfa8.bindPopup(popup_7f5a1e93d8d5483f82ee3fac33766033)
+        ;
+
+        
+    
+    
+            circle_marker_f18b968ae728a8e281aefc0678cecfa8.bindTooltip(
+                `<div>
+                     M5.0 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b00aadcd365d6d353271531334fd999c = L.circleMarker(
+                [30.4071, -116.6812],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a4a619670169db7ede2132bbf193072f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a844203cf032776592cecd8251e6f528 = $(`<div id="html_a844203cf032776592cecd8251e6f528" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-01 18:56:20 UTC<br>                 <b>📏 Coordinates:</b> 30.407, -116.681<br>                 <b>⬇️ Depth:</b> 23.7 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_a4a619670169db7ede2132bbf193072f.setContent(html_a844203cf032776592cecd8251e6f528);
+            
+        
+
+        circle_marker_b00aadcd365d6d353271531334fd999c.bindPopup(popup_a4a619670169db7ede2132bbf193072f)
+        ;
+
+        
+    
+    
+            circle_marker_b00aadcd365d6d353271531334fd999c.bindTooltip(
+                `<div>
+                     M4.3 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_93e00f92d4d901c56cfc8bfc713c9a59 = L.circleMarker(
+                [33.4504, 80.8039],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_80440062d9e3b303fd4644f598901d49 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61442be4af092aadf32ad479820e6561 = $(`<div id="html_61442be4af092aadf32ad479820e6561" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-05 13:56:20 UTC<br>                 <b>📏 Coordinates:</b> 33.450, 80.804<br>                 <b>⬇️ Depth:</b> 3.4 km<br>                 <b>🔢 Type:</b> ml<br>                                                                </div>             </div>`)[0];
+                popup_80440062d9e3b303fd4644f598901d49.setContent(html_61442be4af092aadf32ad479820e6561);
+            
+        
+
+        circle_marker_93e00f92d4d901c56cfc8bfc713c9a59.bindPopup(popup_80440062d9e3b303fd4644f598901d49)
+        ;
+
+        
+    
+    
+            circle_marker_93e00f92d4d901c56cfc8bfc713c9a59.bindTooltip(
+                `<div>
+                     M4.3 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_87eb6a808b1b13af5cae42e3d4fd98e6 = L.circleMarker(
+                [39.6506, 24.1062],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.6, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_d48c50d04c31b3104d147c54e4fe3830 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5995609e419e6d88cc66b84f28ca0dee = $(`<div id="html_5995609e419e6d88cc66b84f28ca0dee" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.2</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-06 08:56:20 UTC<br>                 <b>📏 Coordinates:</b> 39.651, 24.106<br>                 <b>⬇️ Depth:</b> 2.4 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 75<br>             </div>             </div>`)[0];
+                popup_d48c50d04c31b3104d147c54e4fe3830.setContent(html_5995609e419e6d88cc66b84f28ca0dee);
+            
+        
+
+        circle_marker_87eb6a808b1b13af5cae42e3d4fd98e6.bindPopup(popup_d48c50d04c31b3104d147c54e4fe3830)
+        ;
+
+        
+    
+    
+            circle_marker_87eb6a808b1b13af5cae42e3d4fd98e6.bindTooltip(
+                `<div>
+                     M7.2 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b1db8c25a46cf0e450498034ce81128e = L.circleMarker(
+                [32.1905, 85.038],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.5, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_108ba5b9e0640bb9fb8cb66138537fa7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fbc096f995dd63794b1dbc774a9a66cb = $(`<div id="html_fbc096f995dd63794b1dbc774a9a66cb" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.5</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-03 23:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.191, 85.038<br>                 <b>⬇️ Depth:</b> 47.9 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 69<br>             </div>             </div>`)[0];
+                popup_108ba5b9e0640bb9fb8cb66138537fa7.setContent(html_fbc096f995dd63794b1dbc774a9a66cb);
+            
+        
+
+        circle_marker_b1db8c25a46cf0e450498034ce81128e.bindPopup(popup_108ba5b9e0640bb9fb8cb66138537fa7)
+        ;
+
+        
+    
+    
+            circle_marker_b1db8c25a46cf0e450498034ce81128e.bindTooltip(
+                `<div>
+                     M7.5 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b293780bd1f41e6f1eb2731de5b7f791 = L.circleMarker(
+                [-32.9973, -58.3821],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.700000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_0b29c5bf473cee07f63f4a066cda0cb5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_98467b6ce47fe132af009d1738703464 = $(`<div id="html_98467b6ce47fe132af009d1738703464" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.9</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-05 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> -32.997, -58.382<br>                 <b>⬇️ Depth:</b> 0.3 km<br>                 <b>🔢 Type:</b> mw<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                 <b>👥 Felt Reports:</b> 63<br>             </div>             </div>`)[0];
+                popup_0b29c5bf473cee07f63f4a066cda0cb5.setContent(html_98467b6ce47fe132af009d1738703464);
+            
+        
+
+        circle_marker_b293780bd1f41e6f1eb2731de5b7f791.bindPopup(popup_0b29c5bf473cee07f63f4a066cda0cb5)
+        ;
+
+        
+    
+    
+            circle_marker_b293780bd1f41e6f1eb2731de5b7f791.bindTooltip(
+                `<div>
+                     M5.9 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9d3b955c9ffc384b8f07794eae9e6899 = L.circleMarker(
+                [-36.9132, -65.0908],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_543b3088e372f26a28dad6f84216c210 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_769ef3184a45e03263edda3adac00942 = $(`<div id="html_769ef3184a45e03263edda3adac00942" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.1</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-06 15:56:20 UTC<br>                 <b>📏 Coordinates:</b> -36.913, -65.091<br>                 <b>⬇️ Depth:</b> 1.2 km<br>                 <b>🔢 Type:</b> mb<br>                                  <b>⚠️ Alert:</b> YELLOW<br>                              </div>             </div>`)[0];
+                popup_543b3088e372f26a28dad6f84216c210.setContent(html_769ef3184a45e03263edda3adac00942);
+            
+        
+
+        circle_marker_9d3b955c9ffc384b8f07794eae9e6899.bindPopup(popup_543b3088e372f26a28dad6f84216c210)
+        ;
+
+        
+    
+    
+            circle_marker_9d3b955c9ffc384b8f07794eae9e6899.bindTooltip(
+                `<div>
+                     M4.1 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_689eeccc2a64f43f5d627aaf970d7839 = L.circleMarker(
+                [41.2786, 34.471],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.4, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_fba8fed2747f06f9bddcb19d1fe1aa94 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_66e3a80c3297e7aa2cdf947f6df4cef6 = $(`<div id="html_66e3a80c3297e7aa2cdf947f6df4cef6" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.8</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-06 02:56:20 UTC<br>                 <b>📏 Coordinates:</b> 41.279, 34.471<br>                 <b>⬇️ Depth:</b> 7.6 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 60<br>             </div>             </div>`)[0];
+                popup_fba8fed2747f06f9bddcb19d1fe1aa94.setContent(html_66e3a80c3297e7aa2cdf947f6df4cef6);
+            
+        
+
+        circle_marker_689eeccc2a64f43f5d627aaf970d7839.bindPopup(popup_fba8fed2747f06f9bddcb19d1fe1aa94)
+        ;
+
+        
+    
+    
+            circle_marker_689eeccc2a64f43f5d627aaf970d7839.bindTooltip(
+                `<div>
+                     M5.8 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9aa567d00dbecfac72d04b44943a0961 = L.circleMarker(
+                [32.7159, 77.5666],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.700000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f10eebefb6a3d5bc1641999c6496398c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8e766a994d1e1f6de9957acf2af37b9d = $(`<div id="html_8e766a994d1e1f6de9957acf2af37b9d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.9</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-01 13:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.716, 77.567<br>                 <b>⬇️ Depth:</b> 6.4 km<br>                 <b>🔢 Type:</b> mw<br>                                                                </div>             </div>`)[0];
+                popup_f10eebefb6a3d5bc1641999c6496398c.setContent(html_8e766a994d1e1f6de9957acf2af37b9d);
+            
+        
+
+        circle_marker_9aa567d00dbecfac72d04b44943a0961.bindPopup(popup_f10eebefb6a3d5bc1641999c6496398c)
+        ;
+
+        
+    
+    
+            circle_marker_9aa567d00dbecfac72d04b44943a0961.bindTooltip(
+                `<div>
+                     M4.9 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bec567c775b9289e35c159d14281813d = L.circleMarker(
+                [27.6454, 78.7649],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.1, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_29cbedc075c99734f05a6f9cfcffe2f2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1da72b080abd7a351588306d23efd1e2 = $(`<div id="html_1da72b080abd7a351588306d23efd1e2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.7</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-04 15:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.645, 78.765<br>                 <b>⬇️ Depth:</b> 2.7 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 60<br>             </div>             </div>`)[0];
+                popup_29cbedc075c99734f05a6f9cfcffe2f2.setContent(html_1da72b080abd7a351588306d23efd1e2);
+            
+        
+
+        circle_marker_bec567c775b9289e35c159d14281813d.bindPopup(popup_29cbedc075c99734f05a6f9cfcffe2f2)
+        ;
+
+        
+    
+    
+            circle_marker_bec567c775b9289e35c159d14281813d.bindTooltip(
+                `<div>
+                     M5.7 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_495faa53bbbd2ca59b45a991b3fcb8d8 = L.circleMarker(
+                [43.227, 29.0711],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_d71083e3eb2a2470f5fcae9c77da40c2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_45765ffa963ad3864d4bcc990b2113d5 = $(`<div id="html_45765ffa963ad3864d4bcc990b2113d5" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.2</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-04 17:56:20 UTC<br>                 <b>📏 Coordinates:</b> 43.227, 29.071<br>                 <b>⬇️ Depth:</b> 12.2 km<br>                 <b>🔢 Type:</b> ms<br>                                                   <b>👥 Felt Reports:</b> 48<br>             </div>             </div>`)[0];
+                popup_d71083e3eb2a2470f5fcae9c77da40c2.setContent(html_45765ffa963ad3864d4bcc990b2113d5);
+            
+        
+
+        circle_marker_495faa53bbbd2ca59b45a991b3fcb8d8.bindPopup(popup_d71083e3eb2a2470f5fcae9c77da40c2)
+        ;
+
+        
+    
+    
+            circle_marker_495faa53bbbd2ca59b45a991b3fcb8d8.bindTooltip(
+                `<div>
+                     M5.2 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b19c52839a4d090efe149caf297f956e = L.circleMarker(
+                [38.7904, -123.1218],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.5, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_7f3f32d2c778a998d068280c2031a16b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6b0ae6a325488ed4fa1351640f21bf05 = $(`<div id="html_6b0ae6a325488ed4fa1351640f21bf05" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.5</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-07 01:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.790, -123.122<br>                 <b>⬇️ Depth:</b> 3.2 km<br>                 <b>🔢 Type:</b> ms<br>                                                                </div>             </div>`)[0];
+                popup_7f3f32d2c778a998d068280c2031a16b.setContent(html_6b0ae6a325488ed4fa1351640f21bf05);
+            
+        
+
+        circle_marker_b19c52839a4d090efe149caf297f956e.bindPopup(popup_7f3f32d2c778a998d068280c2031a16b)
+        ;
+
+        
+    
+    
+            circle_marker_b19c52839a4d090efe149caf297f956e.bindTooltip(
+                `<div>
+                     M4.5 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7839f8408f00a0224dd137947d8dc120 = L.circleMarker(
+                [44.7429, -135.6968],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_6321e8c6a82e380b4b203fb85cac765c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d0b57ed11eb1973396d53f26a10e5d34 = $(`<div id="html_d0b57ed11eb1973396d53f26a10e5d34" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.2</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-01 09:56:20 UTC<br>                 <b>📏 Coordinates:</b> 44.743, -135.697<br>                 <b>⬇️ Depth:</b> 7.7 km<br>                 <b>🔢 Type:</b> mw<br>                                                   <b>👥 Felt Reports:</b> 49<br>             </div>             </div>`)[0];
+                popup_6321e8c6a82e380b4b203fb85cac765c.setContent(html_d0b57ed11eb1973396d53f26a10e5d34);
+            
+        
+
+        circle_marker_7839f8408f00a0224dd137947d8dc120.bindPopup(popup_6321e8c6a82e380b4b203fb85cac765c)
+        ;
+
+        
+    
+    
+            circle_marker_7839f8408f00a0224dd137947d8dc120.bindTooltip(
+                `<div>
+                     M5.2 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c3cbc6c2fc15c946932dd08ec6a1248 = L.circleMarker(
+                [-35.7095, -71.9479],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.899999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_6d6c75e5e604e591e232f951d5e0a08d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_687df459ae8c96d27355caeff89e38f1 = $(`<div id="html_687df459ae8c96d27355caeff89e38f1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.3</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-04 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> -35.709, -71.948<br>                 <b>⬇️ Depth:</b> 18.9 km<br>                 <b>🔢 Type:</b> ms<br>                                                                </div>             </div>`)[0];
+                popup_6d6c75e5e604e591e232f951d5e0a08d.setContent(html_687df459ae8c96d27355caeff89e38f1);
+            
+        
+
+        circle_marker_5c3cbc6c2fc15c946932dd08ec6a1248.bindPopup(popup_6d6c75e5e604e591e232f951d5e0a08d)
+        ;
+
+        
+    
+    
+            circle_marker_5c3cbc6c2fc15c946932dd08ec6a1248.bindTooltip(
+                `<div>
+                     M4.3 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_031a0a63542238a0acc0b857ff01146b = L.circleMarker(
+                [50.6569, -121.655],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.399999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_7d3f90d03cebbe8a72953dd5735e9a7d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6dfdeee002ace9cdb4e429189081bafc = $(`<div id="html_6dfdeee002ace9cdb4e429189081bafc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.8</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-06 04:56:20 UTC<br>                 <b>📏 Coordinates:</b> 50.657, -121.655<br>                 <b>⬇️ Depth:</b> 12.6 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_7d3f90d03cebbe8a72953dd5735e9a7d.setContent(html_6dfdeee002ace9cdb4e429189081bafc);
+            
+        
+
+        circle_marker_031a0a63542238a0acc0b857ff01146b.bindPopup(popup_7d3f90d03cebbe8a72953dd5735e9a7d)
+        ;
+
+        
+    
+    
+            circle_marker_031a0a63542238a0acc0b857ff01146b.bindTooltip(
+                `<div>
+                     M4.8 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_694790cfb015937714f664ed8464b06f = L.circleMarker(
+                [41.8693, -127.1021],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.700000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_c94324eef90670ca6327b443896826c3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a59cd0306086406e8fca360dd49c523c = $(`<div id="html_a59cd0306086406e8fca360dd49c523c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.9</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-01 10:56:20 UTC<br>                 <b>📏 Coordinates:</b> 41.869, -127.102<br>                 <b>⬇️ Depth:</b> 26.6 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 92<br>             </div>             </div>`)[0];
+                popup_c94324eef90670ca6327b443896826c3.setContent(html_a59cd0306086406e8fca360dd49c523c);
+            
+        
+
+        circle_marker_694790cfb015937714f664ed8464b06f.bindPopup(popup_c94324eef90670ca6327b443896826c3)
+        ;
+
+        
+    
+    
+            circle_marker_694790cfb015937714f664ed8464b06f.bindTooltip(
+                `<div>
+                     M7.9 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a8273f9f15ecabea63b1f6da92b11aaf = L.circleMarker(
+                [36.6307, 133.7444],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_5d6747c9e116902c98adce8c3cddb38c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_29f0896720cb11a9c5c767e83948a9a7 = $(`<div id="html_29f0896720cb11a9c5c767e83948a9a7" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.1</h4>                 <hr>                 <b>📍 Location:</b> Japan region<br>                 <b>📅 Time:</b> 2025-08-06 08:56:20 UTC<br>                 <b>📏 Coordinates:</b> 36.631, 133.744<br>                 <b>⬇️ Depth:</b> 33.5 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 48<br>             </div>             </div>`)[0];
+                popup_5d6747c9e116902c98adce8c3cddb38c.setContent(html_29f0896720cb11a9c5c767e83948a9a7);
+            
+        
+
+        circle_marker_a8273f9f15ecabea63b1f6da92b11aaf.bindPopup(popup_5d6747c9e116902c98adce8c3cddb38c)
+        ;
+
+        
+    
+    
+            circle_marker_a8273f9f15ecabea63b1f6da92b11aaf.bindTooltip(
+                `<div>
+                     M5.1 - Japan region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2bb447559d0dba6e24e658d0f19221b2 = L.circleMarker(
+                [26.2223, 82.2784],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_a7a87765256d86cc57bc9f7dd667b2e6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_06f0f13e19355f84ca7f142cbe53f6ff = $(`<div id="html_06f0f13e19355f84ca7f142cbe53f6ff" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.0</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-06 02:56:20 UTC<br>                 <b>📏 Coordinates:</b> 26.222, 82.278<br>                 <b>⬇️ Depth:</b> 6.8 km<br>                 <b>🔢 Type:</b> ms<br>                 <b>🌊 Tsunami:</b> Yes<br>                                  <b>👥 Felt Reports:</b> 77<br>             </div>             </div>`)[0];
+                popup_a7a87765256d86cc57bc9f7dd667b2e6.setContent(html_06f0f13e19355f84ca7f142cbe53f6ff);
+            
+        
+
+        circle_marker_2bb447559d0dba6e24e658d0f19221b2.bindPopup(popup_a7a87765256d86cc57bc9f7dd667b2e6)
+        ;
+
+        
+    
+    
+            circle_marker_2bb447559d0dba6e24e658d0f19221b2.bindTooltip(
+                `<div>
+                     M7.0 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d51762c075df6e346472fc0a5dfbc07 = L.circleMarker(
+                [38.3711, -121.6485],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.299999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f15fbd3d143c2616865605e0bf6b01a0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5fe1fddc807584948e7694154e7f2a9d = $(`<div id="html_5fe1fddc807584948e7694154e7f2a9d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.1</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-07 17:56:20 UTC<br>                 <b>📏 Coordinates:</b> 38.371, -121.648<br>                 <b>⬇️ Depth:</b> 0.3 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 46<br>             </div>             </div>`)[0];
+                popup_f15fbd3d143c2616865605e0bf6b01a0.setContent(html_5fe1fddc807584948e7694154e7f2a9d);
+            
+        
+
+        circle_marker_6d51762c075df6e346472fc0a5dfbc07.bindPopup(popup_f15fbd3d143c2616865605e0bf6b01a0)
+        ;
+
+        
+    
+    
+            circle_marker_6d51762c075df6e346472fc0a5dfbc07.bindTooltip(
+                `<div>
+                     M5.1 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_57795114e58d686acd2fe834944da793 = L.circleMarker(
+                [32.5775, -123.512],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.799999999999997, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f2df19f6a3a04294062c0c47bd04ee4b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6c6d035402265a0a3fd6c6d2f77ae21b = $(`<div id="html_6c6d035402265a0a3fd6c6d2f77ae21b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.6</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-06 18:56:20 UTC<br>                 <b>📏 Coordinates:</b> 32.578, -123.512<br>                 <b>⬇️ Depth:</b> 17.6 km<br>                 <b>🔢 Type:</b> mw<br>                                  <b>⚠️ Alert:</b> GREEN<br>                 <b>👥 Felt Reports:</b> 96<br>             </div>             </div>`)[0];
+                popup_f2df19f6a3a04294062c0c47bd04ee4b.setContent(html_6c6d035402265a0a3fd6c6d2f77ae21b);
+            
+        
+
+        circle_marker_57795114e58d686acd2fe834944da793.bindPopup(popup_f2df19f6a3a04294062c0c47bd04ee4b)
+        ;
+
+        
+    
+    
+            circle_marker_57795114e58d686acd2fe834944da793.bindTooltip(
+                `<div>
+                     M8.6 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dc056666875b8c39dbd7b3e437045d94 = L.circleMarker(
+                [-23.8721, -68.012],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.5, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_50c1095a3319d63e755654239c6967cc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b363928e7fe991791254fcc310b3d787 = $(`<div id="html_b363928e7fe991791254fcc310b3d787" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 7.5</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-03 21:56:20 UTC<br>                 <b>📏 Coordinates:</b> -23.872, -68.012<br>                 <b>⬇️ Depth:</b> 3.5 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 87<br>             </div>             </div>`)[0];
+                popup_50c1095a3319d63e755654239c6967cc.setContent(html_b363928e7fe991791254fcc310b3d787);
+            
+        
+
+        circle_marker_dc056666875b8c39dbd7b3e437045d94.bindPopup(popup_50c1095a3319d63e755654239c6967cc)
+        ;
+
+        
+    
+    
+            circle_marker_dc056666875b8c39dbd7b3e437045d94.bindTooltip(
+                `<div>
+                     M7.5 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_03356f047602a6ecd7f0b842b7bf19f2 = L.circleMarker(
+                [28.1057, 88.6898],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.1, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_463ec2ebe102cd23e6f671f95fce0db0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fd0fb8b25e601b000147c42e11a38c3c = $(`<div id="html_fd0fb8b25e601b000147c42e11a38c3c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.7</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-03 05:56:20 UTC<br>                 <b>📏 Coordinates:</b> 28.106, 88.690<br>                 <b>⬇️ Depth:</b> 27.3 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 63<br>             </div>             </div>`)[0];
+                popup_463ec2ebe102cd23e6f671f95fce0db0.setContent(html_fd0fb8b25e601b000147c42e11a38c3c);
+            
+        
+
+        circle_marker_03356f047602a6ecd7f0b842b7bf19f2.bindPopup(popup_463ec2ebe102cd23e6f671f95fce0db0)
+        ;
+
+        
+    
+    
+            circle_marker_03356f047602a6ecd7f0b842b7bf19f2.bindTooltip(
+                `<div>
+                     M5.7 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f2da262a6560a448961dac7a4cf9728d = L.circleMarker(
+                [27.475, 83.238],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.700000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_64ad6fb1a0ef689cd14a19b6c7432a63 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cb2bda81cea7e8501f18d5c4e521c039 = $(`<div id="html_cb2bda81cea7e8501f18d5c4e521c039" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 8.9</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-06 01:56:20 UTC<br>                 <b>📏 Coordinates:</b> 27.475, 83.238<br>                 <b>⬇️ Depth:</b> 19.2 km<br>                 <b>🔢 Type:</b> ml<br>                 <b>🌊 Tsunami:</b> Yes<br>                                  <b>👥 Felt Reports:</b> 77<br>             </div>             </div>`)[0];
+                popup_64ad6fb1a0ef689cd14a19b6c7432a63.setContent(html_cb2bda81cea7e8501f18d5c4e521c039);
+            
+        
+
+        circle_marker_f2da262a6560a448961dac7a4cf9728d.bindPopup(popup_64ad6fb1a0ef689cd14a19b6c7432a63)
+        ;
+
+        
+    
+    
+            circle_marker_f2da262a6560a448961dac7a4cf9728d.bindTooltip(
+                `<div>
+                     M8.9 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b73d45e69537104e7d450ba840d9b421 = L.circleMarker(
+                [-36.7782, -70.99],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.200000000000003, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_757b53faad5adb34ef4db7a7b3ff47fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aea6b1f4200a17ea32301d42242220ef = $(`<div id="html_aea6b1f4200a17ea32301d42242220ef" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.4</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-01 21:56:20 UTC<br>                 <b>📏 Coordinates:</b> -36.778, -70.990<br>                 <b>⬇️ Depth:</b> 13.6 km<br>                 <b>🔢 Type:</b> ml<br>                                                   <b>👥 Felt Reports:</b> 59<br>             </div>             </div>`)[0];
+                popup_757b53faad5adb34ef4db7a7b3ff47fc.setContent(html_aea6b1f4200a17ea32301d42242220ef);
+            
+        
+
+        circle_marker_b73d45e69537104e7d450ba840d9b421.bindPopup(popup_757b53faad5adb34ef4db7a7b3ff47fc)
+        ;
+
+        
+    
+    
+            circle_marker_b73d45e69537104e7d450ba840d9b421.bindTooltip(
+                `<div>
+                     M5.4 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bf9c465473cfb7f2f5dbda6e91c59792 = L.circleMarker(
+                [33.0765, -110.8854],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.600000000000001, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_93341cdb69ba8249d99148d2f475ff34 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14ad93aede63c2382ccf7d5ae66d0630 = $(`<div id="html_14ad93aede63c2382ccf7d5ae66d0630" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.2</h4>                 <hr>                 <b>📍 Location:</b> California region<br>                 <b>📅 Time:</b> 2025-08-03 19:56:20 UTC<br>                 <b>📏 Coordinates:</b> 33.077, -110.885<br>                 <b>⬇️ Depth:</b> 1.2 km<br>                 <b>🔢 Type:</b> ms<br>                                  <b>⚠️ Alert:</b> ORANGE<br>                              </div>             </div>`)[0];
+                popup_93341cdb69ba8249d99148d2f475ff34.setContent(html_14ad93aede63c2382ccf7d5ae66d0630);
+            
+        
+
+        circle_marker_bf9c465473cfb7f2f5dbda6e91c59792.bindPopup(popup_93341cdb69ba8249d99148d2f475ff34)
+        ;
+
+        
+    
+    
+            circle_marker_bf9c465473cfb7f2f5dbda6e91c59792.bindTooltip(
+                `<div>
+                     M4.2 - California region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3d60cf6a437f6952a38df753df988676 = L.circleMarker(
+                [24.9643, 75.9624],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_c03ec86326b564c5b3b63715d674bbad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6c92ce59669ad9a21c61a57b39eb916 = $(`<div id="html_a6c92ce59669ad9a21c61a57b39eb916" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 9.0</h4>                 <hr>                 <b>📍 Location:</b> Northern India region<br>                 <b>📅 Time:</b> 2025-08-05 05:56:20 UTC<br>                 <b>📏 Coordinates:</b> 24.964, 75.962<br>                 <b>⬇️ Depth:</b> 2.2 km<br>                 <b>🔢 Type:</b> mb<br>                                                   <b>👥 Felt Reports:</b> 91<br>             </div>             </div>`)[0];
+                popup_c03ec86326b564c5b3b63715d674bbad.setContent(html_a6c92ce59669ad9a21c61a57b39eb916);
+            
+        
+
+        circle_marker_3d60cf6a437f6952a38df753df988676.bindPopup(popup_c03ec86326b564c5b3b63715d674bbad)
+        ;
+
+        
+    
+    
+            circle_marker_3d60cf6a437f6952a38df753df988676.bindTooltip(
+                `<div>
+                     M9.0 - Northern India region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7d5fafcf81efdba5b09659106d0354f0 = L.circleMarker(
+                [45.024, 33.6513],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.0, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_f0d1c529f47ce617acfd02d276bfbafb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5cc1178558ce1d81aca36b37a0ef55c2 = $(`<div id="html_5cc1178558ce1d81aca36b37a0ef55c2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 6.0</h4>                 <hr>                 <b>📍 Location:</b> Turkey region<br>                 <b>📅 Time:</b> 2025-08-04 14:56:20 UTC<br>                 <b>📏 Coordinates:</b> 45.024, 33.651<br>                 <b>⬇️ Depth:</b> 59.1 km<br>                 <b>🔢 Type:</b> ms<br>                 <b>🌊 Tsunami:</b> Yes<br>                                  <b>👥 Felt Reports:</b> 77<br>             </div>             </div>`)[0];
+                popup_f0d1c529f47ce617acfd02d276bfbafb.setContent(html_5cc1178558ce1d81aca36b37a0ef55c2);
+            
+        
+
+        circle_marker_7d5fafcf81efdba5b09659106d0354f0.bindPopup(popup_f0d1c529f47ce617acfd02d276bfbafb)
+        ;
+
+        
+    
+    
+            circle_marker_7d5fafcf81efdba5b09659106d0354f0.bindTooltip(
+                `<div>
+                     M6.0 - Turkey region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_279fdb273c4b1f313ff1aa34f67d8d7f = L.circleMarker(
+                [-40.155, -58.5701],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.399999999999999, "stroke": true, "weight": 1}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+        var popup_364d3e976167446830e9d46d8c48d2d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1d1a2c3c9e953574b528cabc2537c851 = $(`<div id="html_1d1a2c3c9e953574b528cabc2537c851" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.8</h4>                 <hr>                 <b>📍 Location:</b> Chile region<br>                 <b>📅 Time:</b> 2025-08-08 00:56:20 UTC<br>                 <b>📏 Coordinates:</b> -40.155, -58.570<br>                 <b>⬇️ Depth:</b> 1.9 km<br>                 <b>🔢 Type:</b> mb<br>                                                                </div>             </div>`)[0];
+                popup_364d3e976167446830e9d46d8c48d2d8.setContent(html_1d1a2c3c9e953574b528cabc2537c851);
+            
+        
+
+        circle_marker_279fdb273c4b1f313ff1aa34f67d8d7f.bindPopup(popup_364d3e976167446830e9d46d8c48d2d8)
+        ;
+
+        
+    
+    
+            circle_marker_279fdb273c4b1f313ff1aa34f67d8d7f.bindTooltip(
+                `<div>
+                     M4.8 - Chile region
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var heat_map_64206355367af0b48f822c105022c921 = L.heatLayer(
+                [[23.0406, 78.7945, 4.3], [38.0956, 26.3742, 4.4], [35.1409, -122.9874, 9.0], [39.533, 28.8508, 9.0], [39.1591, 30.8778, 5.0], [29.6932, 81.6088, 9.0], [21.0502, 80.8075, 4.7], [40.9815, -126.9336, 7.1], [45.0626, 35.7812, 8.4], [24.7013, -118.2905, 4.1], [27.5016, 78.9856, 5.1], [25.9512, 79.7663, 8.5], [21.8531, 72.1046, 4.4], [38.8747, -132.5116, 6.4], [32.7912, 139.5792, 4.8], [27.5284, 73.754, 4.6], [35.1405, 134.0146, 6.4], [30.4029, 147.7497, 9.0], [26.4474, 140.5949, 9.0], [36.3726, -117.0735, 8.4], [35.8742, 133.9157, 6.4], [41.9103, -112.916, 4.2], [45.5526, 28.8514, 5.1], [28.8099, 76.5136, 4.4], [40.3793, 32.7017, 9.0], [-30.3495, -71.1376, 6.4], [-29.4858, -73.8465, 4.3], [-31.3248, -52.3363, 7.2], [49.3733, -131.7363, 4.7], [38.1214, -127.7887, 6.9], [22.0604, 67.247, 6.7], [27.2559, 138.2844, 4.2], [34.3658, 38.2186, 4.6], [38.4955, 142.9995, 4.9], [27.9579, 74.8717, 6.0], [36.7203, 144.6312, 7.2], [36.405, 136.8865, 4.1], [44.7564, 139.7996, 4.9], [31.3587, 73.6494, 7.3], [36.3643, 75.0024, 6.8], [32.9435, 144.9201, 9.0], [34.3906, 81.1583, 7.1], [36.8725, 27.3931, 4.3], [-29.469, -72.7685, 4.3], [30.0494, 76.2639, 5.8], [34.929, -129.8599, 5.7], [36.1205, 140.063, 4.2], [41.0021, 149.0804, 8.6], [-34.6886, -78.3753, 4.9], [31.7734, 131.9969, 5.8], [38.5012, 139.3385, 8.0], [39.1782, -121.0064, 5.3], [28.157, 142.6775, 6.2], [42.4854, -125.2466, 9.0], [-32.8844, -71.3521, 5.9], [29.7004, 67.7806, 6.4], [35.2597, 25.9887, 5.7], [26.0307, 71.9039, 8.5], [27.4207, 76.8162, 5.6], [-31.3271, -65.5768, 4.2], [35.9075, 136.1238, 9.0], [-31.0172, -70.0437, 5.4], [25.3671, 71.7923, 4.3], [-33.5132, -75.9064, 5.8], [-33.9561, -79.79, 4.8], [32.5874, 77.926, 4.0], [-23.6834, -63.5019, 4.7], [36.0793, 148.545, 6.5], [-23.5648, -81.3247, 5.6], [40.6854, -123.4152, 7.6], [28.0007, 77.7686, 7.2], [32.7012, 68.6636, 6.3], [36.6346, 138.9045, 5.0], [30.4071, -116.6812, 4.3], [33.4504, 80.8039, 4.3], [39.6506, 24.1062, 7.2], [32.1905, 85.038, 7.5], [-32.9973, -58.3821, 5.9], [-36.9132, -65.0908, 4.1], [41.2786, 34.471, 5.8], [32.7159, 77.5666, 4.9], [27.6454, 78.7649, 5.7], [43.227, 29.0711, 5.2], [38.7904, -123.1218, 4.5], [44.7429, -135.6968, 5.2], [-35.7095, -71.9479, 4.3], [50.6569, -121.655, 4.8], [41.8693, -127.1021, 7.9], [36.6307, 133.7444, 5.1], [26.2223, 82.2784, 7.0], [38.3711, -121.6485, 5.1], [32.5775, -123.512, 8.6], [-23.8721, -68.012, 7.5], [28.1057, 88.6898, 5.7], [27.475, 83.238, 8.9], [-36.7782, -70.99, 5.4], [33.0765, -110.8854, 4.2], [24.9643, 75.9624, 9.0], [45.024, 33.6513, 6.0], [-40.155, -58.5701, 4.8]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 18,
+  "radius": 15,
+  "blur": 10,
+}
+            );
+        
+    
+            heat_map_64206355367af0b48f822c105022c921.addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+            var marker_cluster_f85b236232210f06bd6e21ce3da1b045 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            marker_cluster_f85b236232210f06bd6e21ce3da1b045.addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+    
+            var layer_control_c2b17ecff2303e33b64379e8b0437c7b_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_532547639b8c80e816d24ff11f8adeba,
+                    "openstreetmap" : tile_layer_5aa78cb62b1ce32fd44035a77b1b96cd,
+                    "cartodbdarkmatter" : tile_layer_17766e9445243520d4954868fe5a148f,
+                    "Stamen Terrain" : tile_layer_ec6174f124c71a512dcac2146c4858da,
+                },
+                overlays :  {
+                    "macro_element_64206355367af0b48f822c105022c921" : heat_map_64206355367af0b48f822c105022c921,
+                    "macro_element_f85b236232210f06bd6e21ce3da1b045" : marker_cluster_f85b236232210f06bd6e21ce3da1b045,
+                },
+            };
+            let layer_control_c2b17ecff2303e33b64379e8b0437c7b = L.control.layers(
+                layer_control_c2b17ecff2303e33b64379e8b0437c7b_layers.base_layers,
+                layer_control_c2b17ecff2303e33b64379e8b0437c7b_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+
+        
+    
+            var measure_control_ea4f1d8e44a112c66b66f9cdb4bdc3e4 = new L.Control.Measure(
+                {
+  "position": "topright",
+  "primaryLengthUnit": "meters",
+  "secondaryLengthUnit": "miles",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_9f56af6ea21b87ee1be5ba0c0ff7ec2e.addControl(measure_control_ea4f1d8e44a112c66b66f9cdb4bdc3e4);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_9f56af6ea21b87ee1be5ba0c0ff7ec2e);
+        
+</script>
+</html>

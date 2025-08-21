@@ -1,0 +1,3567 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9f0a2a11f6032ab78cd236ef19d59055 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    bottom: 50px; left: 50px; width: 200px; height: 140px; 
+                    border:2px solid grey; z-index:9999; font-size:14px;
+                    background-color:white;
+                    ">
+        <p style="margin: 10px; font-weight: bold;">Earthquake Magnitude</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:green"></i> &lt; 4.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:yellow"></i> 4.5 - 5.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:orange"></i> 5.5 - 6.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:red"></i> 6.5 - 7.5</p>
+        <p style="margin: 10px;"><i class="fa fa-circle" style="color:darkred"></i> &gt; 7.5</p>
+        </div>
+        
+    
+            <div class="folium-map" id="map_9f0a2a11f6032ab78cd236ef19d59055" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9f0a2a11f6032ab78cd236ef19d59055 = L.map(
+                "map_9f0a2a11f6032ab78cd236ef19d59055",
+                {
+                    center: [28.6139, 77.209],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_146fed8b346090f5464eef8fed12665f = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_146fed8b346090f5464eef8fed12665f.addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+            var tile_layer_cb258d35a3f9afac7dab31cbd133368c = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_cb258d35a3f9afac7dab31cbd133368c.addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+            var tile_layer_4648a86e7116a403c4b0e06f0a837341 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_4648a86e7116a403c4b0e06f0a837341.addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+            var tile_layer_c132dd86817b59a0f842117561fb309d = L.tileLayer(
+                "Stamen Terrain",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Map tiles by Stamen Design, CC BY 3.0 \u2014 Map data \u00a9 OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c132dd86817b59a0f842117561fb309d.addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+            var circle_marker_7f6d50849d9a9b6c61f0c9300bf11405 = L.circleMarker(
+                [28.579886325865782, 76.90211703401434],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.283445489440096, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_1c7fb362a21dc2d641e29fc113c3391b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4f427fd8fe67cb255383a22f92cb7700 = $(`<div id="html_4f427fd8fe67cb255383a22f92cb7700" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.0944818298133654</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 00:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.580, 76.902<br>                 <b>⬇️ Depth:</b> 20.2 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_1c7fb362a21dc2d641e29fc113c3391b.setContent(html_4f427fd8fe67cb255383a22f92cb7700);
+            
+        
+
+        circle_marker_7f6d50849d9a9b6c61f0c9300bf11405.bindPopup(popup_1c7fb362a21dc2d641e29fc113c3391b)
+        ;
+
+        
+    
+    
+            circle_marker_7f6d50849d9a9b6c61f0c9300bf11405.bindTooltip(
+                `<div>
+                     M1.0944818298133654 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5427ad170d280f3cf6711d4df3b05edd = L.circleMarker(
+                [28.856510856539515, 76.87510303318103],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.9871158025296864, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_e35bc81d13a44d16d8aae17fe47294d6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3f3af1ff181c1ccdca13dbc812a06ea = $(`<div id="html_d3f3af1ff181c1ccdca13dbc812a06ea" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.329038600843229</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 01:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.857, 76.875<br>                 <b>⬇️ Depth:</b> 16.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_e35bc81d13a44d16d8aae17fe47294d6.setContent(html_d3f3af1ff181c1ccdca13dbc812a06ea);
+            
+        
+
+        circle_marker_5427ad170d280f3cf6711d4df3b05edd.bindPopup(popup_e35bc81d13a44d16d8aae17fe47294d6)
+        ;
+
+        
+    
+    
+            circle_marker_5427ad170d280f3cf6711d4df3b05edd.bindTooltip(
+                `<div>
+                     M1.329038600843229 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cc4992f22984aaa3c8436ad80f7865e8 = L.circleMarker(
+                [28.751279278338977, 77.29484116803204],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.275760012862666, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_dcb66fd8fbdf6e426c1fbd91d82cf6e9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1f3026cc30f18f30ebc6c1d6fb2e3fac = $(`<div id="html_1f3026cc30f18f30ebc6c1d6fb2e3fac" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.4252533376208887</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 02:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.751, 77.295<br>                 <b>⬇️ Depth:</b> 7.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_dcb66fd8fbdf6e426c1fbd91d82cf6e9.setContent(html_1f3026cc30f18f30ebc6c1d6fb2e3fac);
+            
+        
+
+        circle_marker_cc4992f22984aaa3c8436ad80f7865e8.bindPopup(popup_dcb66fd8fbdf6e426c1fbd91d82cf6e9)
+        ;
+
+        
+    
+    
+            circle_marker_cc4992f22984aaa3c8436ad80f7865e8.bindTooltip(
+                `<div>
+                     M2.4252533376208887 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b01c5b39fb9459a0abd21e979ec06106 = L.circleMarker(
+                [28.68737059658126, 76.93505442631988],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.2844449773480555, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_6916961916667f34981bcfb226d478f8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_51ae02f0070ebb6f825e6b98f7d0e651 = $(`<div id="html_51ae02f0070ebb6f825e6b98f7d0e651" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.428148325782685</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 03:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.687, 76.935<br>                 <b>⬇️ Depth:</b> 18.2 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_6916961916667f34981bcfb226d478f8.setContent(html_51ae02f0070ebb6f825e6b98f7d0e651);
+            
+        
+
+        circle_marker_b01c5b39fb9459a0abd21e979ec06106.bindPopup(popup_6916961916667f34981bcfb226d478f8)
+        ;
+
+        
+    
+    
+            circle_marker_b01c5b39fb9459a0abd21e979ec06106.bindTooltip(
+                `<div>
+                     M2.428148325782685 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_01a969e771e0073c7d3593425c21111c = L.circleMarker(
+                [28.47482228372008, 77.25071928908409],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.945064658263732, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_d9e4f2c8261e0a5a6cef4cc085ff3204 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b639ebf067c957b472197cc7622bfe5b = $(`<div id="html_b639ebf067c957b472197cc7622bfe5b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.981688219421244</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 04:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.475, 77.251<br>                 <b>⬇️ Depth:</b> 14.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_d9e4f2c8261e0a5a6cef4cc085ff3204.setContent(html_b639ebf067c957b472197cc7622bfe5b);
+            
+        
+
+        circle_marker_01a969e771e0073c7d3593425c21111c.bindPopup(popup_d9e4f2c8261e0a5a6cef4cc085ff3204)
+        ;
+
+        
+    
+    
+            circle_marker_01a969e771e0073c7d3593425c21111c.bindTooltip(
+                `<div>
+                     M3.981688219421244 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0fd6ad0f568829cabee0d4c03cffc43a = L.circleMarker(
+                [28.474963048995352, 77.11222537636237],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.432514309467024, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_da3e57ad2081fc723e8ad69999a71374 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ac2b91b56ebf523c802d700c97e1c508 = $(`<div id="html_ac2b91b56ebf523c802d700c97e1c508" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.8108381031556746</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 05:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.475, 77.112<br>                 <b>⬇️ Depth:</b> 70.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_da3e57ad2081fc723e8ad69999a71374.setContent(html_ac2b91b56ebf523c802d700c97e1c508);
+            
+        
+
+        circle_marker_0fd6ad0f568829cabee0d4c03cffc43a.bindPopup(popup_da3e57ad2081fc723e8ad69999a71374)
+        ;
+
+        
+    
+    
+            circle_marker_0fd6ad0f568829cabee0d4c03cffc43a.bindTooltip(
+                `<div>
+                     M2.8108381031556746 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_be6fa1faaf1164bf3ce040985ac61fc8 = L.circleMarker(
+                [28.42782169782622, 76.87898837927953],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.5256624367414, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_f1729bdc1238571310a63c95873b3d94 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_01cea27a7c7b89f432fc7bc9392c6e78 = $(`<div id="html_01cea27a7c7b89f432fc7bc9392c6e78" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.175220812247133</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 06:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.428, 76.879<br>                 <b>⬇️ Depth:</b> 51.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_f1729bdc1238571310a63c95873b3d94.setContent(html_01cea27a7c7b89f432fc7bc9392c6e78);
+            
+        
+
+        circle_marker_be6fa1faaf1164bf3ce040985ac61fc8.bindPopup(popup_f1729bdc1238571310a63c95873b3d94)
+        ;
+
+        
+    
+    
+            circle_marker_be6fa1faaf1164bf3ce040985ac61fc8.bindTooltip(
+                `<div>
+                     M3.175220812247133 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_82ea9fb6839562e30ef231914430a858 = L.circleMarker(
+                [28.81582986089783, 77.31768153895482],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.8719627058040063, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_d7a853f12d2595cb571dfaa3cc9686d4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b8ceeb6f2c21a53f650d5377a0f219a6 = $(`<div id="html_b8ceeb6f2c21a53f650d5377a0f219a6" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.2906542352680022</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 07:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.816, 77.318<br>                 <b>⬇️ Depth:</b> 2.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_d7a853f12d2595cb571dfaa3cc9686d4.setContent(html_b8ceeb6f2c21a53f650d5377a0f219a6);
+            
+        
+
+        circle_marker_82ea9fb6839562e30ef231914430a858.bindPopup(popup_d7a853f12d2595cb571dfaa3cc9686d4)
+        ;
+
+        
+    
+    
+            circle_marker_82ea9fb6839562e30ef231914430a858.bindTooltip(
+                `<div>
+                     M1.2906542352680022 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b23db1eb918449d2d5be6866c5c1b72 = L.circleMarker(
+                [28.688508400239783, 76.96351826681428],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.894018453182051, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_65d7d4cb8c6d5b0170f5e6a5e04675c3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_60943d35ff4955dddbe2a3279e91bd5d = $(`<div id="html_60943d35ff4955dddbe2a3279e91bd5d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.631339484394017</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 08:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.689, 76.964<br>                 <b>⬇️ Depth:</b> 13.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_65d7d4cb8c6d5b0170f5e6a5e04675c3.setContent(html_60943d35ff4955dddbe2a3279e91bd5d);
+            
+        
+
+        circle_marker_9b23db1eb918449d2d5be6866c5c1b72.bindPopup(popup_65d7d4cb8c6d5b0170f5e6a5e04675c3)
+        ;
+
+        
+    
+    
+            circle_marker_9b23db1eb918449d2d5be6866c5c1b72.bindTooltip(
+                `<div>
+                     M3.631339484394017 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6eb47a332a0c57d8883e925f686f9d4d = L.circleMarker(
+                [28.739740687141413, 77.26991189350439],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_23366857b3643044771be7e33cc854b5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5e89851bb55de5c3c1a886459a649df9 = $(`<div id="html_5e89851bb55de5c3c1a886459a649df9" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 0.9947532524925224</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 09:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.740, 77.270<br>                 <b>⬇️ Depth:</b> 3.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_23366857b3643044771be7e33cc854b5.setContent(html_5e89851bb55de5c3c1a886459a649df9);
+            
+        
+
+        circle_marker_6eb47a332a0c57d8883e925f686f9d4d.bindPopup(popup_23366857b3643044771be7e33cc854b5)
+        ;
+
+        
+    
+    
+            circle_marker_6eb47a332a0c57d8883e925f686f9d4d.bindTooltip(
+                `<div>
+                     M0.9947532524925224 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3bf97f497cb4d8565c6df69a7ed3b032 = L.circleMarker(
+                [28.409821000609988, 76.92430838095385],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.333614426191385, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_cb5770de1ccc8bf8bcc721837fa39f7e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b5be8eb109afd0492bb8889b9036896d = $(`<div id="html_b5be8eb109afd0492bb8889b9036896d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.777871475397128</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 10:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.410, 76.924<br>                 <b>⬇️ Depth:</b> 4.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_cb5770de1ccc8bf8bcc721837fa39f7e.setContent(html_b5be8eb109afd0492bb8889b9036896d);
+            
+        
+
+        circle_marker_3bf97f497cb4d8565c6df69a7ed3b032.bindPopup(popup_cb5770de1ccc8bf8bcc721837fa39f7e)
+        ;
+
+        
+    
+    
+            circle_marker_3bf97f497cb4d8565c6df69a7ed3b032.bindTooltip(
+                `<div>
+                     M2.777871475397128 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d1ce813fa190712f65e64dd358fef967 = L.circleMarker(
+                [28.865706394824024, 77.26685400709005],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.030552562881896, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_f0009438a1aff835f1f3f88a585c3621 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f1c346d172d2fd86ea55725fa715ef05 = $(`<div id="html_f1c346d172d2fd86ea55725fa715ef05" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.343517520960632</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 11:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.866, 77.267<br>                 <b>⬇️ Depth:</b> 5.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_f0009438a1aff835f1f3f88a585c3621.setContent(html_f1c346d172d2fd86ea55725fa715ef05);
+            
+        
+
+        circle_marker_d1ce813fa190712f65e64dd358fef967.bindPopup(popup_f0009438a1aff835f1f3f88a585c3621)
+        ;
+
+        
+    
+    
+            circle_marker_d1ce813fa190712f65e64dd358fef967.bindTooltip(
+                `<div>
+                     M3.343517520960632 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6fc0bf9cc2392143405aa13356125496 = L.circleMarker(
+                [28.79959774288784, 76.8467455965963],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.803414503353546, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_0cca7a8c1eb0dfc67bb8f6a18e1db69a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2e6af43490db97a81503dc5f322ce060 = $(`<div id="html_2e6af43490db97a81503dc5f322ce060" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.267804834451182</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 12:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.800, 76.847<br>                 <b>⬇️ Depth:</b> 34.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_0cca7a8c1eb0dfc67bb8f6a18e1db69a.setContent(html_2e6af43490db97a81503dc5f322ce060);
+            
+        
+
+        circle_marker_6fc0bf9cc2392143405aa13356125496.bindPopup(popup_0cca7a8c1eb0dfc67bb8f6a18e1db69a)
+        ;
+
+        
+    
+    
+            circle_marker_6fc0bf9cc2392143405aa13356125496.bindTooltip(
+                `<div>
+                     M4.267804834451182 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1ba2afae46a6a856cee03a98f73b18ef = L.circleMarker(
+                [28.501875476868317, 77.0959239580712],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.928725047915499, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_1cfc2261f3c75ffaff5b3427017f6e38 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ee5afb95acc9ab8de0b513fee491df4d = $(`<div id="html_ee5afb95acc9ab8de0b513fee491df4d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.309575015971833</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 13:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.502, 77.096<br>                 <b>⬇️ Depth:</b> 13.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_1cfc2261f3c75ffaff5b3427017f6e38.setContent(html_ee5afb95acc9ab8de0b513fee491df4d);
+            
+        
+
+        circle_marker_1ba2afae46a6a856cee03a98f73b18ef.bindPopup(popup_1cfc2261f3c75ffaff5b3427017f6e38)
+        ;
+
+        
+    
+    
+            circle_marker_1ba2afae46a6a856cee03a98f73b18ef.bindTooltip(
+                `<div>
+                     M2.309575015971833 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9c08c9f70ff14890e2758ef6982a77b7 = L.circleMarker(
+                [28.48746281229459, 77.22482714122346],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.065290608982794, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_20c5ff3304704ed2bba568b8fffd34d0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_da0ff9e10005f273e9c75969f677c56d = $(`<div id="html_da0ff9e10005f273e9c75969f677c56d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.021763536327598</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 14:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.487, 77.225<br>                 <b>⬇️ Depth:</b> 11.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_20c5ff3304704ed2bba568b8fffd34d0.setContent(html_da0ff9e10005f273e9c75969f677c56d);
+            
+        
+
+        circle_marker_9c08c9f70ff14890e2758ef6982a77b7.bindPopup(popup_20c5ff3304704ed2bba568b8fffd34d0)
+        ;
+
+        
+    
+    
+            circle_marker_9c08c9f70ff14890e2758ef6982a77b7.bindTooltip(
+                `<div>
+                     M2.021763536327598 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d417d2bfa119d8d21ce9c0b38ea219f2 = L.circleMarker(
+                [28.48783376142409, 77.30751472050133],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.530699127018575, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_0d2f82639a59443ec1b15c09d3b6e142 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_45286c4fb9fedb580be22df32bf2efd4 = $(`<div id="html_45286c4fb9fedb580be22df32bf2efd4" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.510233042339525</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 15:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.488, 77.308<br>                 <b>⬇️ Depth:</b> 46.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_0d2f82639a59443ec1b15c09d3b6e142.setContent(html_45286c4fb9fedb580be22df32bf2efd4);
+            
+        
+
+        circle_marker_d417d2bfa119d8d21ce9c0b38ea219f2.bindPopup(popup_0d2f82639a59443ec1b15c09d3b6e142)
+        ;
+
+        
+    
+    
+            circle_marker_d417d2bfa119d8d21ce9c0b38ea219f2.bindTooltip(
+                `<div>
+                     M4.510233042339525 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e32c18a75decc313ef28e3dd0cd3c789 = L.circleMarker(
+                [28.545928189523774, 77.29447456188858],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.857719094867177, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_2812880b93ce1901f00c69f7c1d3aee2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8917dcfedee879c3456c32bdd6800fc1 = $(`<div id="html_8917dcfedee879c3456c32bdd6800fc1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.619239698289059</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 16:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.546, 77.294<br>                 <b>⬇️ Depth:</b> 2.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_2812880b93ce1901f00c69f7c1d3aee2.setContent(html_8917dcfedee879c3456c32bdd6800fc1);
+            
+        
+
+        circle_marker_e32c18a75decc313ef28e3dd0cd3c789.bindPopup(popup_2812880b93ce1901f00c69f7c1d3aee2)
+        ;
+
+        
+    
+    
+            circle_marker_e32c18a75decc313ef28e3dd0cd3c789.bindTooltip(
+                `<div>
+                     M4.619239698289059 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_caddba40351cceed388edbd8e5437138 = L.circleMarker(
+                [28.652012338348182, 77.24976411422331],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.284561859728386, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_59028053c8804d9b760c4122ccf89234 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_949e7ba2eaa1200006b1ea84cda65d3f = $(`<div id="html_949e7ba2eaa1200006b1ea84cda65d3f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.094853953242795</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 17:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.652, 77.250<br>                 <b>⬇️ Depth:</b> 58.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_59028053c8804d9b760c4122ccf89234.setContent(html_949e7ba2eaa1200006b1ea84cda65d3f);
+            
+        
+
+        circle_marker_caddba40351cceed388edbd8e5437138.bindPopup(popup_59028053c8804d9b760c4122ccf89234)
+        ;
+
+        
+    
+    
+            circle_marker_caddba40351cceed388edbd8e5437138.bindTooltip(
+                `<div>
+                     M4.094853953242795 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8ffd086b88ac56db71141be1b9a89fc7 = L.circleMarker(
+                [28.607313690578785, 77.28406617250099],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.082997959322498, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_1207ed7fcc861eab844da859c57f30f7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_02c054d050cf6c36b37242d2db243b77 = $(`<div id="html_02c054d050cf6c36b37242d2db243b77" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.360999319774166</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 18:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.607, 77.284<br>                 <b>⬇️ Depth:</b> 57.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_1207ed7fcc861eab844da859c57f30f7.setContent(html_02c054d050cf6c36b37242d2db243b77);
+            
+        
+
+        circle_marker_8ffd086b88ac56db71141be1b9a89fc7.bindPopup(popup_1207ed7fcc861eab844da859c57f30f7)
+        ;
+
+        
+    
+    
+            circle_marker_8ffd086b88ac56db71141be1b9a89fc7.bindTooltip(
+                `<div>
+                     M4.360999319774166 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_067380134c92b26ac499536003cfffa4 = L.circleMarker(
+                [28.539764903532127, 76.93959188026153],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.0996043946288125, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_04edd287a3ad7ba1b26b794ab9adf238 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4f8c3ca32240d06d1bc2870285132d1b = $(`<div id="html_4f8c3ca32240d06d1bc2870285132d1b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.366534798209604</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 19:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.540, 76.940<br>                 <b>⬇️ Depth:</b> 24.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_04edd287a3ad7ba1b26b794ab9adf238.setContent(html_4f8c3ca32240d06d1bc2870285132d1b);
+            
+        
+
+        circle_marker_067380134c92b26ac499536003cfffa4.bindPopup(popup_04edd287a3ad7ba1b26b794ab9adf238)
+        ;
+
+        
+    
+    
+            circle_marker_067380134c92b26ac499536003cfffa4.bindTooltip(
+                `<div>
+                     M1.366534798209604 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d53534df4988a4261ae71521f1104064 = L.circleMarker(
+                [28.6937215348832, 76.9820058787359],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.494544112692893, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_b9a47e39d0515e1b5c5d182582be34a5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2163b4fe3b1624ef3f3c19bfe36a86c0 = $(`<div id="html_2163b4fe3b1624ef3f3c19bfe36a86c0" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.1648480375642976</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 20:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.694, 76.982<br>                 <b>⬇️ Depth:</b> 14.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_b9a47e39d0515e1b5c5d182582be34a5.setContent(html_2163b4fe3b1624ef3f3c19bfe36a86c0);
+            
+        
+
+        circle_marker_d53534df4988a4261ae71521f1104064.bindPopup(popup_b9a47e39d0515e1b5c5d182582be34a5)
+        ;
+
+        
+    
+    
+            circle_marker_d53534df4988a4261ae71521f1104064.bindTooltip(
+                `<div>
+                     M3.1648480375642976 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d806260f9f00b1430865c523823ed496 = L.circleMarker(
+                [28.46699426524636, 76.98464642414528],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.816944745898393, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_2f51ef205ce5169c398915ae7944774c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_725a22a621a55cc88cdb6e9e80b0089f = $(`<div id="html_725a22a621a55cc88cdb6e9e80b0089f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.9389815819661311</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 21:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.467, 76.985<br>                 <b>⬇️ Depth:</b> 11.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_2f51ef205ce5169c398915ae7944774c.setContent(html_725a22a621a55cc88cdb6e9e80b0089f);
+            
+        
+
+        circle_marker_d806260f9f00b1430865c523823ed496.bindPopup(popup_2f51ef205ce5169c398915ae7944774c)
+        ;
+
+        
+    
+    
+            circle_marker_d806260f9f00b1430865c523823ed496.bindTooltip(
+                `<div>
+                     M1.9389815819661311 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7a1c8c50d3efd9eb837106a1b7937d0b = L.circleMarker(
+                [28.54007910327257, 77.02849860923722],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.316023960967957, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a89b856945db7272ee27da8baaa38c86 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_54389044c68feecac8b7dcc8bcf3304f = $(`<div id="html_54389044c68feecac8b7dcc8bcf3304f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.772007986989319</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 22:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.540, 77.028<br>                 <b>⬇️ Depth:</b> 3.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a89b856945db7272ee27da8baaa38c86.setContent(html_54389044c68feecac8b7dcc8bcf3304f);
+            
+        
+
+        circle_marker_7a1c8c50d3efd9eb837106a1b7937d0b.bindPopup(popup_a89b856945db7272ee27da8baaa38c86)
+        ;
+
+        
+    
+    
+            circle_marker_7a1c8c50d3efd9eb837106a1b7937d0b.bindTooltip(
+                `<div>
+                     M2.772007986989319 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b21aed09f610301eb6185e722f97ee4 = L.circleMarker(
+                [28.575913472146464, 77.03652430196459],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.152671016619118, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_c19a9247b178c06a486b16d01b51b148 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6e34d674bcd7ebfcbdd0ac401141597c = $(`<div id="html_6e34d674bcd7ebfcbdd0ac401141597c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.7175570055397062</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-01 23:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.576, 77.037<br>                 <b>⬇️ Depth:</b> 4.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_c19a9247b178c06a486b16d01b51b148.setContent(html_6e34d674bcd7ebfcbdd0ac401141597c);
+            
+        
+
+        circle_marker_0b21aed09f610301eb6185e722f97ee4.bindPopup(popup_c19a9247b178c06a486b16d01b51b148)
+        ;
+
+        
+    
+    
+            circle_marker_0b21aed09f610301eb6185e722f97ee4.bindTooltip(
+                `<div>
+                     M3.7175570055397062 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a1a96a90efeccfe3cd7328fe40bd5eab = L.circleMarker(
+                [28.61896634110136, 77.1123579146532],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.954976077191342, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_ca056a74a2cf89fdaecaf23501da9811 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e457e485b892babe4b5630a7d1ba8853 = $(`<div id="html_e457e485b892babe4b5630a7d1ba8853" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.984992025730447</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 00:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.619, 77.112<br>                 <b>⬇️ Depth:</b> 57.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_ca056a74a2cf89fdaecaf23501da9811.setContent(html_e457e485b892babe4b5630a7d1ba8853);
+            
+        
+
+        circle_marker_a1a96a90efeccfe3cd7328fe40bd5eab.bindPopup(popup_ca056a74a2cf89fdaecaf23501da9811)
+        ;
+
+        
+    
+    
+            circle_marker_a1a96a90efeccfe3cd7328fe40bd5eab.bindTooltip(
+                `<div>
+                     M2.984992025730447 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_100db328fe9dfa5b39b504117a0a5a81 = L.circleMarker(
+                [28.77693558636172, 76.91994478755268],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.831577325379248, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_4078973de1a3052a93fd99eee651f7cf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e4fc2345e25a5bcdf26ef13059bdb18c = $(`<div id="html_e4fc2345e25a5bcdf26ef13059bdb18c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.9438591084597494</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 01:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.777, 76.920<br>                 <b>⬇️ Depth:</b> 4.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_4078973de1a3052a93fd99eee651f7cf.setContent(html_e4fc2345e25a5bcdf26ef13059bdb18c);
+            
+        
+
+        circle_marker_100db328fe9dfa5b39b504117a0a5a81.bindPopup(popup_4078973de1a3052a93fd99eee651f7cf)
+        ;
+
+        
+    
+    
+            circle_marker_100db328fe9dfa5b39b504117a0a5a81.bindTooltip(
+                `<div>
+                     M2.9438591084597494 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6cd636c1ef5a17ac00289b36fbc58fda = L.circleMarker(
+                [28.49584137765551, 77.18561041299343],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.847226374483311, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_6458be629113588e71469bc9f98eacf5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8f0a37fbddc047b54a0342ae5ebf5b33 = $(`<div id="html_8f0a37fbddc047b54a0342ae5ebf5b33" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.282408791494437</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 02:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.496, 77.186<br>                 <b>⬇️ Depth:</b> 6.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_6458be629113588e71469bc9f98eacf5.setContent(html_8f0a37fbddc047b54a0342ae5ebf5b33);
+            
+        
+
+        circle_marker_6cd636c1ef5a17ac00289b36fbc58fda.bindPopup(popup_6458be629113588e71469bc9f98eacf5)
+        ;
+
+        
+    
+    
+            circle_marker_6cd636c1ef5a17ac00289b36fbc58fda.bindTooltip(
+                `<div>
+                     M2.282408791494437 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5a0d63ceb5b82e7d4069f3db76da2cba = L.circleMarker(
+                [28.646913393027987, 76.92362772166857],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.625530962564296, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_040c5303946374da0f2834ab8aeb942e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_808ae5dd3b1c7313e117d0b21b3ad20d = $(`<div id="html_808ae5dd3b1c7313e117d0b21b3ad20d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.5418436541880989</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 03:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.647, 76.924<br>                 <b>⬇️ Depth:</b> 4.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_040c5303946374da0f2834ab8aeb942e.setContent(html_808ae5dd3b1c7313e117d0b21b3ad20d);
+            
+        
+
+        circle_marker_5a0d63ceb5b82e7d4069f3db76da2cba.bindPopup(popup_040c5303946374da0f2834ab8aeb942e)
+        ;
+
+        
+    
+    
+            circle_marker_5a0d63ceb5b82e7d4069f3db76da2cba.bindTooltip(
+                `<div>
+                     M1.5418436541880989 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ec8d3bf2a7a40d19b0d231c301cf7e63 = L.circleMarker(
+                [28.684455774015536, 76.99524083460038],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.118910241733422, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a710872d29e780c624c0210cf60ddd3e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b3047c22a242d148fecc0df8a2508ebe = $(`<div id="html_b3047c22a242d148fecc0df8a2508ebe" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.7063034139111406</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 04:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.684, 76.995<br>                 <b>⬇️ Depth:</b> 2.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a710872d29e780c624c0210cf60ddd3e.setContent(html_b3047c22a242d148fecc0df8a2508ebe);
+            
+        
+
+        circle_marker_ec8d3bf2a7a40d19b0d231c301cf7e63.bindPopup(popup_a710872d29e780c624c0210cf60ddd3e)
+        ;
+
+        
+    
+    
+            circle_marker_ec8d3bf2a7a40d19b0d231c301cf7e63.bindTooltip(
+                `<div>
+                     M1.7063034139111406 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9204dcc6eb58b33e7055881d07f8d1df = L.circleMarker(
+                [28.422360968397797, 77.09162001144519],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.899185465995954, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a205b8880f8bf20d7dfef832ee451074 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8a3c56241725d779ceb18332fdd194c5 = $(`<div id="html_8a3c56241725d779ceb18332fdd194c5" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.6330618219986515</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 05:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.422, 77.092<br>                 <b>⬇️ Depth:</b> 2.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a205b8880f8bf20d7dfef832ee451074.setContent(html_8a3c56241725d779ceb18332fdd194c5);
+            
+        
+
+        circle_marker_9204dcc6eb58b33e7055881d07f8d1df.bindPopup(popup_a205b8880f8bf20d7dfef832ee451074)
+        ;
+
+        
+    
+    
+            circle_marker_9204dcc6eb58b33e7055881d07f8d1df.bindTooltip(
+                `<div>
+                     M2.6330618219986515 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_257443c0b22a66f0d279c65556400bd0 = L.circleMarker(
+                [28.691633217172186, 77.23833346321625],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.088119254127005, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_30aa9e8218937ba32454265828323cbb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1bdf1e6eb92ef958c118ad1c481299b6 = $(`<div id="html_1bdf1e6eb92ef958c118ad1c481299b6" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.0293730847090017</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 06:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.692, 77.238<br>                 <b>⬇️ Depth:</b> 34.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_30aa9e8218937ba32454265828323cbb.setContent(html_1bdf1e6eb92ef958c118ad1c481299b6);
+            
+        
+
+        circle_marker_257443c0b22a66f0d279c65556400bd0.bindPopup(popup_30aa9e8218937ba32454265828323cbb)
+        ;
+
+        
+    
+    
+            circle_marker_257443c0b22a66f0d279c65556400bd0.bindTooltip(
+                `<div>
+                     M3.0293730847090017 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f9353ad92c699b4a209b3a855eb443ac = L.circleMarker(
+                [28.48191553785795, 77.2098502911243],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.341060540056866, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_04a2a5e306241fc4700904b7c548830c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7705557e8a4f49f64dc7c4f4ee62a8b5 = $(`<div id="html_7705557e8a4f49f64dc7c4f4ee62a8b5" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.7803535133522885</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 07:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.482, 77.210<br>                 <b>⬇️ Depth:</b> 9.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_04a2a5e306241fc4700904b7c548830c.setContent(html_7705557e8a4f49f64dc7c4f4ee62a8b5);
+            
+        
+
+        circle_marker_f9353ad92c699b4a209b3a855eb443ac.bindPopup(popup_04a2a5e306241fc4700904b7c548830c)
+        ;
+
+        
+    
+    
+            circle_marker_f9353ad92c699b4a209b3a855eb443ac.bindTooltip(
+                `<div>
+                     M2.7803535133522885 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_15be7795afd43633c913dc2d992e412b = L.circleMarker(
+                [28.431122697694903, 77.16258936605048],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.1991745448444044, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_49b454b220ef7f33d7e2d09ee982eed2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_18c4a97778a0881f925346f900fef5da = $(`<div id="html_18c4a97778a0881f925346f900fef5da" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.399724848281468</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 08:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.431, 77.163<br>                 <b>⬇️ Depth:</b> 4.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_49b454b220ef7f33d7e2d09ee982eed2.setContent(html_18c4a97778a0881f925346f900fef5da);
+            
+        
+
+        circle_marker_15be7795afd43633c913dc2d992e412b.bindPopup(popup_49b454b220ef7f33d7e2d09ee982eed2)
+        ;
+
+        
+    
+    
+            circle_marker_15be7795afd43633c913dc2d992e412b.bindTooltip(
+                `<div>
+                     M2.399724848281468 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_21aefae48e0a3f8ad5eaffaea30c2fe7 = L.circleMarker(
+                [28.855637230492523, 76.91800874095195],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.2440838496377005, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_6bce534cdb9079de015f96e2207b2f10 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d9b6a39b0a3dc70d88a3a6294fb086fc = $(`<div id="html_d9b6a39b0a3dc70d88a3a6294fb086fc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.4146946165459</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 09:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.856, 76.918<br>                 <b>⬇️ Depth:</b> 14.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_6bce534cdb9079de015f96e2207b2f10.setContent(html_d9b6a39b0a3dc70d88a3a6294fb086fc);
+            
+        
+
+        circle_marker_21aefae48e0a3f8ad5eaffaea30c2fe7.bindPopup(popup_6bce534cdb9079de015f96e2207b2f10)
+        ;
+
+        
+    
+    
+            circle_marker_21aefae48e0a3f8ad5eaffaea30c2fe7.bindTooltip(
+                `<div>
+                     M1.4146946165459 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_708e6eeb9476412a7161d886053e6418 = L.circleMarker(
+                [28.86372418118351, 77.11349783254286],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.089270355508209, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a08ccf9e74dfb36bb30e9aa8e9f6a059 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2fa0024ace7cbebb08b0a5f67a604929 = $(`<div id="html_2fa0024ace7cbebb08b0a5f67a604929" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.6964234518360697</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 10:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.864, 77.113<br>                 <b>⬇️ Depth:</b> 66.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a08ccf9e74dfb36bb30e9aa8e9f6a059.setContent(html_2fa0024ace7cbebb08b0a5f67a604929);
+            
+        
+
+        circle_marker_708e6eeb9476412a7161d886053e6418.bindPopup(popup_a08ccf9e74dfb36bb30e9aa8e9f6a059)
+        ;
+
+        
+    
+    
+            circle_marker_708e6eeb9476412a7161d886053e6418.bindTooltip(
+                `<div>
+                     M2.6964234518360697 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ced6941e7dec95bfde875520224b9826 = L.circleMarker(
+                [28.788031164666062, 76.88358010241711],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.152361637088896, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_0a2e741ba79447292bc75a159f177a01 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6a26ef8e743845f0d591c31f0251b78c = $(`<div id="html_6a26ef8e743845f0d591c31f0251b78c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.3841205456962988</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 11:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.788, 76.884<br>                 <b>⬇️ Depth:</b> 2.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_0a2e741ba79447292bc75a159f177a01.setContent(html_6a26ef8e743845f0d591c31f0251b78c);
+            
+        
+
+        circle_marker_ced6941e7dec95bfde875520224b9826.bindPopup(popup_0a2e741ba79447292bc75a159f177a01)
+        ;
+
+        
+    
+    
+            circle_marker_ced6941e7dec95bfde875520224b9826.bindTooltip(
+                `<div>
+                     M1.3841205456962988 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24896cc1bce462ece9542ba71c292204 = L.circleMarker(
+                [28.54633151394728, 77.02869642998509],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.167890756318867, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_90b1b6392d93d659d6f4c993a4100a6f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_29051f6db3add323a8afd812e8fa9d9a = $(`<div id="html_29051f6db3add323a8afd812e8fa9d9a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.722630252106289</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 12:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.546, 77.029<br>                 <b>⬇️ Depth:</b> 64.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_90b1b6392d93d659d6f4c993a4100a6f.setContent(html_29051f6db3add323a8afd812e8fa9d9a);
+            
+        
+
+        circle_marker_24896cc1bce462ece9542ba71c292204.bindPopup(popup_90b1b6392d93d659d6f4c993a4100a6f)
+        ;
+
+        
+    
+    
+            circle_marker_24896cc1bce462ece9542ba71c292204.bindTooltip(
+                `<div>
+                     M3.722630252106289 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bdf3f29cc425140c63ec9629ef79abea = L.circleMarker(
+                [28.446885826000788, 77.04674344036131],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.401612455324133, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_0a8d4df7b7321ac4df9036c23173ba33 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_95dcc29b1e2974b1d2106569fd37ba27 = $(`<div id="html_95dcc29b1e2974b1d2106569fd37ba27" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.1338708184413777</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 13:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.447, 77.047<br>                 <b>⬇️ Depth:</b> 25.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_0a8d4df7b7321ac4df9036c23173ba33.setContent(html_95dcc29b1e2974b1d2106569fd37ba27);
+            
+        
+
+        circle_marker_bdf3f29cc425140c63ec9629ef79abea.bindPopup(popup_0a8d4df7b7321ac4df9036c23173ba33)
+        ;
+
+        
+    
+    
+            circle_marker_bdf3f29cc425140c63ec9629ef79abea.bindTooltip(
+                `<div>
+                     M2.1338708184413777 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_964f34e466bf5c6d3f79f44c78c5f511 = L.circleMarker(
+                [28.728361167882984, 76.85976423562607],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.899969014941443, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_771b2be3e6146083844eb4fb8a4ec2a8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_28a7a025c926d5893a52f05d0bc38311 = $(`<div id="html_28a7a025c926d5893a52f05d0bc38311" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.633323004980481</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 14:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.728, 76.860<br>                 <b>⬇️ Depth:</b> 5.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_771b2be3e6146083844eb4fb8a4ec2a8.setContent(html_28a7a025c926d5893a52f05d0bc38311);
+            
+        
+
+        circle_marker_964f34e466bf5c6d3f79f44c78c5f511.bindPopup(popup_771b2be3e6146083844eb4fb8a4ec2a8)
+        ;
+
+        
+    
+    
+            circle_marker_964f34e466bf5c6d3f79f44c78c5f511.bindTooltip(
+                `<div>
+                     M1.633323004980481 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_086e57f0afab3e1615400cf5f6f6ebec = L.circleMarker(
+                [28.611300127330637, 76.97701732341578],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.712499763932017, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_7bfdcad163bd322c98d3060020db069c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b8dad9222136f7ad3cadf5e84f4bc38 = $(`<div id="html_4b8dad9222136f7ad3cadf5e84f4bc38" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.2374999213106723</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 15:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.611, 76.977<br>                 <b>⬇️ Depth:</b> 9.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_7bfdcad163bd322c98d3060020db069c.setContent(html_4b8dad9222136f7ad3cadf5e84f4bc38);
+            
+        
+
+        circle_marker_086e57f0afab3e1615400cf5f6f6ebec.bindPopup(popup_7bfdcad163bd322c98d3060020db069c)
+        ;
+
+        
+    
+    
+            circle_marker_086e57f0afab3e1615400cf5f6f6ebec.bindTooltip(
+                `<div>
+                     M1.2374999213106723 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c0f5e35a9e7784ef0cad8eda91efff0f = L.circleMarker(
+                [28.45873652299894, 77.31793052930747],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.7920058313878995, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_130870b8eac75752c0bcc16dc758a274 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_552e755522891a887f2ce67822a4d817 = $(`<div id="html_552e755522891a887f2ce67822a4d817" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.5973352771293</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 16:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.459, 77.318<br>                 <b>⬇️ Depth:</b> 35.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_130870b8eac75752c0bcc16dc758a274.setContent(html_552e755522891a887f2ce67822a4d817);
+            
+        
+
+        circle_marker_c0f5e35a9e7784ef0cad8eda91efff0f.bindPopup(popup_130870b8eac75752c0bcc16dc758a274)
+        ;
+
+        
+    
+    
+            circle_marker_c0f5e35a9e7784ef0cad8eda91efff0f.bindTooltip(
+                `<div>
+                     M1.5973352771293 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fdb554b2e1b4a3ace46395f18d252f53 = L.circleMarker(
+                [28.637810868151032, 77.31680144919024],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.222857517337577, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_213e8601f62d10be09cea3002a3c3ca8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_86034bbd8b4b38f951036a8a0eb18ba9 = $(`<div id="html_86034bbd8b4b38f951036a8a0eb18ba9" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.740952505779192</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 17:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.638, 77.317<br>                 <b>⬇️ Depth:</b> 16.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_213e8601f62d10be09cea3002a3c3ca8.setContent(html_86034bbd8b4b38f951036a8a0eb18ba9);
+            
+        
+
+        circle_marker_fdb554b2e1b4a3ace46395f18d252f53.bindPopup(popup_213e8601f62d10be09cea3002a3c3ca8)
+        ;
+
+        
+    
+    
+            circle_marker_fdb554b2e1b4a3ace46395f18d252f53.bindTooltip(
+                `<div>
+                     M3.740952505779192 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dbfa16d0451172374f56e31f7b35098e = L.circleMarker(
+                [28.41657419312224, 77.01614712882821],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.455541422426038, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_f7189439950aa35cd868d5b95f1a9386 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_66d053bb2cdd9460cb05bcf4e32cb5b4 = $(`<div id="html_66d053bb2cdd9460cb05bcf4e32cb5b4" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.1518471408086794</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 18:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.417, 77.016<br>                 <b>⬇️ Depth:</b> 32.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_f7189439950aa35cd868d5b95f1a9386.setContent(html_66d053bb2cdd9460cb05bcf4e32cb5b4);
+            
+        
+
+        circle_marker_dbfa16d0451172374f56e31f7b35098e.bindPopup(popup_f7189439950aa35cd868d5b95f1a9386)
+        ;
+
+        
+    
+    
+            circle_marker_dbfa16d0451172374f56e31f7b35098e.bindTooltip(
+                `<div>
+                     M2.1518471408086794 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f5c0f8e7f4f06eee92d78a3bc3c95eb = L.circleMarker(
+                [28.83647921282492, 76.86144529322318],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.185478689048577, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_c0e9ccb6e051063464f5ca6759721c82 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b71148c25054998d58ad318eda26c965 = $(`<div id="html_b71148c25054998d58ad318eda26c965" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.3951595630161924</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 19:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.836, 76.861<br>                 <b>⬇️ Depth:</b> 2.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_c0e9ccb6e051063464f5ca6759721c82.setContent(html_b71148c25054998d58ad318eda26c965);
+            
+        
+
+        circle_marker_7f5c0f8e7f4f06eee92d78a3bc3c95eb.bindPopup(popup_c0e9ccb6e051063464f5ca6759721c82)
+        ;
+
+        
+    
+    
+            circle_marker_7f5c0f8e7f4f06eee92d78a3bc3c95eb.bindTooltip(
+                `<div>
+                     M2.3951595630161924 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_baf88dcd0c528895fe62c180b39463de = L.circleMarker(
+                [28.52426382696999, 76.9295906883317],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.160977126445346, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_5dfcb442386f5214d705546f860c98be = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7d18511f3e42b529b069b3ee1113300e = $(`<div id="html_7d18511f3e42b529b069b3ee1113300e" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.386992375481782</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 20:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.524, 76.930<br>                 <b>⬇️ Depth:</b> 20.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_5dfcb442386f5214d705546f860c98be.setContent(html_7d18511f3e42b529b069b3ee1113300e);
+            
+        
+
+        circle_marker_baf88dcd0c528895fe62c180b39463de.bindPopup(popup_5dfcb442386f5214d705546f860c98be)
+        ;
+
+        
+    
+    
+            circle_marker_baf88dcd0c528895fe62c180b39463de.bindTooltip(
+                `<div>
+                     M4.386992375481782 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e5d6cfcdee30a0b469ad026a75449068 = L.circleMarker(
+                [28.717872347055376, 77.03619058249483],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.827110015818653, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_2591c3548474ea05d0a9a7f338046cf7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_36d1bb6c3e1030ffcbd382ada61858ff = $(`<div id="html_36d1bb6c3e1030ffcbd382ada61858ff" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.9423700052728845</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 21:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.718, 77.036<br>                 <b>⬇️ Depth:</b> 10.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_2591c3548474ea05d0a9a7f338046cf7.setContent(html_36d1bb6c3e1030ffcbd382ada61858ff);
+            
+        
+
+        circle_marker_e5d6cfcdee30a0b469ad026a75449068.bindPopup(popup_2591c3548474ea05d0a9a7f338046cf7)
+        ;
+
+        
+    
+    
+            circle_marker_e5d6cfcdee30a0b469ad026a75449068.bindTooltip(
+                `<div>
+                     M1.9423700052728845 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ae376dd8da4ca3c2e983cb6846ccc57 = L.circleMarker(
+                [28.549476813481768, 77.31388147025791],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.271068811499903, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_f27bde931ba2ebc2d457da6054d2a270 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4c0bcbdaa79b3f79473300ad69a77cd0 = $(`<div id="html_4c0bcbdaa79b3f79473300ad69a77cd0" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.7570229371666346</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 22:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.549, 77.314<br>                 <b>⬇️ Depth:</b> 45.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_f27bde931ba2ebc2d457da6054d2a270.setContent(html_4c0bcbdaa79b3f79473300ad69a77cd0);
+            
+        
+
+        circle_marker_3ae376dd8da4ca3c2e983cb6846ccc57.bindPopup(popup_f27bde931ba2ebc2d457da6054d2a270)
+        ;
+
+        
+    
+    
+            circle_marker_3ae376dd8da4ca3c2e983cb6846ccc57.bindTooltip(
+                `<div>
+                     M2.7570229371666346 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_26b44178afbcfe4551dda6682924d06c = L.circleMarker(
+                [28.64944772532324, 76.91058878756452],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.780358963447227, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_e7cb866beb9def1f6ea6c842087965b6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_244f733da1dba2182f4e823ccae2687c = $(`<div id="html_244f733da1dba2182f4e823ccae2687c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.9267863211490757</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-02 23:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.649, 76.911<br>                 <b>⬇️ Depth:</b> 54.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_e7cb866beb9def1f6ea6c842087965b6.setContent(html_244f733da1dba2182f4e823ccae2687c);
+            
+        
+
+        circle_marker_26b44178afbcfe4551dda6682924d06c.bindPopup(popup_e7cb866beb9def1f6ea6c842087965b6)
+        ;
+
+        
+    
+    
+            circle_marker_26b44178afbcfe4551dda6682924d06c.bindTooltip(
+                `<div>
+                     M1.9267863211490757 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e3f947a2592d231b1bc6b871dd7dd85 = L.circleMarker(
+                [28.66240309389376, 77.22181504422227],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.878460120278032, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_c5daf58c4e64f477cb997a572a40d716 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_18196e23cd7ec44844fa9d1d73579e0d = $(`<div id="html_18196e23cd7ec44844fa9d1d73579e0d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.2928200400926775</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 00:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.662, 77.222<br>                 <b>⬇️ Depth:</b> 11.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_c5daf58c4e64f477cb997a572a40d716.setContent(html_18196e23cd7ec44844fa9d1d73579e0d);
+            
+        
+
+        circle_marker_2e3f947a2592d231b1bc6b871dd7dd85.bindPopup(popup_c5daf58c4e64f477cb997a572a40d716)
+        ;
+
+        
+    
+    
+            circle_marker_2e3f947a2592d231b1bc6b871dd7dd85.bindTooltip(
+                `<div>
+                     M4.2928200400926775 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_19c059d6bec04c54499a170316146a81 = L.circleMarker(
+                [28.488654114545252, 76.89441098060534],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.743883691818958, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_000ec6a4ec9f3e1ee735b8e38c9469ad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_54728fd3e608ef02f674b6a31f34f95f = $(`<div id="html_54728fd3e608ef02f674b6a31f34f95f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.581294563939653</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 01:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.489, 76.894<br>                 <b>⬇️ Depth:</b> 15.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_000ec6a4ec9f3e1ee735b8e38c9469ad.setContent(html_54728fd3e608ef02f674b6a31f34f95f);
+            
+        
+
+        circle_marker_19c059d6bec04c54499a170316146a81.bindPopup(popup_000ec6a4ec9f3e1ee735b8e38c9469ad)
+        ;
+
+        
+    
+    
+            circle_marker_19c059d6bec04c54499a170316146a81.bindTooltip(
+                `<div>
+                     M3.581294563939653 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d79b9b6f67f34913f5d44dde42477ef4 = L.circleMarker(
+                [28.86543669105415, 77.33075456145018],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.113077093488412, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_8d9a7e12a2ec4676bcd523ae8310e733 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e5310af51e23e9fbefe7f117c0d40050 = $(`<div id="html_e5310af51e23e9fbefe7f117c0d40050" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.704359031162804</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 02:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.865, 77.331<br>                 <b>⬇️ Depth:</b> 21.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_8d9a7e12a2ec4676bcd523ae8310e733.setContent(html_e5310af51e23e9fbefe7f117c0d40050);
+            
+        
+
+        circle_marker_d79b9b6f67f34913f5d44dde42477ef4.bindPopup(popup_8d9a7e12a2ec4676bcd523ae8310e733)
+        ;
+
+        
+    
+    
+            circle_marker_d79b9b6f67f34913f5d44dde42477ef4.bindTooltip(
+                `<div>
+                     M1.704359031162804 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_067b1a8ccad88b96646274cec6f6a9c5 = L.circleMarker(
+                [28.77204888433147, 77.03073545620364],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.047722327129437, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_7a8a8b8e9af654c8f35580c77a7a9fd8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7d6a5e0f5901c2f8510d832932fd108b = $(`<div id="html_7d6a5e0f5901c2f8510d832932fd108b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.6825741090431454</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 03:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.772, 77.031<br>                 <b>⬇️ Depth:</b> 2.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_7a8a8b8e9af654c8f35580c77a7a9fd8.setContent(html_7d6a5e0f5901c2f8510d832932fd108b);
+            
+        
+
+        circle_marker_067b1a8ccad88b96646274cec6f6a9c5.bindPopup(popup_7a8a8b8e9af654c8f35580c77a7a9fd8)
+        ;
+
+        
+    
+    
+            circle_marker_067b1a8ccad88b96646274cec6f6a9c5.bindTooltip(
+                `<div>
+                     M3.6825741090431454 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e7c7dab93ee1101ba4a043f152cdd4d3 = L.circleMarker(
+                [28.85080075157546, 77.22779643541003],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.637225187992417, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_7be692846d9c62940c13a43885a05275 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a78cd907e904c6cca6452403636a2cb1 = $(`<div id="html_a78cd907e904c6cca6452403636a2cb1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.2124083959974725</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 04:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.851, 77.228<br>                 <b>⬇️ Depth:</b> 2.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_7be692846d9c62940c13a43885a05275.setContent(html_a78cd907e904c6cca6452403636a2cb1);
+            
+        
+
+        circle_marker_e7c7dab93ee1101ba4a043f152cdd4d3.bindPopup(popup_7be692846d9c62940c13a43885a05275)
+        ;
+
+        
+    
+    
+            circle_marker_e7c7dab93ee1101ba4a043f152cdd4d3.bindTooltip(
+                `<div>
+                     M2.2124083959974725 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c01b09d127ed0392c841ba0b116f038 = L.circleMarker(
+                [28.829291851859743, 77.01130284438628],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.786112367035159, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_3f8f043b7e9ef903b0070314616f56ee = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_837605ddd117a016a1aae349ff3ba087 = $(`<div id="html_837605ddd117a016a1aae349ff3ba087" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.262037455678386</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 05:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.829, 77.011<br>                 <b>⬇️ Depth:</b> 5.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_3f8f043b7e9ef903b0070314616f56ee.setContent(html_837605ddd117a016a1aae349ff3ba087);
+            
+        
+
+        circle_marker_3c01b09d127ed0392c841ba0b116f038.bindPopup(popup_3f8f043b7e9ef903b0070314616f56ee)
+        ;
+
+        
+    
+    
+            circle_marker_3c01b09d127ed0392c841ba0b116f038.bindTooltip(
+                `<div>
+                     M4.262037455678386 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ac395fcf267e2fa7057f1a2946f67535 = L.circleMarker(
+                [28.686996927633096, 77.153739541117],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.262516741789174, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_2f8cd5bba64dbbe36ae3dd60fd73e1fb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3bc81760fd4b213e7ba191d6deda3854 = $(`<div id="html_3bc81760fd4b213e7ba191d6deda3854" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.4208389139297246</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 06:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.687, 77.154<br>                 <b>⬇️ Depth:</b> 1.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_2f8cd5bba64dbbe36ae3dd60fd73e1fb.setContent(html_3bc81760fd4b213e7ba191d6deda3854);
+            
+        
+
+        circle_marker_ac395fcf267e2fa7057f1a2946f67535.bindPopup(popup_2f8cd5bba64dbbe36ae3dd60fd73e1fb)
+        ;
+
+        
+    
+    
+            circle_marker_ac395fcf267e2fa7057f1a2946f67535.bindTooltip(
+                `<div>
+                     M2.4208389139297246 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2a65197a35fca4808adcde1f4c52818b = L.circleMarker(
+                [28.8424602001497, 76.93598777189604],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.24737922067482, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_3d4ff08d114395097d21d5fe6bbda983 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4174c10bb18039dabd54efe5f492f186 = $(`<div id="html_4174c10bb18039dabd54efe5f492f186" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.08245974022494</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 07:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.842, 76.936<br>                 <b>⬇️ Depth:</b> 47.2 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_3d4ff08d114395097d21d5fe6bbda983.setContent(html_4174c10bb18039dabd54efe5f492f186);
+            
+        
+
+        circle_marker_2a65197a35fca4808adcde1f4c52818b.bindPopup(popup_3d4ff08d114395097d21d5fe6bbda983)
+        ;
+
+        
+    
+    
+            circle_marker_2a65197a35fca4808adcde1f4c52818b.bindTooltip(
+                `<div>
+                     M4.08245974022494 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2aa4da3a9275e3bf307bcd95490e855d = L.circleMarker(
+                [28.442401796343244, 76.91322109667492],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.343164570056768, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_b41e31f00eca124830cbcb34792c716a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1338f596c541ae91c4ea2fbc7ae7cd73 = $(`<div id="html_1338f596c541ae91c4ea2fbc7ae7cd73" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 5.447721523352256</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 08:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.442, 76.913<br>                 <b>⬇️ Depth:</b> 3.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_b41e31f00eca124830cbcb34792c716a.setContent(html_1338f596c541ae91c4ea2fbc7ae7cd73);
+            
+        
+
+        circle_marker_2aa4da3a9275e3bf307bcd95490e855d.bindPopup(popup_b41e31f00eca124830cbcb34792c716a)
+        ;
+
+        
+    
+    
+            circle_marker_2aa4da3a9275e3bf307bcd95490e855d.bindTooltip(
+                `<div>
+                     M5.447721523352256 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_162238108995b288e45a00b511fe7daa = L.circleMarker(
+                [28.494189796648936, 77.3091638573717],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.5488869173929345, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_0bc5e3e9469b160c0b6a6bc3c484e94a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d36c88122adb01381f52ad7a1f41c6c6 = $(`<div id="html_d36c88122adb01381f52ad7a1f41c6c6" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.182962305797645</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 09:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.494, 77.309<br>                 <b>⬇️ Depth:</b> 1.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_0bc5e3e9469b160c0b6a6bc3c484e94a.setContent(html_d36c88122adb01381f52ad7a1f41c6c6);
+            
+        
+
+        circle_marker_162238108995b288e45a00b511fe7daa.bindPopup(popup_0bc5e3e9469b160c0b6a6bc3c484e94a)
+        ;
+
+        
+    
+    
+            circle_marker_162238108995b288e45a00b511fe7daa.bindTooltip(
+                `<div>
+                     M2.182962305797645 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_426316cdbeb22570742406b5e8089250 = L.circleMarker(
+                [28.421533709680247, 77.29873339910205],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.180882010802909, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_afe667996100dd86655469749975a2c4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fadbd731873967787284fd1641953af0 = $(`<div id="html_fadbd731873967787284fd1641953af0" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.0602940036009696</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 10:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.422, 77.299<br>                 <b>⬇️ Depth:</b> 6.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_afe667996100dd86655469749975a2c4.setContent(html_fadbd731873967787284fd1641953af0);
+            
+        
+
+        circle_marker_426316cdbeb22570742406b5e8089250.bindPopup(popup_afe667996100dd86655469749975a2c4)
+        ;
+
+        
+    
+    
+            circle_marker_426316cdbeb22570742406b5e8089250.bindTooltip(
+                `<div>
+                     M2.0602940036009696 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_31bf429973ee01e038917a7bf8c593f1 = L.circleMarker(
+                [28.55606468333032, 77.28381076048585],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.561672366481305, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_7584a85a1f4d41bb61a38fbb21e120f1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a5cd37e347d3f87cf42eeb575600b981 = $(`<div id="html_a5cd37e347d3f87cf42eeb575600b981" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.8538907888271017</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 11:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.556, 77.284<br>                 <b>⬇️ Depth:</b> 11.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_7584a85a1f4d41bb61a38fbb21e120f1.setContent(html_a5cd37e347d3f87cf42eeb575600b981);
+            
+        
+
+        circle_marker_31bf429973ee01e038917a7bf8c593f1.bindPopup(popup_7584a85a1f4d41bb61a38fbb21e120f1)
+        ;
+
+        
+    
+    
+            circle_marker_31bf429973ee01e038917a7bf8c593f1.bindTooltip(
+                `<div>
+                     M2.8538907888271017 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ad9780719b81780ee523840567eea10b = L.circleMarker(
+                [28.586563848026262, 77.15264423086835],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.328826738145132, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_e61cbd6628c46d5e00f04fc0011ad7ad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_30f4cd74de8f811cc8252ef801ccc0e3 = $(`<div id="html_30f4cd74de8f811cc8252ef801ccc0e3" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.109608912715044</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 12:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.587, 77.153<br>                 <b>⬇️ Depth:</b> 12.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_e61cbd6628c46d5e00f04fc0011ad7ad.setContent(html_30f4cd74de8f811cc8252ef801ccc0e3);
+            
+        
+
+        circle_marker_ad9780719b81780ee523840567eea10b.bindPopup(popup_e61cbd6628c46d5e00f04fc0011ad7ad)
+        ;
+
+        
+    
+    
+            circle_marker_ad9780719b81780ee523840567eea10b.bindTooltip(
+                `<div>
+                     M4.109608912715044 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6f8e901fd882bad21f217593c212d944 = L.circleMarker(
+                [28.5304067024206, 77.24419788257683],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.286340965311553, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_3781519be2d30f361d3939a33176d076 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ece728ead037ecf70d582a9a86964b9d = $(`<div id="html_ece728ead037ecf70d582a9a86964b9d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.0954469884371845</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 13:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.530, 77.244<br>                 <b>⬇️ Depth:</b> 1.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_3781519be2d30f361d3939a33176d076.setContent(html_ece728ead037ecf70d582a9a86964b9d);
+            
+        
+
+        circle_marker_6f8e901fd882bad21f217593c212d944.bindPopup(popup_3781519be2d30f361d3939a33176d076)
+        ;
+
+        
+    
+    
+            circle_marker_6f8e901fd882bad21f217593c212d944.bindTooltip(
+                `<div>
+                     M3.0954469884371845 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aae77d37ea0324db523c746838a8b0c4 = L.circleMarker(
+                [28.79770184930048, 76.87448203257065],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.289540678327729, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_655c2ac016fd13a2adcfd0be8758b783 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_06397a85d3177a5a701d05d26ddc8aeb = $(`<div id="html_06397a85d3177a5a701d05d26ddc8aeb" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.763180226109243</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 14:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.798, 76.874<br>                 <b>⬇️ Depth:</b> 9.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_655c2ac016fd13a2adcfd0be8758b783.setContent(html_06397a85d3177a5a701d05d26ddc8aeb);
+            
+        
+
+        circle_marker_aae77d37ea0324db523c746838a8b0c4.bindPopup(popup_655c2ac016fd13a2adcfd0be8758b783)
+        ;
+
+        
+    
+    
+            circle_marker_aae77d37ea0324db523c746838a8b0c4.bindTooltip(
+                `<div>
+                     M1.763180226109243 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a281efc8459353d1f56a4283b9e99663 = L.circleMarker(
+                [28.57118704839186, 77.007417256488],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.255619913269392, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_efc50c22b614641992030c6a0194e5f6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1df02327e4c1e4246a3ba56f718e588f = $(`<div id="html_1df02327e4c1e4246a3ba56f718e588f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.085206637756464</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 15:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.571, 77.007<br>                 <b>⬇️ Depth:</b> 11.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_efc50c22b614641992030c6a0194e5f6.setContent(html_1df02327e4c1e4246a3ba56f718e588f);
+            
+        
+
+        circle_marker_a281efc8459353d1f56a4283b9e99663.bindPopup(popup_efc50c22b614641992030c6a0194e5f6)
+        ;
+
+        
+    
+    
+            circle_marker_a281efc8459353d1f56a4283b9e99663.bindTooltip(
+                `<div>
+                     M4.085206637756464 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4784ff778782dc3736587cf5e0ac0f0f = L.circleMarker(
+                [28.534803080871885, 76.99683853806809],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.157525345973669, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_e985092a567268db85f2aa53665a2fc5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d70020be5b1d5bb88d027fb2c4e33c33 = $(`<div id="html_d70020be5b1d5bb88d027fb2c4e33c33" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.385841781991223</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 16:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.535, 76.997<br>                 <b>⬇️ Depth:</b> 3.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_e985092a567268db85f2aa53665a2fc5.setContent(html_d70020be5b1d5bb88d027fb2c4e33c33);
+            
+        
+
+        circle_marker_4784ff778782dc3736587cf5e0ac0f0f.bindPopup(popup_e985092a567268db85f2aa53665a2fc5)
+        ;
+
+        
+    
+    
+            circle_marker_4784ff778782dc3736587cf5e0ac0f0f.bindTooltip(
+                `<div>
+                     M1.385841781991223 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c59aa5f18f219b38b4e8060ea00ed887 = L.circleMarker(
+                [28.66056279632877, 77.15788861427917],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.6485816164520415, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_f6060780e1de856cf19c6cc21fd8e685 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b591f09a7f5f871779623e2be2f5fd26 = $(`<div id="html_b591f09a7f5f871779623e2be2f5fd26" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.5495272054840137</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 17:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.661, 77.158<br>                 <b>⬇️ Depth:</b> 22.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_f6060780e1de856cf19c6cc21fd8e685.setContent(html_b591f09a7f5f871779623e2be2f5fd26);
+            
+        
+
+        circle_marker_c59aa5f18f219b38b4e8060ea00ed887.bindPopup(popup_f6060780e1de856cf19c6cc21fd8e685)
+        ;
+
+        
+    
+    
+            circle_marker_c59aa5f18f219b38b4e8060ea00ed887.bindTooltip(
+                `<div>
+                     M2.5495272054840137 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e0382962dd4e58e70c6ae56cf0c65495 = L.circleMarker(
+                [28.467468774077734, 77.01797340314776],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.013693167391997, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_075e7dde7dd88d9a4ac7bc059237f161 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_78297d1ed6a5d8ee2bd2722b15a47ce1 = $(`<div id="html_78297d1ed6a5d8ee2bd2722b15a47ce1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.6712310557973322</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 18:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.467, 77.018<br>                 <b>⬇️ Depth:</b> 41.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_075e7dde7dd88d9a4ac7bc059237f161.setContent(html_78297d1ed6a5d8ee2bd2722b15a47ce1);
+            
+        
+
+        circle_marker_e0382962dd4e58e70c6ae56cf0c65495.bindPopup(popup_075e7dde7dd88d9a4ac7bc059237f161)
+        ;
+
+        
+    
+    
+            circle_marker_e0382962dd4e58e70c6ae56cf0c65495.bindTooltip(
+                `<div>
+                     M1.6712310557973322 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_56ac03c2ce449bec5f51359920258eca = L.circleMarker(
+                [28.78514013682703, 76.91436058400406],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.35682640314323, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a3fa7be95a704bc6839f6d9fcd508438 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97f75f7e68303ccdbaa3b1e64b84bedb = $(`<div id="html_97f75f7e68303ccdbaa3b1e64b84bedb" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.118942134381077</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 19:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.785, 76.914<br>                 <b>⬇️ Depth:</b> 46.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a3fa7be95a704bc6839f6d9fcd508438.setContent(html_97f75f7e68303ccdbaa3b1e64b84bedb);
+            
+        
+
+        circle_marker_56ac03c2ce449bec5f51359920258eca.bindPopup(popup_a3fa7be95a704bc6839f6d9fcd508438)
+        ;
+
+        
+    
+    
+            circle_marker_56ac03c2ce449bec5f51359920258eca.bindTooltip(
+                `<div>
+                     M3.118942134381077 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_36cfdea3048ad8f6933715b28ea68b3d = L.circleMarker(
+                [28.435629950926653, 77.13840393896184],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.784370677454515, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_8c108b7b341ac7b390ac47eaebeef393 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_869550544ca3065ce655b3bcaf40480c = $(`<div id="html_869550544ca3065ce655b3bcaf40480c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.928123559151505</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 20:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.436, 77.138<br>                 <b>⬇️ Depth:</b> 56.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_8c108b7b341ac7b390ac47eaebeef393.setContent(html_869550544ca3065ce655b3bcaf40480c);
+            
+        
+
+        circle_marker_36cfdea3048ad8f6933715b28ea68b3d.bindPopup(popup_8c108b7b341ac7b390ac47eaebeef393)
+        ;
+
+        
+    
+    
+            circle_marker_36cfdea3048ad8f6933715b28ea68b3d.bindTooltip(
+                `<div>
+                     M3.928123559151505 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b269d318874ff1ebaef1425841a6073b = L.circleMarker(
+                [28.87365758103498, 77.247191588166],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_b15b03e13db47dc476f4225db5093dc0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c7898b67e034e2fb7ad0943a645e1648 = $(`<div id="html_c7898b67e034e2fb7ad0943a645e1648" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 0.8760820074457862</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 21:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.874, 77.247<br>                 <b>⬇️ Depth:</b> 1.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_b15b03e13db47dc476f4225db5093dc0.setContent(html_c7898b67e034e2fb7ad0943a645e1648);
+            
+        
+
+        circle_marker_b269d318874ff1ebaef1425841a6073b.bindPopup(popup_b15b03e13db47dc476f4225db5093dc0)
+        ;
+
+        
+    
+    
+            circle_marker_b269d318874ff1ebaef1425841a6073b.bindTooltip(
+                `<div>
+                     M0.8760820074457862 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e9962f9eee670cd05ea1d0523fff8675 = L.circleMarker(
+                [28.77058062576263, 77.03121221288252],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.486306165831706, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_46d243a0c5785192db7d0541f9e17d75 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bf27d3def4c7e78c290117006eff3157 = $(`<div id="html_bf27d3def4c7e78c290117006eff3157" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.162102055277235</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 22:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.771, 77.031<br>                 <b>⬇️ Depth:</b> 2.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_46d243a0c5785192db7d0541f9e17d75.setContent(html_bf27d3def4c7e78c290117006eff3157);
+            
+        
+
+        circle_marker_e9962f9eee670cd05ea1d0523fff8675.bindPopup(popup_46d243a0c5785192db7d0541f9e17d75)
+        ;
+
+        
+    
+    
+            circle_marker_e9962f9eee670cd05ea1d0523fff8675.bindTooltip(
+                `<div>
+                     M4.162102055277235 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1264d3e30e3e030279c69dde80a9a28b = L.circleMarker(
+                [28.495481957455816, 76.90606729498325],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.031181044441908, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_979bb41c654f884dc187c951fefeb2fe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_658c7c894ce5017d85746286d241c58c = $(`<div id="html_658c7c894ce5017d85746286d241c58c" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.010393681480636</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-03 23:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.495, 76.906<br>                 <b>⬇️ Depth:</b> 59.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_979bb41c654f884dc187c951fefeb2fe.setContent(html_658c7c894ce5017d85746286d241c58c);
+            
+        
+
+        circle_marker_1264d3e30e3e030279c69dde80a9a28b.bindPopup(popup_979bb41c654f884dc187c951fefeb2fe)
+        ;
+
+        
+    
+    
+            circle_marker_1264d3e30e3e030279c69dde80a9a28b.bindTooltip(
+                `<div>
+                     M1.010393681480636 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24c2de12285880e67a4285f2969be4c5 = L.circleMarker(
+                [28.402634959364907, 76.93831919065666],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.561587942759289, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_31d4adafabdb1d4acc407f7daeb8e119 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6e9396ca0113b17031b522691efaaeb = $(`<div id="html_a6e9396ca0113b17031b522691efaaeb" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.187195980919763</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 00:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.403, 76.938<br>                 <b>⬇️ Depth:</b> 32.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_31d4adafabdb1d4acc407f7daeb8e119.setContent(html_a6e9396ca0113b17031b522691efaaeb);
+            
+        
+
+        circle_marker_24c2de12285880e67a4285f2969be4c5.bindPopup(popup_31d4adafabdb1d4acc407f7daeb8e119)
+        ;
+
+        
+    
+    
+            circle_marker_24c2de12285880e67a4285f2969be4c5.bindTooltip(
+                `<div>
+                     M4.187195980919763 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eb0bcc2d44b3b27ce7de2a8c9c739c24 = L.circleMarker(
+                [28.791474769232657, 76.95874962851052],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.352480979908485, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_8599952ff015ab536b8abfdf96e9a5a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_80bf9681478ad57bf25b28827d29ba38 = $(`<div id="html_80bf9681478ad57bf25b28827d29ba38" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.4508269933028282</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 01:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.791, 76.959<br>                 <b>⬇️ Depth:</b> 6.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_8599952ff015ab536b8abfdf96e9a5a3.setContent(html_80bf9681478ad57bf25b28827d29ba38);
+            
+        
+
+        circle_marker_eb0bcc2d44b3b27ce7de2a8c9c739c24.bindPopup(popup_8599952ff015ab536b8abfdf96e9a5a3)
+        ;
+
+        
+    
+    
+            circle_marker_eb0bcc2d44b3b27ce7de2a8c9c739c24.bindTooltip(
+                `<div>
+                     M1.4508269933028282 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_861c3023f8f7ff98c35a070bc8b34026 = L.circleMarker(
+                [28.73924152419836, 76.98975890279898],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.33288074413411, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_567e46efee6bfed2199e5abc91c8dcf6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61731a23e3accc77fc4c35f3d9d9e9d2 = $(`<div id="html_61731a23e3accc77fc4c35f3d9d9e9d2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.110960248044703</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 02:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.739, 76.990<br>                 <b>⬇️ Depth:</b> 1.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_567e46efee6bfed2199e5abc91c8dcf6.setContent(html_61731a23e3accc77fc4c35f3d9d9e9d2);
+            
+        
+
+        circle_marker_861c3023f8f7ff98c35a070bc8b34026.bindPopup(popup_567e46efee6bfed2199e5abc91c8dcf6)
+        ;
+
+        
+    
+    
+            circle_marker_861c3023f8f7ff98c35a070bc8b34026.bindTooltip(
+                `<div>
+                     M4.110960248044703 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c13fa06fbe173be463ff3dd0771e897a = L.circleMarker(
+                [28.749951633719785, 77.16133233407844],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.97069354219944, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a04c0108c1aa50a31e55e0aeb05b947c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ad8af03bb3bc845ed747803364ef8f2 = $(`<div id="html_6ad8af03bb3bc845ed747803364ef8f2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.9902311807331468</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 03:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.750, 77.161<br>                 <b>⬇️ Depth:</b> 15.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a04c0108c1aa50a31e55e0aeb05b947c.setContent(html_6ad8af03bb3bc845ed747803364ef8f2);
+            
+        
+
+        circle_marker_c13fa06fbe173be463ff3dd0771e897a.bindPopup(popup_a04c0108c1aa50a31e55e0aeb05b947c)
+        ;
+
+        
+    
+    
+            circle_marker_c13fa06fbe173be463ff3dd0771e897a.bindTooltip(
+                `<div>
+                     M2.9902311807331468 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4915027135e33305900114823650519f = L.circleMarker(
+                [28.77038078931473, 77.14036892628428],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.937970845119597, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_936b5ca7fd5b5665dc10e2b6a72d4475 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97c0fd177bea4ab418ba3d79c2f01c05 = $(`<div id="html_97c0fd177bea4ab418ba3d79c2f01c05" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.6459902817065326</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 04:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.770, 77.140<br>                 <b>⬇️ Depth:</b> 12.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_936b5ca7fd5b5665dc10e2b6a72d4475.setContent(html_97c0fd177bea4ab418ba3d79c2f01c05);
+            
+        
+
+        circle_marker_4915027135e33305900114823650519f.bindPopup(popup_936b5ca7fd5b5665dc10e2b6a72d4475)
+        ;
+
+        
+    
+    
+            circle_marker_4915027135e33305900114823650519f.bindTooltip(
+                `<div>
+                     M2.6459902817065326 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7463fa1ba12072955676f51f608abe56 = L.circleMarker(
+                [28.43553824275278, 77.18812500334408],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.235664314212794, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_1503322be9053f2c73701c7a1510f97f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_93c1f357460c2547163549aa47a8b4cb = $(`<div id="html_93c1f357460c2547163549aa47a8b4cb" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.411888104737598</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 05:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.436, 77.188<br>                 <b>⬇️ Depth:</b> 51.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_1503322be9053f2c73701c7a1510f97f.setContent(html_93c1f357460c2547163549aa47a8b4cb);
+            
+        
+
+        circle_marker_7463fa1ba12072955676f51f608abe56.bindPopup(popup_1503322be9053f2c73701c7a1510f97f)
+        ;
+
+        
+    
+    
+            circle_marker_7463fa1ba12072955676f51f608abe56.bindTooltip(
+                `<div>
+                     M3.411888104737598 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7139254e4fceb8c66ace30305f516aa0 = L.circleMarker(
+                [28.572010299238432, 77.02114694224754],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "yellow", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.219772545357648, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_4c24de5466a4ad3d5a7a9b9e2096cafc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7298a1cc80cc2552510014136b8d7be1 = $(`<div id="html_7298a1cc80cc2552510014136b8d7be1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.739924181785883</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 06:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.572, 77.021<br>                 <b>⬇️ Depth:</b> 1.3 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_4c24de5466a4ad3d5a7a9b9e2096cafc.setContent(html_7298a1cc80cc2552510014136b8d7be1);
+            
+        
+
+        circle_marker_7139254e4fceb8c66ace30305f516aa0.bindPopup(popup_4c24de5466a4ad3d5a7a9b9e2096cafc)
+        ;
+
+        
+    
+    
+            circle_marker_7139254e4fceb8c66ace30305f516aa0.bindTooltip(
+                `<div>
+                     M4.739924181785883 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_92e9f62d0d870930fbe4338278d14707 = L.circleMarker(
+                [28.455645429150056, 77.25188029735371],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.4609258989318263, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_1878bfc8f5cd4a762bd90575433614bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_54908019041dcc83dc8ff13b46a878ef = $(`<div id="html_54908019041dcc83dc8ff13b46a878ef" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.1536419663106088</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 07:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.456, 77.252<br>                 <b>⬇️ Depth:</b> 38.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_1878bfc8f5cd4a762bd90575433614bb.setContent(html_54908019041dcc83dc8ff13b46a878ef);
+            
+        
+
+        circle_marker_92e9f62d0d870930fbe4338278d14707.bindPopup(popup_1878bfc8f5cd4a762bd90575433614bb)
+        ;
+
+        
+    
+    
+            circle_marker_92e9f62d0d870930fbe4338278d14707.bindTooltip(
+                `<div>
+                     M1.1536419663106088 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6661d59c843a18c94e6dc98db1466ed2 = L.circleMarker(
+                [28.81439493814897, 76.94208570670311],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.635844759984042, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_1966963ff7df32b6cddba049b40d54b7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f76020eecae79a94ce298123e5eb5763 = $(`<div id="html_f76020eecae79a94ce298123e5eb5763" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.545281586661347</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 08:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.814, 76.942<br>                 <b>⬇️ Depth:</b> 10.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_1966963ff7df32b6cddba049b40d54b7.setContent(html_f76020eecae79a94ce298123e5eb5763);
+            
+        
+
+        circle_marker_6661d59c843a18c94e6dc98db1466ed2.bindPopup(popup_1966963ff7df32b6cddba049b40d54b7)
+        ;
+
+        
+    
+    
+            circle_marker_6661d59c843a18c94e6dc98db1466ed2.bindTooltip(
+                `<div>
+                     M3.545281586661347 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a7a2e0514eeec24bc6794cc3a5899724 = L.circleMarker(
+                [28.69920371974472, 77.074772299072],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.599201547631605, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a8e6ad8a5d1a9ebdde77b89422de4450 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_68dc467f96c65243a8b0bf6987f8bb80 = $(`<div id="html_68dc467f96c65243a8b0bf6987f8bb80" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.5330671825438684</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 09:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.699, 77.075<br>                 <b>⬇️ Depth:</b> 10.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a8e6ad8a5d1a9ebdde77b89422de4450.setContent(html_68dc467f96c65243a8b0bf6987f8bb80);
+            
+        
+
+        circle_marker_a7a2e0514eeec24bc6794cc3a5899724.bindPopup(popup_a8e6ad8a5d1a9ebdde77b89422de4450)
+        ;
+
+        
+    
+    
+            circle_marker_a7a2e0514eeec24bc6794cc3a5899724.bindTooltip(
+                `<div>
+                     M2.5330671825438684 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5306a01dde5ab4e9d750a9ecf2097875 = L.circleMarker(
+                [28.55867361855806, 77.24048124465442],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.026654434190401, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_b0672d4fa3479cef35035480fd99aac4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_320ff46577f21e50bd07d3757bc02de2 = $(`<div id="html_320ff46577f21e50bd07d3757bc02de2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.3422181447301336</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 10:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.559, 77.240<br>                 <b>⬇️ Depth:</b> 1.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_b0672d4fa3479cef35035480fd99aac4.setContent(html_320ff46577f21e50bd07d3757bc02de2);
+            
+        
+
+        circle_marker_5306a01dde5ab4e9d750a9ecf2097875.bindPopup(popup_b0672d4fa3479cef35035480fd99aac4)
+        ;
+
+        
+    
+    
+            circle_marker_5306a01dde5ab4e9d750a9ecf2097875.bindTooltip(
+                `<div>
+                     M2.3422181447301336 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b5886ad5e868a3a303ff9b424ca67ec0 = L.circleMarker(
+                [28.430596084825293, 76.92994400569732],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.283115779287199, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_3ba5b63fa107d8b05d274fbbe78ad98b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e489eab80ce49e085efa788a64af096d = $(`<div id="html_e489eab80ce49e085efa788a64af096d" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.094371926429066</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 11:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.431, 76.930<br>                 <b>⬇️ Depth:</b> 36.1 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_3ba5b63fa107d8b05d274fbbe78ad98b.setContent(html_e489eab80ce49e085efa788a64af096d);
+            
+        
+
+        circle_marker_b5886ad5e868a3a303ff9b424ca67ec0.bindPopup(popup_3ba5b63fa107d8b05d274fbbe78ad98b)
+        ;
+
+        
+    
+    
+            circle_marker_b5886ad5e868a3a303ff9b424ca67ec0.bindTooltip(
+                `<div>
+                     M2.094371926429066 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6014f60100e9b281cb45ce91c6949e38 = L.circleMarker(
+                [28.54932413087411, 76.8949857419895],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.998911371786889, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_91eda4c193f58b996a85c36a05935de2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bcd58815f2056f86e6ca1d39324421a1 = $(`<div id="html_bcd58815f2056f86e6ca1d39324421a1" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.332970457262296</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 12:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.549, 76.895<br>                 <b>⬇️ Depth:</b> 12.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_91eda4c193f58b996a85c36a05935de2.setContent(html_bcd58815f2056f86e6ca1d39324421a1);
+            
+        
+
+        circle_marker_6014f60100e9b281cb45ce91c6949e38.bindPopup(popup_91eda4c193f58b996a85c36a05935de2)
+        ;
+
+        
+    
+    
+            circle_marker_6014f60100e9b281cb45ce91c6949e38.bindTooltip(
+                `<div>
+                     M3.332970457262296 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ca566cc424b5f3777da5caafe71d665c = L.circleMarker(
+                [28.556217176571863, 77.28191431134985],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.790027797154356, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_3a94953ca21c11bb359fc84571ff0f28 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_223c71327fcbb8e87b0850b86dccec9a = $(`<div id="html_223c71327fcbb8e87b0850b86dccec9a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.263342599051452</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 13:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.556, 77.282<br>                 <b>⬇️ Depth:</b> 1.5 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_3a94953ca21c11bb359fc84571ff0f28.setContent(html_223c71327fcbb8e87b0850b86dccec9a);
+            
+        
+
+        circle_marker_ca566cc424b5f3777da5caafe71d665c.bindPopup(popup_3a94953ca21c11bb359fc84571ff0f28)
+        ;
+
+        
+    
+    
+            circle_marker_ca566cc424b5f3777da5caafe71d665c.bindTooltip(
+                `<div>
+                     M1.263342599051452 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_468d2ba1da14f8496ddb2a7effec747d = L.circleMarker(
+                [28.750375931791588, 77.01148045218595],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.41672905554325, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_8a3564e816be2e4b46aaefc0fea3dd2f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_45e7e8e831c3ce70ad2e190fd876f7cc = $(`<div id="html_45e7e8e831c3ce70ad2e190fd876f7cc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.472243018514416</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 14:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.750, 77.011<br>                 <b>⬇️ Depth:</b> 3.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_8a3564e816be2e4b46aaefc0fea3dd2f.setContent(html_45e7e8e831c3ce70ad2e190fd876f7cc);
+            
+        
+
+        circle_marker_468d2ba1da14f8496ddb2a7effec747d.bindPopup(popup_8a3564e816be2e4b46aaefc0fea3dd2f)
+        ;
+
+        
+    
+    
+            circle_marker_468d2ba1da14f8496ddb2a7effec747d.bindTooltip(
+                `<div>
+                     M4.472243018514416 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b39f769ced6e430b9768d92f84b6c5f4 = L.circleMarker(
+                [28.70585518336002, 77.18205587025676],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.4015192868800845, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_03737b67952a7d096d44d9f13950fa95 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab16c179186c7f185969024c195c7743 = $(`<div id="html_ab16c179186c7f185969024c195c7743" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.1338397622933614</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 15:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.706, 77.182<br>                 <b>⬇️ Depth:</b> 33.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_03737b67952a7d096d44d9f13950fa95.setContent(html_ab16c179186c7f185969024c195c7743);
+            
+        
+
+        circle_marker_b39f769ced6e430b9768d92f84b6c5f4.bindPopup(popup_03737b67952a7d096d44d9f13950fa95)
+        ;
+
+        
+    
+    
+            circle_marker_b39f769ced6e430b9768d92f84b6c5f4.bindTooltip(
+                `<div>
+                     M2.1338397622933614 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24731d211ae54e171c653909a7d590e4 = L.circleMarker(
+                [28.82581738048632, 76.85258719300074],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.810554964444343, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_88d48a5bdfa2cb52093c823ad0381b0b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_35f1de5a44f731e0c040067392d97fc2 = $(`<div id="html_35f1de5a44f731e0c040067392d97fc2" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.936851654814781</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 16:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.826, 76.853<br>                 <b>⬇️ Depth:</b> 34.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_88d48a5bdfa2cb52093c823ad0381b0b.setContent(html_35f1de5a44f731e0c040067392d97fc2);
+            
+        
+
+        circle_marker_24731d211ae54e171c653909a7d590e4.bindPopup(popup_88d48a5bdfa2cb52093c823ad0381b0b)
+        ;
+
+        
+    
+    
+            circle_marker_24731d211ae54e171c653909a7d590e4.bindTooltip(
+                `<div>
+                     M2.936851654814781 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_69ac18a44f745b9c2f048552875918b6 = L.circleMarker(
+                [28.626591380809828, 77.1850635780792],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.661939194206306, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_574a5b1bddcda8e29152a57e5d098a09 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e85b69f128dc497568e28886593f0af8 = $(`<div id="html_e85b69f128dc497568e28886593f0af8" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.553979731402102</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 17:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.627, 77.185<br>                 <b>⬇️ Depth:</b> 33.7 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_574a5b1bddcda8e29152a57e5d098a09.setContent(html_e85b69f128dc497568e28886593f0af8);
+            
+        
+
+        circle_marker_69ac18a44f745b9c2f048552875918b6.bindPopup(popup_574a5b1bddcda8e29152a57e5d098a09)
+        ;
+
+        
+    
+    
+            circle_marker_69ac18a44f745b9c2f048552875918b6.bindTooltip(
+                `<div>
+                     M2.553979731402102 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f589cd90586401afeef22b66621a013 = L.circleMarker(
+                [28.457318368992688, 76.99793601438847],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.08074966279787, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_895bfbfb3e7f9ad31e6b554e8278d97a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_448bcef9c33beb8e60f89921abcc8ebc = $(`<div id="html_448bcef9c33beb8e60f89921abcc8ebc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.026916554265957</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 18:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.457, 76.998<br>                 <b>⬇️ Depth:</b> 10.8 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_895bfbfb3e7f9ad31e6b554e8278d97a.setContent(html_448bcef9c33beb8e60f89921abcc8ebc);
+            
+        
+
+        circle_marker_0f589cd90586401afeef22b66621a013.bindPopup(popup_895bfbfb3e7f9ad31e6b554e8278d97a)
+        ;
+
+        
+    
+    
+            circle_marker_0f589cd90586401afeef22b66621a013.bindTooltip(
+                `<div>
+                     M3.026916554265957 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c344892f888542bc4af9426a60ad6805 = L.circleMarker(
+                [28.74249354461641, 76.8680592163945],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.233317772327677, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_f387e572b2aafcb4ffece5b612e8b3a9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1558f5d8d38b7867461f1e63b752fec3 = $(`<div id="html_1558f5d8d38b7867461f1e63b752fec3" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.4111059241092256</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 19:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.742, 76.868<br>                 <b>⬇️ Depth:</b> 24.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_f387e572b2aafcb4ffece5b612e8b3a9.setContent(html_1558f5d8d38b7867461f1e63b752fec3);
+            
+        
+
+        circle_marker_c344892f888542bc4af9426a60ad6805.bindPopup(popup_f387e572b2aafcb4ffece5b612e8b3a9)
+        ;
+
+        
+    
+    
+            circle_marker_c344892f888542bc4af9426a60ad6805.bindTooltip(
+                `<div>
+                     M3.4111059241092256 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_83bbe5cbec5568449db3a4002a4d168e = L.circleMarker(
+                [28.76517938671892, 77.14479046373957],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.889063095314897, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_cab1fba4288de0958d7f08632fc3832a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9019265cce8fefe18bf7b6eb4b685c38 = $(`<div id="html_9019265cce8fefe18bf7b6eb4b685c38" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 4.296354365104966</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 20:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.765, 77.145<br>                 <b>⬇️ Depth:</b> 1.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_cab1fba4288de0958d7f08632fc3832a.setContent(html_9019265cce8fefe18bf7b6eb4b685c38);
+            
+        
+
+        circle_marker_83bbe5cbec5568449db3a4002a4d168e.bindPopup(popup_cab1fba4288de0958d7f08632fc3832a)
+        ;
+
+        
+    
+    
+            circle_marker_83bbe5cbec5568449db3a4002a4d168e.bindTooltip(
+                `<div>
+                     M4.296354365104966 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_087439638cd46cc0654410fb5d16546a = L.circleMarker(
+                [28.669203372545905, 76.96053770650347],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.7323933993623335, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_ef66c693e68afc1e3b71a4667a39901f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a2ef0d2f415f70b217438053ac0c7a2f = $(`<div id="html_a2ef0d2f415f70b217438053ac0c7a2f" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.577464466454111</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 21:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.669, 76.961<br>                 <b>⬇️ Depth:</b> 3.9 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_ef66c693e68afc1e3b71a4667a39901f.setContent(html_a2ef0d2f415f70b217438053ac0c7a2f);
+            
+        
+
+        circle_marker_087439638cd46cc0654410fb5d16546a.bindPopup(popup_ef66c693e68afc1e3b71a4667a39901f)
+        ;
+
+        
+    
+    
+            circle_marker_087439638cd46cc0654410fb5d16546a.bindTooltip(
+                `<div>
+                     M1.577464466454111 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e96d0c11106eb39e34eeab6800bd13ed = L.circleMarker(
+                [28.77003764383605, 77.03327751566988],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.541153421221484, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_bb03cc20cb9dd8df6b4e71a7325bc6eb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_32e5e125e4d0ae495a618a152b80427b = $(`<div id="html_32e5e125e4d0ae495a618a152b80427b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.8470511404071615</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 22:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.770, 77.033<br>                 <b>⬇️ Depth:</b> 29.6 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_bb03cc20cb9dd8df6b4e71a7325bc6eb.setContent(html_32e5e125e4d0ae495a618a152b80427b);
+            
+        
+
+        circle_marker_e96d0c11106eb39e34eeab6800bd13ed.bindPopup(popup_bb03cc20cb9dd8df6b4e71a7325bc6eb)
+        ;
+
+        
+    
+    
+            circle_marker_e96d0c11106eb39e34eeab6800bd13ed.bindTooltip(
+                `<div>
+                     M3.8470511404071615 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1654f6ac4920bd25f17f0a47f4b10207 = L.circleMarker(
+                [28.637133670722875, 76.88033616664553],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.312939030266612, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_a8f7dabaf0eaf7f276191fdfbfd6b039 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d1b3cae29b792746ded4a2bb78b167fc = $(`<div id="html_d1b3cae29b792746ded4a2bb78b167fc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.104313010088871</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-04 23:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.637, 76.880<br>                 <b>⬇️ Depth:</b> 16.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_a8f7dabaf0eaf7f276191fdfbfd6b039.setContent(html_d1b3cae29b792746ded4a2bb78b167fc);
+            
+        
+
+        circle_marker_1654f6ac4920bd25f17f0a47f4b10207.bindPopup(popup_a8f7dabaf0eaf7f276191fdfbfd6b039)
+        ;
+
+        
+    
+    
+            circle_marker_1654f6ac4920bd25f17f0a47f4b10207.bindTooltip(
+                `<div>
+                     M3.104313010088871 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f80c5302181b1c37c4d1ab19a81e1198 = L.circleMarker(
+                [28.65098548389731, 76.91349298662806],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.514595745692926, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_7380c0dedf3f33efe3ce9656ef528f24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3006e10ca174e5f2c25b747acfcf631a = $(`<div id="html_3006e10ca174e5f2c25b747acfcf631a" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 3.5048652485643084</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-05 00:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.651, 76.913<br>                 <b>⬇️ Depth:</b> 137.4 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_7380c0dedf3f33efe3ce9656ef528f24.setContent(html_3006e10ca174e5f2c25b747acfcf631a);
+            
+        
+
+        circle_marker_f80c5302181b1c37c4d1ab19a81e1198.bindPopup(popup_7380c0dedf3f33efe3ce9656ef528f24)
+        ;
+
+        
+    
+    
+            circle_marker_f80c5302181b1c37c4d1ab19a81e1198.bindTooltip(
+                `<div>
+                     M3.5048652485643084 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_385a5e77d141b741bbe0bcffad699f03 = L.circleMarker(
+                [28.60511375394306, 76.98897295429369],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.177708148956976, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_b05b45fb6ae97c2cc4b87c2b2edb9a10 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7876d4854b115525920391670cd2efd8 = $(`<div id="html_7876d4854b115525920391670cd2efd8" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 2.059236049652325</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-05 01:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.605, 76.989<br>                 <b>⬇️ Depth:</b> 6.2 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_b05b45fb6ae97c2cc4b87c2b2edb9a10.setContent(html_7876d4854b115525920391670cd2efd8);
+            
+        
+
+        circle_marker_385a5e77d141b741bbe0bcffad699f03.bindPopup(popup_b05b45fb6ae97c2cc4b87c2b2edb9a10)
+        ;
+
+        
+    
+    
+            circle_marker_385a5e77d141b741bbe0bcffad699f03.bindTooltip(
+                `<div>
+                     M2.059236049652325 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e2b4124653dcded39d01adcc5a1059f = L.circleMarker(
+                [28.41209647784388, 76.88486600260707],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.500303854391948, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_e47584dffb5a64060d6370490dde3954 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a1e12c7d1bba3db3b054c2735b7d043e = $(`<div id="html_a1e12c7d1bba3db3b054c2735b7d043e" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.500101284797316</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-05 02:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.412, 76.885<br>                 <b>⬇️ Depth:</b> 21.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_e47584dffb5a64060d6370490dde3954.setContent(html_a1e12c7d1bba3db3b054c2735b7d043e);
+            
+        
+
+        circle_marker_0e2b4124653dcded39d01adcc5a1059f.bindPopup(popup_e47584dffb5a64060d6370490dde3954)
+        ;
+
+        
+    
+    
+            circle_marker_0e2b4124653dcded39d01adcc5a1059f.bindTooltip(
+                `<div>
+                     M1.500101284797316 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_42becfeb670153f04a70b20019054829 = L.circleMarker(
+                [28.451686290396104, 77.29548368415858],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3.9625602041331787, "stroke": true, "weight": 1}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+        var popup_756600eb96575a8e492ccf52c9cb8ac8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e4ac2c2e3a63932da85d455a2f57a8cc = $(`<div id="html_e4ac2c2e3a63932da85d455a2f57a8cc" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px;">                 <h4>🌍 Magnitude 1.3208534013777262</h4>                 <hr>                 <b>📍 Location:</b> Synthetic Location<br>                 <b>📅 Time:</b> 2023-01-05 03:00:00 UTC<br>                 <b>📏 Coordinates:</b> 28.452, 77.295<br>                 <b>⬇️ Depth:</b> 3.0 km<br>                 <b>🔢 Type:</b> unknown<br>                                                                </div>             </div>`)[0];
+                popup_756600eb96575a8e492ccf52c9cb8ac8.setContent(html_e4ac2c2e3a63932da85d455a2f57a8cc);
+            
+        
+
+        circle_marker_42becfeb670153f04a70b20019054829.bindPopup(popup_756600eb96575a8e492ccf52c9cb8ac8)
+        ;
+
+        
+    
+    
+            circle_marker_42becfeb670153f04a70b20019054829.bindTooltip(
+                `<div>
+                     M1.3208534013777262 - Synthetic Location
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var heat_map_b3fdfa5504a9ec7ae3cf5483099f74ff = L.heatLayer(
+                [[28.579886325865782, 76.90211703401434, 1.0944818298133654], [28.856510856539515, 76.87510303318103, 1.329038600843229], [28.751279278338977, 77.29484116803204, 2.4252533376208887], [28.68737059658126, 76.93505442631988, 2.428148325782685], [28.47482228372008, 77.25071928908409, 3.981688219421244], [28.474963048995352, 77.11222537636237, 2.8108381031556746], [28.42782169782622, 76.87898837927953, 3.175220812247133], [28.81582986089783, 77.31768153895482, 1.2906542352680022], [28.688508400239783, 76.96351826681428, 3.631339484394017], [28.739740687141413, 77.26991189350439, 0.9947532524925224], [28.409821000609988, 76.92430838095385, 2.777871475397128], [28.865706394824024, 77.26685400709005, 3.343517520960632], [28.79959774288784, 76.8467455965963, 4.267804834451182], [28.501875476868317, 77.0959239580712, 2.309575015971833], [28.48746281229459, 77.22482714122346, 2.021763536327598], [28.48783376142409, 77.30751472050133, 4.510233042339525], [28.545928189523774, 77.29447456188858, 4.619239698289059], [28.652012338348182, 77.24976411422331, 4.094853953242795], [28.607313690578785, 77.28406617250099, 4.360999319774166], [28.539764903532127, 76.93959188026153, 1.366534798209604], [28.6937215348832, 76.9820058787359, 3.1648480375642976], [28.46699426524636, 76.98464642414528, 1.9389815819661311], [28.54007910327257, 77.02849860923722, 2.772007986989319], [28.575913472146464, 77.03652430196459, 3.7175570055397062], [28.61896634110136, 77.1123579146532, 2.984992025730447], [28.77693558636172, 76.91994478755268, 2.9438591084597494], [28.49584137765551, 77.18561041299343, 2.282408791494437], [28.646913393027987, 76.92362772166857, 1.5418436541880989], [28.684455774015536, 76.99524083460038, 1.7063034139111406], [28.422360968397797, 77.09162001144519, 2.6330618219986515], [28.691633217172186, 77.23833346321625, 3.0293730847090017], [28.48191553785795, 77.2098502911243, 2.7803535133522885], [28.431122697694903, 77.16258936605048, 2.399724848281468], [28.855637230492523, 76.91800874095195, 1.4146946165459], [28.86372418118351, 77.11349783254286, 2.6964234518360697], [28.788031164666062, 76.88358010241711, 1.3841205456962988], [28.54633151394728, 77.02869642998509, 3.722630252106289], [28.446885826000788, 77.04674344036131, 2.1338708184413777], [28.728361167882984, 76.85976423562607, 1.633323004980481], [28.611300127330637, 76.97701732341578, 1.2374999213106723], [28.45873652299894, 77.31793052930747, 1.5973352771293], [28.637810868151032, 77.31680144919024, 3.740952505779192], [28.41657419312224, 77.01614712882821, 2.1518471408086794], [28.83647921282492, 76.86144529322318, 2.3951595630161924], [28.52426382696999, 76.9295906883317, 4.386992375481782], [28.717872347055376, 77.03619058249483, 1.9423700052728845], [28.549476813481768, 77.31388147025791, 2.7570229371666346], [28.64944772532324, 76.91058878756452, 1.9267863211490757], [28.66240309389376, 77.22181504422227, 4.2928200400926775], [28.488654114545252, 76.89441098060534, 3.581294563939653], [28.86543669105415, 77.33075456145018, 1.704359031162804], [28.77204888433147, 77.03073545620364, 3.6825741090431454], [28.85080075157546, 77.22779643541003, 2.2124083959974725], [28.829291851859743, 77.01130284438628, 4.262037455678386], [28.686996927633096, 77.153739541117, 2.4208389139297246], [28.8424602001497, 76.93598777189604, 4.08245974022494], [28.442401796343244, 76.91322109667492, 5.447721523352256], [28.494189796648936, 77.3091638573717, 2.182962305797645], [28.421533709680247, 77.29873339910205, 2.0602940036009696], [28.55606468333032, 77.28381076048585, 2.8538907888271017], [28.586563848026262, 77.15264423086835, 4.109608912715044], [28.5304067024206, 77.24419788257683, 3.0954469884371845], [28.79770184930048, 76.87448203257065, 1.763180226109243], [28.57118704839186, 77.007417256488, 4.085206637756464], [28.534803080871885, 76.99683853806809, 1.385841781991223], [28.66056279632877, 77.15788861427917, 2.5495272054840137], [28.467468774077734, 77.01797340314776, 1.6712310557973322], [28.78514013682703, 76.91436058400406, 3.118942134381077], [28.435629950926653, 77.13840393896184, 3.928123559151505], [28.87365758103498, 77.247191588166, 0.8760820074457862], [28.77058062576263, 77.03121221288252, 4.162102055277235], [28.495481957455816, 76.90606729498325, 1.010393681480636], [28.402634959364907, 76.93831919065666, 4.187195980919763], [28.791474769232657, 76.95874962851052, 1.4508269933028282], [28.73924152419836, 76.98975890279898, 4.110960248044703], [28.749951633719785, 77.16133233407844, 2.9902311807331468], [28.77038078931473, 77.14036892628428, 2.6459902817065326], [28.43553824275278, 77.18812500334408, 3.411888104737598], [28.572010299238432, 77.02114694224754, 4.739924181785883], [28.455645429150056, 77.25188029735371, 1.1536419663106088], [28.81439493814897, 76.94208570670311, 3.545281586661347], [28.69920371974472, 77.074772299072, 2.5330671825438684], [28.55867361855806, 77.24048124465442, 2.3422181447301336], [28.430596084825293, 76.92994400569732, 2.094371926429066], [28.54932413087411, 76.8949857419895, 3.332970457262296], [28.556217176571863, 77.28191431134985, 1.263342599051452], [28.750375931791588, 77.01148045218595, 4.472243018514416], [28.70585518336002, 77.18205587025676, 2.1338397622933614], [28.82581738048632, 76.85258719300074, 2.936851654814781], [28.626591380809828, 77.1850635780792, 2.553979731402102], [28.457318368992688, 76.99793601438847, 3.026916554265957], [28.74249354461641, 76.8680592163945, 3.4111059241092256], [28.76517938671892, 77.14479046373957, 4.296354365104966], [28.669203372545905, 76.96053770650347, 1.577464466454111], [28.77003764383605, 77.03327751566988, 3.8470511404071615], [28.637133670722875, 76.88033616664553, 3.104313010088871], [28.65098548389731, 76.91349298662806, 3.5048652485643084], [28.60511375394306, 76.98897295429369, 2.059236049652325], [28.41209647784388, 76.88486600260707, 1.500101284797316], [28.451686290396104, 77.29548368415858, 1.3208534013777262]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 18,
+  "radius": 15,
+  "blur": 10,
+}
+            );
+        
+    
+            heat_map_b3fdfa5504a9ec7ae3cf5483099f74ff.addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+            var marker_cluster_9adfc2ae2845f97c69fc98bf73803417 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            marker_cluster_9adfc2ae2845f97c69fc98bf73803417.addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+    
+            var layer_control_cc40c6f88857169005942b854bad9495_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_146fed8b346090f5464eef8fed12665f,
+                    "openstreetmap" : tile_layer_cb258d35a3f9afac7dab31cbd133368c,
+                    "cartodbdarkmatter" : tile_layer_4648a86e7116a403c4b0e06f0a837341,
+                    "Stamen Terrain" : tile_layer_c132dd86817b59a0f842117561fb309d,
+                },
+                overlays :  {
+                    "macro_element_b3fdfa5504a9ec7ae3cf5483099f74ff" : heat_map_b3fdfa5504a9ec7ae3cf5483099f74ff,
+                    "macro_element_9adfc2ae2845f97c69fc98bf73803417" : marker_cluster_9adfc2ae2845f97c69fc98bf73803417,
+                },
+            };
+            let layer_control_cc40c6f88857169005942b854bad9495 = L.control.layers(
+                layer_control_cc40c6f88857169005942b854bad9495_layers.base_layers,
+                layer_control_cc40c6f88857169005942b854bad9495_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+
+        
+    
+            var measure_control_74d507de1498f712d6f40e114e826dd6 = new L.Control.Measure(
+                {
+  "position": "topright",
+  "primaryLengthUnit": "meters",
+  "secondaryLengthUnit": "miles",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_9f0a2a11f6032ab78cd236ef19d59055.addControl(measure_control_74d507de1498f712d6f40e114e826dd6);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_9f0a2a11f6032ab78cd236ef19d59055);
+        
+</script>
+</html>

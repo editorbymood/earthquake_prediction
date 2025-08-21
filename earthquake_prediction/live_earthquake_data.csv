@@ -1,0 +1,101 @@
+id,magnitude,place,time,latitude,longitude,depth_km,magType,alert,tsunami,status,felt
+sample_0000,4.3,Northern India region,2025-08-04 15:56:20.638036,23.0406,78.7945,0.9,mb,,0,reviewed,0
+sample_0001,4.4,Turkey region,2025-08-07 09:56:20.638330,38.0956,26.3742,5.4,mb,,0,reviewed,0
+sample_0002,9.0,California region,2025-08-06 04:56:20.638432,35.1409,-122.9874,4.0,ms,,0,reviewed,68
+sample_0003,9.0,Turkey region,2025-08-07 22:56:20.638564,39.533,28.8508,12.4,ml,,0,reviewed,88
+sample_0004,5.0,Turkey region,2025-08-02 19:56:20.638658,39.1591,30.8778,3.0,ml,,0,reviewed,0
+sample_0005,9.0,Northern India region,2025-08-06 15:56:20.638766,29.6932,81.6088,1.4,mb,,0,reviewed,100
+sample_0006,4.7,Northern India region,2025-08-04 14:56:20.638853,21.0502,80.8075,2.7,mw,,0,reviewed,0
+sample_0007,7.1,California region,2025-08-06 14:56:20.638937,40.9815,-126.9336,14.0,ms,yellow,0,reviewed,67
+sample_0008,8.4,Turkey region,2025-08-04 02:56:20.639024,45.0626,35.7812,9.6,mw,green,0,reviewed,85
+sample_0009,4.1,California region,2025-08-05 16:56:20.639148,24.7013,-118.2905,1.7,ms,,0,reviewed,0
+sample_0010,5.1,Northern India region,2025-08-06 19:56:20.639254,27.5016,78.9856,21.1,mb,,0,reviewed,58
+sample_0011,8.5,Northern India region,2025-08-04 11:56:20.639342,25.9512,79.7663,11.6,mb,,0,reviewed,77
+sample_0012,4.4,Northern India region,2025-08-05 17:56:20.639430,21.8531,72.1046,11.5,mb,,0,reviewed,0
+sample_0013,6.4,California region,2025-08-06 03:56:20.639535,38.8747,-132.5116,6.8,ms,,0,reviewed,59
+sample_0014,4.8,Japan region,2025-08-03 01:56:20.639623,32.7912,139.5792,15.1,ml,,0,reviewed,0
+sample_0015,4.6,Northern India region,2025-08-05 10:56:20.639706,27.5284,73.754,24.4,ms,orange,0,reviewed,0
+sample_0016,6.4,Japan region,2025-08-01 11:56:20.639811,35.1405,134.0146,29.3,mw,green,0,reviewed,60
+sample_0017,9.0,Japan region,2025-08-02 00:56:20.639895,30.4029,147.7497,2.2,mw,yellow,0,reviewed,94
+sample_0018,9.0,Japan region,2025-08-06 18:56:20.639980,26.4474,140.5949,50.5,ms,,0,reviewed,86
+sample_0019,8.4,California region,2025-08-03 14:56:20.640064,36.3726,-117.0735,28.5,ms,green,0,reviewed,86
+sample_0020,6.4,Japan region,2025-08-01 14:56:20.640199,35.8742,133.9157,15.8,ms,,0,reviewed,70
+sample_0021,4.2,California region,2025-08-03 08:56:20.640375,41.9103,-112.916,6.9,ml,,1,reviewed,0
+sample_0022,5.1,Turkey region,2025-08-04 06:56:20.640474,45.5526,28.8514,6.5,ms,,0,reviewed,45
+sample_0023,4.4,Northern India region,2025-08-06 09:56:20.640568,28.8099,76.5136,42.3,mb,yellow,0,reviewed,0
+sample_0024,9.0,Turkey region,2025-08-03 11:56:20.640651,40.3793,32.7017,49.7,mw,,0,reviewed,83
+sample_0025,6.4,Chile region,2025-08-07 07:56:20.640755,-30.3495,-71.1376,12.7,ml,,1,reviewed,54
+sample_0026,4.3,Chile region,2025-08-06 16:56:20.640855,-29.4858,-73.8465,18.5,mb,,0,reviewed,0
+sample_0027,7.2,Chile region,2025-08-02 07:56:20.640939,-31.3248,-52.3363,15.7,ml,yellow,0,reviewed,69
+sample_0028,4.7,California region,2025-08-04 17:56:20.641024,49.3733,-131.7363,13.4,mb,,0,reviewed,0
+sample_0029,6.9,California region,2025-08-08 02:56:20.641107,38.1214,-127.7887,3.6,mw,,0,reviewed,70
+sample_0030,6.7,Northern India region,2025-08-03 10:56:20.641191,22.0604,67.247,4.3,ml,green,0,reviewed,65
+sample_0031,4.2,Japan region,2025-08-03 10:56:20.641275,27.2559,138.2844,3.0,mb,orange,0,reviewed,0
+sample_0032,4.6,Turkey region,2025-08-04 17:56:20.641363,34.3658,38.2186,6.6,mb,,0,reviewed,0
+sample_0033,4.9,Japan region,2025-08-04 02:56:20.641465,38.4955,142.9995,9.4,mw,,0,reviewed,0
+sample_0034,6.0,Northern India region,2025-08-08 06:56:20.641547,27.9579,74.8717,10.5,ms,,0,reviewed,45
+sample_0035,7.2,Japan region,2025-08-01 12:56:20.641678,36.7203,144.6312,17.0,ms,,0,reviewed,81
+sample_0036,4.1,Japan region,2025-08-01 21:56:20.641806,36.405,136.8865,5.8,ml,,0,reviewed,0
+sample_0037,4.9,Japan region,2025-08-03 07:56:20.641901,44.7564,139.7996,41.4,ms,,1,reviewed,0
+sample_0038,7.3,Northern India region,2025-08-06 19:56:20.642027,31.3587,73.6494,69.9,ml,,0,reviewed,84
+sample_0039,6.8,Northern India region,2025-08-07 14:56:20.642141,36.3643,75.0024,1.6,mb,,0,reviewed,64
+sample_0040,9.0,Japan region,2025-08-06 03:56:20.642243,32.9435,144.9201,16.9,mw,,0,reviewed,75
+sample_0041,7.1,Northern India region,2025-08-03 18:56:20.642348,34.3906,81.1583,23.4,mb,,0,reviewed,73
+sample_0042,4.3,Turkey region,2025-08-02 06:56:20.642457,36.8725,27.3931,21.5,mb,green,0,reviewed,0
+sample_0043,4.3,Chile region,2025-08-01 09:56:20.642546,-29.469,-72.7685,10.8,mw,,0,reviewed,0
+sample_0044,5.8,Northern India region,2025-08-01 16:56:20.642640,30.0494,76.2639,6.5,mw,green,0,reviewed,56
+sample_0045,5.7,California region,2025-08-05 18:56:20.642730,34.929,-129.8599,20.3,mw,,0,reviewed,54
+sample_0046,4.2,Japan region,2025-08-07 11:56:20.642826,36.1205,140.063,12.1,mb,,0,reviewed,0
+sample_0047,8.6,Japan region,2025-08-07 19:56:20.642908,41.0021,149.0804,0.7,ml,orange,0,reviewed,85
+sample_0048,4.9,Chile region,2025-08-04 02:56:20.642992,-34.6886,-78.3753,13.1,mb,,0,reviewed,0
+sample_0049,5.8,Japan region,2025-08-02 10:56:20.643089,31.7734,131.9969,4.7,ml,,0,reviewed,57
+sample_0050,8.0,Japan region,2025-08-03 08:56:20.643190,38.5012,139.3385,0.7,ms,,0,reviewed,83
+sample_0051,5.3,California region,2025-08-02 22:56:20.643283,39.1782,-121.0064,8.0,mb,,0,reviewed,61
+sample_0052,6.2,Japan region,2025-08-04 11:56:20.643387,28.157,142.6775,14.4,mw,,0,reviewed,63
+sample_0053,9.0,California region,2025-08-05 22:56:20.643497,42.4854,-125.2466,1.4,mb,,0,reviewed,97
+sample_0054,5.9,Chile region,2025-08-05 00:56:20.643584,-32.8844,-71.3521,15.2,mw,,0,reviewed,60
+sample_0055,6.4,Northern India region,2025-08-02 13:56:20.643670,29.7004,67.7806,23.9,ms,green,0,reviewed,49
+sample_0056,5.7,Turkey region,2025-08-03 16:56:20.643754,35.2597,25.9887,6.3,mb,,0,reviewed,55
+sample_0057,8.5,Northern India region,2025-08-04 10:56:20.643838,26.0307,71.9039,9.6,ms,,0,reviewed,62
+sample_0058,5.6,Northern India region,2025-08-07 19:56:20.643929,27.4207,76.8162,11.5,ml,yellow,0,reviewed,52
+sample_0059,4.2,Chile region,2025-08-05 16:56:20.644014,-31.3271,-65.5768,31.0,ms,,0,reviewed,0
+sample_0060,9.0,Japan region,2025-08-05 23:56:20.644096,35.9075,136.1238,11.5,ml,,0,reviewed,91
+sample_0061,5.4,Chile region,2025-08-07 13:56:20.644183,-31.0172,-70.0437,11.4,ml,,0,reviewed,43
+sample_0062,4.3,Northern India region,2025-08-07 06:56:20.644268,25.3671,71.7923,33.2,ms,,0,reviewed,0
+sample_0063,5.8,Chile region,2025-08-03 14:56:20.644379,-33.5132,-75.9064,20.5,ms,,0,reviewed,55
+sample_0064,4.8,Chile region,2025-08-02 01:56:20.644503,-33.9561,-79.79,40.7,mb,,0,reviewed,0
+sample_0065,4.0,Northern India region,2025-08-04 09:56:20.644589,32.5874,77.926,55.4,ms,green,0,reviewed,0
+sample_0066,4.7,Chile region,2025-08-05 09:56:20.644671,-23.6834,-63.5019,22.0,ml,,0,reviewed,0
+sample_0067,6.5,Japan region,2025-08-06 17:56:20.644752,36.0793,148.545,21.9,mb,,0,reviewed,60
+sample_0068,5.6,Chile region,2025-08-01 07:56:20.644837,-23.5648,-81.3247,3.4,ml,,0,reviewed,55
+sample_0069,7.6,California region,2025-08-05 01:56:20.644921,40.6854,-123.4152,50.3,mb,green,0,reviewed,66
+sample_0070,7.2,Northern India region,2025-08-07 01:56:20.645120,28.0007,77.7686,3.4,mw,,0,reviewed,76
+sample_0071,6.3,Northern India region,2025-08-03 23:56:20.645237,32.7012,68.6636,9.0,ml,yellow,0,reviewed,64
+sample_0072,5.0,Japan region,2025-08-03 23:56:20.645354,36.6346,138.9045,11.8,ms,,0,reviewed,0
+sample_0073,4.3,California region,2025-08-01 18:56:20.645481,30.4071,-116.6812,23.7,mb,,0,reviewed,0
+sample_0074,4.3,Northern India region,2025-08-05 13:56:20.645567,33.4504,80.8039,3.4,ml,,0,reviewed,0
+sample_0075,7.2,Turkey region,2025-08-06 08:56:20.645687,39.6506,24.1062,2.4,ms,green,0,reviewed,75
+sample_0076,7.5,Northern India region,2025-08-03 23:56:20.645826,32.1905,85.038,47.9,ml,,0,reviewed,69
+sample_0077,5.9,Chile region,2025-08-05 19:56:20.646021,-32.9973,-58.3821,0.3,mw,yellow,0,reviewed,63
+sample_0078,4.1,Chile region,2025-08-06 15:56:20.646175,-36.9132,-65.0908,1.2,mb,yellow,0,reviewed,0
+sample_0079,5.8,Turkey region,2025-08-06 02:56:20.646364,41.2786,34.471,7.6,mb,,0,reviewed,60
+sample_0080,4.9,Northern India region,2025-08-01 13:56:20.646529,32.7159,77.5666,6.4,mw,,0,reviewed,0
+sample_0081,5.7,Northern India region,2025-08-04 15:56:20.646671,27.6454,78.7649,2.7,mb,,0,reviewed,60
+sample_0082,5.2,Turkey region,2025-08-04 17:56:20.646815,43.227,29.0711,12.2,ms,,0,reviewed,48
+sample_0083,4.5,California region,2025-08-07 01:56:20.646973,38.7904,-123.1218,3.2,ms,,0,reviewed,0
+sample_0084,5.2,California region,2025-08-01 09:56:20.647102,44.7429,-135.6968,7.7,mw,,0,reviewed,49
+sample_0085,4.3,Chile region,2025-08-04 10:56:20.647201,-35.7095,-71.9479,18.9,ms,,0,reviewed,0
+sample_0086,4.8,California region,2025-08-06 04:56:20.647286,50.6569,-121.655,12.6,mb,,0,reviewed,0
+sample_0087,7.9,California region,2025-08-01 10:56:20.647368,41.8693,-127.1021,26.6,ml,,0,reviewed,92
+sample_0088,5.1,Japan region,2025-08-06 08:56:20.647485,36.6307,133.7444,33.5,mb,,0,reviewed,48
+sample_0089,7.0,Northern India region,2025-08-06 02:56:20.647574,26.2223,82.2784,6.8,ms,,1,reviewed,77
+sample_0090,5.1,California region,2025-08-07 17:56:20.647659,38.3711,-121.6485,0.3,mb,,0,reviewed,46
+sample_0091,8.6,California region,2025-08-06 18:56:20.647750,32.5775,-123.512,17.6,mw,green,0,reviewed,96
+sample_0092,7.5,Chile region,2025-08-03 21:56:20.647836,-23.8721,-68.012,3.5,ml,,0,reviewed,87
+sample_0093,5.7,Northern India region,2025-08-03 05:56:20.647928,28.1057,88.6898,27.3,ml,,0,reviewed,63
+sample_0094,8.9,Northern India region,2025-08-06 01:56:20.648018,27.475,83.238,19.2,ml,,1,reviewed,77
+sample_0095,5.4,Chile region,2025-08-01 21:56:20.648116,-36.7782,-70.99,13.6,ml,,0,reviewed,59
+sample_0096,4.2,California region,2025-08-03 19:56:20.648204,33.0765,-110.8854,1.2,ms,orange,0,reviewed,0
+sample_0097,9.0,Northern India region,2025-08-05 05:56:20.648287,24.9643,75.9624,2.2,mb,,0,reviewed,91
+sample_0098,6.0,Turkey region,2025-08-04 14:56:20.648378,45.024,33.6513,59.1,ms,,1,reviewed,77
+sample_0099,4.8,Chile region,2025-08-08 00:56:20.648464,-40.155,-58.5701,1.9,mb,,0,reviewed,0
