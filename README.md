@@ -2,6 +2,8 @@
 
 A complete machine learning project that uses Genetic Algorithms to optimize feature selection for earthquake magnitude prediction, comparing ensemble methods (RandomForest + XGBoost) with deep learning (MLP) models.
 
+🔗: https://earthquake-prediction-nu.vercel.app/
+
 ## Features
 
 - **Genetic Algorithm Feature Selection**: Automatically selects optimal features for prediction
