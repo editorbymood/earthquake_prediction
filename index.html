@@ -1,122 +1,566 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Earthquake Visualizations Index</title>
+  
+  <!-- Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg: #0f172a;        /* slate-900 */
-      --panel: #111827;     /* gray-900 */
-      --muted: #94a3b8;     /* slate-400 */
-      --text: #e5e7eb;      /* gray-200 */
-      --accent: #22c55e;    /* green-500 */
-      --accent2: #60a5fa;   /* blue-400 */
-      --chip: #1f2937;      /* gray-800 */
-      --border: #1f2937;    /* gray-800 */
+      /* Modern Color Palette */
+      --bg: #040617;
+      --panel: #0f1729;
+      --muted: #64748b;
+      --text: #f8fafc;
+      --accent: #06b6d4;
+      --accent2: #818cf8;
+      --gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --chip: #1e293b;
+      --border: rgba(255, 255, 255, 0.1);
+      --hover: #1e293b;
+      --card-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.5);
+      --glow: 0 0 20px rgba(6, 182, 212, 0.15);
     }
+
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    a { color: inherit; text-decoration: none; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
-    .title { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 22px; }
-    .title .badge { font-size: 13px; color: var(--bg); background: var(--accent); padding: 4px 10px; border-radius: 999px; font-weight: 700; }
-    .subtitle { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
-    nav { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 24px; display: flex; gap: 10px; flex-wrap: wrap; }
-    .chip { background: var(--chip); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 999px; font-size: 14px; }
-    section { margin-top: 28px; }
-    h2 { font-size: 18px; margin: 0 0 12px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
-    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: grid; gap: 8px; }
-    .card small { color: var(--muted); }
-    .card a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; background: #0b1220; border: 1px solid #0b1528; color: #e2e8f0; transition: border-color .15s ease, background .15s ease; }
-    .card a:hover { background: #0e1526; border-color: #1e293b; }
-    footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
-    .hint { margin-top: 8px; color: var(--muted); font-size: 13px; }
-    .sep { height: 1px; background: var(--border); margin: 18px 0; border-radius: 1px; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      /* Remove existing background-image */
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      position: relative;
+      z-index: 1;
+      /* Add backdrop blur for better readability */
+      backdrop-filter: blur(100px);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .title {
+      font-family: 'Sora', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--gradient);
+      color: var(--text);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 12px;
+      transform: translateY(-8px);
+      box-shadow: var(--glow);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .chip {
+      background: var(--chip);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chip:hover {
+      background: var(--hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+    }
+
+    .chip .material-symbols-rounded {
+      font-size: 20px;
+    }
+
+    section {
+      margin-top: 64px;
+      animation: slideUp 0.6s ease;
+    }
+
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 24px;
+      margin: 0 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: grid;
+      gap: 12px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+      border-color: var(--accent);
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--text);
+    }
+
+    .card small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gradient);
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 500;
+      margin-top: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glow);
+    }
+
+    .sep {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+      border-radius: 1px;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      padding: 16px;
+      background: var(--panel);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    code {
+      background: rgba(0,0,0,0.3);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'SF Mono', Menlo, monospace;
+      color: var(--accent);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* New styles for space background */
+    .space-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .planet {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(1px);
+    }
+
+    .planet-1 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle at 30% 50%, 
+            rgba(6, 182, 212, 0.15),
+            rgba(6, 182, 212, 0.05) 50%,
+            transparent 70%);
+        animation: orbit1 80s linear infinite;
+    }
+
+    .planet-2 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle at 70% 50%, 
+            rgba(59, 130, 246, 0.15),
+            rgba(59, 130, 246, 0.05) 50%,
+            transparent 70%);
+        animation: orbit2 60s linear infinite;
+    }
+
+    .planet-3 {
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle at 50% 50%, 
+            rgba(139, 92, 246, 0.15),
+            rgba(139, 92, 246, 0.05) 50%,
+            transparent 70%);
+        animation: orbit3 40s linear infinite;
+    }
+
+    .stars {
+        position: fixed;
+        width: 1px;
+        height: 1px;
+        background: white;
+        box-shadow: 
+            2px 2px white,
+            4px 4px rgba(255,255,255,0.3),
+            8px 8px rgba(255,255,255,0.1),
+            12px 12px rgba(255,255,255,0.1),
+            16px 16px rgba(255,255,255,0.1),
+            20px 20px rgba(255,255,255,0.1),
+            24px 24px rgba(255,255,255,0.1),
+            28px 28px rgba(255,255,255,0.1);
+        animation: twinkle 4s ease-in-out infinite;
+    }
+
+    .stars-1 { top: 10%; left: 10%; }
+    .stars-2 { top: 20%; left: 90%; }
+    .stars-3 { top: 60%; left: 30%; }
+    .stars-4 { top: 80%; left: 70%; }
+    .stars-5 { top: 40%; left: 50%; }
+
+    .shooting-star {
+        position: absolute;
+        width: 100px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+        animation: shooting 3s linear infinite;
+        opacity: 0;
+    }
+
+    .shooting-star:nth-child(1) {
+        top: 20%;
+        left: -100px;
+        animation-delay: 0s;
+    }
+
+    .shooting-star:nth-child(2) {
+        top: 40%;
+        left: -100px;
+        animation-delay: 1.5s;
+    }
+
+    .nebula {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle at center,
+            rgba(147, 51, 234, 0.1) 0%,
+            rgba(147, 51, 234, 0.05) 40%,
+            transparent 70%);
+        filter: blur(30px);
+        animation: rotate 60s linear infinite;
+    }
+
+    .nebula-1 {
+        top: 10%;
+        right: 5%;
+    }
+
+    .nebula-2 {
+        bottom: 10%;
+        left: 5%;
+        background: radial-gradient(circle at center,
+            rgba(59, 130, 246, 0.1) 0%,
+            rgba(59, 130, 246, 0.05) 40%,
+            transparent 70%);
+    }
+
+    @keyframes orbit1 {
+        from { transform: rotate(0deg) translateX(50vw) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(50vw) rotate(-360deg); }
+    }
+
+    @keyframes orbit2 {
+        from { transform: rotate(0deg) translateX(30vw) rotate(0deg); }
+        to { transform: rotate(-360deg) translateX(30vw) rotate(360deg); }
+    }
+
+    @keyframes orbit3 {
+        from { transform: rotate(0deg) translateX(40vw) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(40vw) rotate(-360deg); }
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    @keyframes shoot {
+        0% { transform: translateY(0) translateX(0); opacity: 1; }
+        100% { transform: translateY(-100vh) translateX(-100px); opacity: 0; }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(-10px, -10px); }
+    }
+
+    @keyframes shooting {
+        0% {
+            transform: translateX(0) rotate(-45deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        20% {
+            transform: translateX(calc(100vw + 100px)) rotate(-45deg);
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg) scale(1);
+        }
+        50% {
+            transform: rotate(180deg) scale(1.1);
+        }
+        to {
+            transform: rotate(360deg) scale(1);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container { padding: 24px 16px 60px; }
+      .title { font-size: 32px; }
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
+    }
   </style>
 </head>
 <body>
+    <!-- Add this right after body tag, before container -->
+    <div class="space-background">
+        <!-- Add these new elements -->
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        
+        <!-- Existing elements -->
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+        <div class="planet planet-3"></div>
+        <div class="stars stars-1"></div>
+        <div class="stars stars-2"></div>
+        <div class="stars stars-3"></div>
+        <div class="stars stars-4"></div>
+        <div class="stars stars-5"></div>
+    </div>
+
   <div class="container">
     <header>
       <div class="title">
-        <span>🌍 Earthquake Visualizations</span>
-        <span class="badge">Index</span>
+        🌍 Earthquake Visualizations<span class="badge">Index</span>
       </div>
+      <p class="subtitle">Interactive maps and dashboards for earthquake data analysis and visualization</p>
     </header>
-    <p class="subtitle">Quick links to all generated HTML maps and dashboards in this project. Open directly or serve via a local server.</p>
 
     <nav>
-      <a class="chip" href="#live">Live Data Maps</a>
-      <a class="chip" href="#dash">Project Dashboards</a>
-      <a class="chip" href="#other">Other Maps</a>
+      <a class="chip" href="#live">
+        <span class="material-symbols-rounded">radio_button_checked</span>
+        Live Data Maps
+      </a>
+      <a class="chip" href="#dash">
+        <span class="material-symbols-rounded">dashboard</span>
+        Dashboards
+      </a>
+      <a class="chip" href="#other">
+        <span class="material-symbols-rounded">folder</span>
+        Other Maps
+      </a>
     </nav>
 
     <section id="live">
-      <h2>📡 Live Data Maps</h2>
+      <h2><span class="material-symbols-rounded">radio_button_checked</span>Live Data Maps</h2>
       <div class="grid">
         <div class="card">
-          <div>Live Earthquakes — Interactive Map</div>
+          <div class="card-title">Live Earthquakes — Interactive Map</div>
           <small>From USGS (last 7 days)</small>
-          <a href="live_earthquakes_only.html" target="_blank">Open live_earthquakes_only.html →</a>
+          <a class="card-link" href="live_earthquakes_only.html" target="_blank">
+            View Map
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Live Earthquakes — Timeline</div>
+          <div class="card-title">Live Earthquakes — Timeline</div>
           <small>Magnitude over time (Plotly)</small>
-          <a href="live_earthquakes_timeline.html" target="_blank">Open live_earthquakes_timeline.html →</a>
+          <a class="card-link" href="live_earthquakes_timeline.html" target="_blank">
+            View Timeline
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Live Earthquakes — Depth vs Magnitude</div>
+          <div class="card-title">Live Earthquakes — Depth vs Magnitude</div>
           <small>Scatter analysis (Plotly)</small>
-          <a href="live_earthquakes_depth_magnitude.html" target="_blank">Open live_earthquakes_depth_magnitude.html →</a>
+          <a class="card-link" href="live_earthquakes_depth_magnitude.html" target="_blank">
+            View Analysis
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
       </div>
     </section>
 
     <section id="dash">
-      <h2>📊 Project Dashboards</h2>
+      <h2><span class="material-symbols-rounded">dashboard</span>Project Dashboards</h2>
       <div class="grid">
         <div class="card">
-          <div>Dashboard — Map</div>
+          <div class="card-title">Dashboard — Map</div>
           <small>Interactive folium map</small>
-          <a href="earthquake_dashboard_map.html" target="_blank">Open earthquake_dashboard_map.html →</a>
+          <a class="card-link" href="earthquake_dashboard_map.html" target="_blank">
+            View Dashboard
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Dashboard — Timeline</div>
+          <div class="card-title">Dashboard — Timeline</div>
           <small>Magnitude timeline (Plotly)</small>
-          <a href="earthquake_dashboard_timeline.html" target="_blank">Open earthquake_dashboard_timeline.html →</a>
+          <a class="card-link" href="earthquake_dashboard_timeline.html" target="_blank">
+            View Timeline
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Dashboard — Depth vs Magnitude</div>
+          <div class="card-title">Dashboard — Depth vs Magnitude</div>
           <small>Scatter analysis</small>
-          <a href="earthquake_dashboard_depth_magnitude.html" target="_blank">Open earthquake_dashboard_depth_magnitude.html →</a>
+          <a class="card-link" href="earthquake_dashboard_depth_magnitude.html" target="_blank">
+            View Analysis
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Dashboard — Magnitude Distribution</div>
+          <div class="card-title">Dashboard — Magnitude Distribution</div>
           <small>Histogram</small>
-          <a href="earthquake_dashboard_magnitude_dist.html" target="_blank">Open earthquake_dashboard_magnitude_dist.html →</a>
+          <a class="card-link" href="earthquake_dashboard_magnitude_dist.html" target="_blank">
+            View Distribution
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Dashboard — Geographic Distribution</div>
+          <div class="card-title">Dashboard — Geographic Distribution</div>
           <small>Global spread</small>
-          <a href="earthquake_dashboard_geo_dist.html" target="_blank">Open earthquake_dashboard_geo_dist.html →</a>
+          <a class="card-link" href="earthquake_dashboard_geo_dist.html" target="_blank">
+            View Distribution
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
       </div>
     </section>
 
     <section id="other">
-      <h2>🗂️ Other Maps</h2>
+      <h2><span class="material-symbols-rounded">folder</span>Other Maps</h2>
       <div class="grid">
         <div class="card">
-          <div>Live Map (Demo Output)</div>
+          <div class="card-title">Live Map (Demo Output)</div>
           <small>From demo script</small>
-          <a href="earthquake_live_map.html" target="_blank">Open earthquake_live_map.html →</a>
+          <a class="card-link" href="earthquake_live_map.html" target="_blank">
+            View Live Map
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
         <div class="card">
-          <div>Project Data Map</div>
+          <div class="card-title">Project Data Map</div>
           <small>Map using synthetic project data</small>
-          <a href="project_data_map.html" target="_blank">Open project_data_map.html →</a>
+          <a class="card-link" href="project_data_map.html" target="_blank">
+            View Data Map
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </a>
         </div>
       </div>
     </section>
@@ -124,9 +568,15 @@
     <div class="sep"></div>
 
     <footer>
-      Tips:
-      <div class="hint">• Double-click this file or open it via any web server. With the included viewer: run <code>python view_maps.py</code> then open <code>http://localhost:8001/index.html</code>.</div>
-      <div class="hint">• Live HTML loads external map tiles/JS; ensure internet connectivity for full functionality.</div>
+      <strong>Tips & Information:</strong>
+      <div class="hint">
+        <span class="material-symbols-rounded">terminal</span>
+        Run locally: <code>python view_maps.py</code> then visit <code>http://localhost:8001/index.html</code>
+      </div>
+      <div class="hint">
+        <span class="material-symbols-rounded">wifi</span>
+        Internet connection required for map tiles and external resources
+      </div>
     </footer>
   </div>
 </body>
