@@ -54,7 +54,7 @@ class EarthquakeMapServer:
         map_files = []
         
         # Look for HTML files
-        html_files = [f for f in os.listdir('.') if f.endswith('.html')]
+        html_files = [f for f in os.listdir('.') if f.endswith('.html') and f != 'index.html']
         
         # Categorize the files
         categories = {
