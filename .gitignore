@@ -5,5 +5,5 @@ __pycache__/
 .env
 data/
 results/
-models/
+# models/
 plots/

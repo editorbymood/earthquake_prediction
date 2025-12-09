@@ -1,0 +1,23 @@
+# Web Framework
+fastapi
+uvicorn
+python-multipart
+requests
+
+# Data Processing
+pandas
+numpy
+pydantic
+
+# Machine Learning
+scikit-learn
+tensorflow
+xgboost
+joblib
+deap
+
+# Visualization
+matplotlib
+seaborn
+plotly
+folium

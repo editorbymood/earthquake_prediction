@@ -1,84 +1,47 @@
-# Earthquake Magnitude Prediction with Feature Optimization
+# SeismicAI: Earthquake Prediction System
 
-A complete machine learning project that uses Genetic Algorithms to optimize feature selection for earthquake magnitude prediction, comparing ensemble methods (RandomForest + XGBoost) with deep learning (MLP) models.
+A professional AI/ML-powered earthquake prediction and monitoring system.
 
-🔗: https://earthquake-prediction-nu.vercel.app/
+## 🏗 Architecture
 
-## Features
+This project uses a modern separation of concerns:
 
-- **Genetic Algorithm Feature Selection**: Automatically selects optimal features for prediction
-- **Ensemble Model**: Stacked RandomForest and XGBoost regression
-- **Deep Learning Model**: Multi-layer perceptron with TensorFlow/Keras
-- **Comprehensive Evaluation**: Cross-validation, feature importance analysis, and performance metrics
-- **Data Visualization**: Interactive plots and analysis charts
+- **Frontend**: React + Vite + TailwindCSS (Located in `/frontend`)
+- **Backend**: FastAPI + Python (Located in `/backend`)
+- **AI/ML Core**: Shared logic, models, and utilities (Located in `/backend/src`)
 
-## Project Structure
+## 🚀 Getting Started
 
-```
-earthquake_prediction/
-├── data/
-│   └── earthquake_data.csv
-├── models/
-│   ├── __init__.py
-│   ├── genetic_optimizer.py
-│   ├── ensemble_model.py
-│   └── deep_learning_model.py
-├── utils/
-│   ├── __init__.py
-│   ├── data_loader.py
-│   ├── evaluator.py
-│   └── visualizer.py
-├── main.py
-├── config.py
-└── requirements.txt
-```
+To run the entire full-stack application with one command:
 
-## Installation
-
-1. Clone or download this project
-2. Install dependencies:
 ```bash
-pip install -r requirements.txt
+./start.sh
 ```
 
-## Usage
+This will start:
+- Backend API at `http://localhost:8000`
+- Frontend Dashboard at `http://localhost:5173`
 
-Run the complete pipeline:
-```bash
-python main.py
+## 📁 Directory Structure
+
+```text
+/
+├── backend/            # Python FastAPI Backend
+│   ├── app/            # API Endpoints
+│   └── src/            # Core Business Logic & Models
+├── frontend/           # React Frontend
+├── data/               # Datasets
+├── results/            # Model Training Results
+└── start.sh            # Universal Launch Script
 ```
 
-This will:
-1. Generate synthetic earthquake data
-2. Apply genetic algorithm for feature optimization
-3. Train ensemble and deep learning models
-4. Compare performance and generate visualizations
+## 🛠 Tech Stack
 
-## Models
+- **Frontend**: React, TailwindCSS, Framer Motion, Leaflet, Recharts
+- **Backend**: FastAPI, Uvicorn, Pandas, NumPy, Scikit-Learn
+- **Models**: Random Forest, XGBoost (Ensemble), Deep Learning
 
-### Ensemble Model
-- **RandomForest**: Handles non-linear patterns and feature interactions
-- **XGBoost**: Gradient boosting for enhanced accuracy
-- **Stacking**: Meta-learner combines predictions
+## 📝 Usage
 
-### Deep Learning Model
-- **MLP Architecture**: Multiple hidden layers with dropout
-- **Adaptive Learning**: Early stopping and learning rate scheduling
-- **Regularization**: Dropout and batch normalization
-
-## Results
-
-The project outputs:
-- Feature importance rankings
-- Model performance comparisons
-- Cross-validation results
-- Prediction accuracy metrics
-- Visualization plots
-
-## Configuration
-
-Modify `config.py` to adjust:
-- Genetic algorithm parameters
-- Model hyperparameters
-- Data generation settings
-- Evaluation metrics
+1.  **Dashboard**: View global earthquake data stats and interactive map.
+2.  **Predictor**: Enter geophysical parameters to predict earthquake magnitude using our trained AI models.

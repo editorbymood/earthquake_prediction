@@ -1,0 +1,68 @@
+INFO:     Will watch for changes in these directories: ['/Users/shanky/Cloned Repo/earthquake_prediction/backend/app']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [8894] using StatReload
+/Users/shanky/Cloned Repo/earthquake_prediction/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [8968]
+INFO:     Waiting for application startup.
+INFO:main:Loading saved model...
+INFO:main:Model loaded successfully.
+INFO:     Application startup complete.
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:50900 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:50900 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52555 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52555 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52568 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52568 - "GET /openapi.json HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52559 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52559 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52583 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52583 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52635 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52635 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52637 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52637 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52637 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52637 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52637 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52637 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52662 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52662 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:52653 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:53113 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
+Loaded 20000 records from /Users/shanky/Cloned Repo/earthquake_prediction/data/earthquake_data.csv
+INFO:     127.0.0.1:53115 - "GET /api/recent-earthquakes HTTP/1.1" 200 OK
