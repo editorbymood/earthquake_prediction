@@ -1,23 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-background text-white antialiased;
+    @apply bg-[#020617] text-slate-200 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04";
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl;
+  }
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-md border border-slate-700/50 hover:border-primary/50 transition-all duration-300;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-surface;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-surface/50 rounded-full hover:bg-surface/80;
+  @apply bg-slate-700 rounded-full hover:bg-slate-600;
 }

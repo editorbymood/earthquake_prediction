@@ -3,7 +3,12 @@ import os
 import json
 import logging
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, WebSocket, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import asyncio
+import random
+from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -84,9 +89,10 @@ class PredictionInput(BaseModel):
     dmin: Optional[float] = 0.0
     rms: Optional[float] = 0.0
 
-@app.get("/")
-async def root():
-    return {"message": "SeismicAI API is running"}
+# Removed root API route to allow frontend to handle "/"
+# @app.get("/")
+# async def root():
+#     return {"message": "SeismicAI API is running"}
 
 @app.get("/api/recent-earthquakes")
 async def get_recent_earthquakes(limit: int = 100):
@@ -99,6 +105,11 @@ async def get_recent_earthquakes(limit: int = 100):
         # Sort by time desc
         df = df.sort_values('time', ascending=False)
         
+        # Replace NaN with None for JSON compatibility
+        df = df.replace({np.nan: None})
+        
+        if limit == -1:
+            return df.to_dict(orient='records')
         return df.head(limit).to_dict(orient='records')
     except Exception as e:
         logger.error(f"Error fetching data: {e}")
@@ -169,6 +180,64 @@ async def get_weather(lat: Optional[float] = None, lon: Optional[float] = None):
         logger.error(f"Weather error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# Alert System
+class AlertConfig(BaseModel):
+    threshold: float
+
+alert_settings = {"threshold": 5.0}
+
+@app.post("/api/alerts/config")
+async def update_alert_config(config: AlertConfig):
+    global alert_settings
+    alert_settings["threshold"] = config.threshold
+    return {"message": "Alert threshold updated", "config": alert_settings}
+
+@app.websocket("/ws/seismic")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        while True:
+            # Simulate a seismic event
+            mag = round(random.uniform(2.0, 9.0), 2)
+            event = {
+                "timestamp": datetime.now().isoformat(),
+                "latitude": round(random.uniform(-90, 90), 4),
+                "longitude": round(random.uniform(-180, 180), 4),
+                "depth": round(random.uniform(5, 700), 2),
+                "mag": mag,
+                "type": "simulated",
+                "alert": mag >= alert_settings["threshold"]
+            }
+            await websocket.send_json(event)
+            await asyncio.sleep(random.uniform(2, 5)) # Stream event every 2-5 seconds
+    except Exception as e:
+        print(f"WebSocket disconnected: {e}")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
+# Mount Frontend - Place this at the end to avoid overriding API routes
+# Ensure we are pointing to the correct dist folder relative to this file
+frontend_dist = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../frontend/dist'))
+
+if os.path.exists(frontend_dist):
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_dist, "assets")), name="assets")
+    
+    # Catch-all route for SPA
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Allow API routes to pass through if they weren't caught above (though they should be defined before this)
+        if full_path.startswith("api") or full_path.startswith("ws"):
+             raise HTTPException(status_code=404, detail="Not Found")
+             
+        # Check if file exists in dist (e.g. favicon.ico)
+        file_path = os.path.join(frontend_dist, full_path)
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+            
+        # Otherwise serve index.html
+        return FileResponse(os.path.join(frontend_dist, "index.html"))
+else:
+    logger.warning(f"Frontend dist folder not found at {frontend_dist}. Run 'npm run build' in frontend directory.")

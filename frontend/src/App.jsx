@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Predictor from './pages/Predictor';
-import MapStart from './components/Map'; // We might use a full page map too
+// MapStart removed as it was unused and referenced dynamically later
 
 const AppLayout = ({ children }) => (
     <div className="flex min-h-screen bg-background text-white font-sans selection:bg-primary/30">
@@ -15,6 +15,7 @@ const AppLayout = ({ children }) => (
 );
 
 import LandingPage from './pages/LandingPage';
+import GlobeView from './pages/GlobeView';
 
 function App() {
     return (
@@ -36,6 +37,11 @@ function App() {
                         <div className="h-[calc(100vh-4rem)] rounded-2xl overflow-hidden border border-slate-700/50">
                             <DashboardMapWrapper />
                         </div>
+                    </AppLayout>
+                } />
+                <Route path="/globe" element={
+                    <AppLayout>
+                        <GlobeView />
                     </AppLayout>
                 } />
             </Routes>

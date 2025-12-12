@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Map = ({ earthquakes }) => {
@@ -11,7 +11,7 @@ const Map = ({ earthquakes }) => {
     };
 
     return (
-        <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 bg-surface relative z-10">
+        <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl glass-card relative z-10">
             <MapContainer
                 center={[20, 0]}
                 zoom={2}
@@ -36,6 +36,9 @@ const Map = ({ earthquakes }) => {
                             weight: 1
                         }}
                     >
+                        <Tooltip direction="top" offset={[0, -10]} opacity={1}>
+                            <span className="font-sans font-bold text-slate-900">{eq.place}</span>
+                        </Tooltip>
                         <Popup className="custom-popup">
                             <div className="p-2 min-w-[150px]">
                                 <h3 className="font-bold text-slate-900 text-lg mb-1">M {eq.mag.toFixed(1)}</h3>

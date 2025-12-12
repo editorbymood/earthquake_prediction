@@ -2,9 +2,10 @@
 > frontend@0.0.0 dev
 > vite
 
-11:00:56 PM [vite] (client) Re-optimizing dependencies because lockfile has changed
 
-  VITE v7.2.7  ready in 93 ms
+  VITE v7.2.7  ready in 78 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
+9:51:53 PM [vite] (client) hmr update /src/components/Map.jsx, /src/index.css
+9:52:32 PM [vite] (client) hmr update /src/index.css, /src/components/LiveMonitor.jsx

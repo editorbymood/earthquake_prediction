@@ -1,6 +1,6 @@
 # Web Framework
 fastapi
-uvicorn
+uvicorn[standard]
 python-multipart
 requests
 

@@ -35,6 +35,11 @@ class EarthquakeDataLoader:
                 self.download_usgs_data()
                 df = pd.read_csv(self.data_file)
                 
+            # Ensure 'place' column exists
+            if 'place' not in df.columns:
+                print("Missing 'place' column in data. Adding default values.")
+                df['place'] = "Unknown Location"
+                
             return df
         except Exception as e:
             print(f"Error reading data: {e}")
@@ -87,6 +92,7 @@ class EarthquakeDataLoader:
             'gap': np.random.uniform(0, 360, n_samples),
             'dmin': np.random.uniform(0, 10, n_samples),
             'rms': np.random.uniform(0, 2, n_samples),
+            'place': [f"Region {i}" for i in range(n_samples)] # Add mock place names
         }
         return pd.DataFrame(data)
 

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AnalyticsCharts from '../components/AnalyticsCharts';
 import Map from '../components/Map';
+import LiveMonitor from '../components/LiveMonitor';
 import { Activity, Radio, AlertTriangle, Layers, CloudRain } from 'lucide-react';
 import { clsx } from 'clsx';
 
 const StatCard = ({ label, value, subtext, icon: Icon, color }) => (
-    <div className="bg-surface border border-slate-700/50 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300">
+    <div className="glass-card rounded-2xl p-6 group">
         <div className="flex items-start justify-between mb-4">
             <div>
-                <p className="text-slate-400 text-sm font-medium mb-1">{label}</p>
-                <h3 className="text-2xl font-bold text-white">{value}</h3>
+                <p className="text-slate-400 text-sm font-medium mb-1 font-display tracking-wide uppercase text-[10px]">{label}</p>
+                <h3 className="text-3xl font-bold text-white font-display tracking-tight group-hover:scale-105 transition-transform duration-300 origin-left">{value}</h3>
             </div>
-            <div className={clsx("p-3 rounded-xl bg-opacity-10", `bg-${color} text-${color}`)}>
+            <div className={clsx("p-3 rounded-xl bg-opacity-10 backdrop-blur-sm", `bg-${color} text-${color}`)}>
                 <Icon className="w-6 h-6" />
             </div>
         </div>
-        {subtext && <p className="text-xs text-slate-500">{subtext}</p>}
+        {subtext && <p className="text-xs text-slate-500 font-mono">{subtext}</p>}
     </div>
 );
 
@@ -29,7 +31,7 @@ const Dashboard = () => {
         const fetchData = async () => {
             try {
                 const [earthquakeRes, weatherRes] = await Promise.all([
-                    axios.get('http://localhost:8000/api/recent-earthquakes'),
+                    axios.get('http://localhost:8000/api/recent-earthquakes?limit=-1'), // Fetch ALL data for analytics
                     axios.get('http://localhost:8000/api/weather') // Fetches default location weather
                 ]);
                 setData(earthquakeRes.data);
@@ -103,6 +105,15 @@ const Dashboard = () => {
                     icon={CloudRain}
                     color="sky-500"
                 />
+                <div className="lg:col-span-2">
+                    <LiveMonitor />
+                </div>
+            </div>
+
+            {/* Analytics Section */}
+            <div className="mb-6">
+                <h3 className="text-xl font-bold text-white mb-4">Seismic Analytics</h3>
+                <AnalyticsCharts data={data} />
             </div>
 
             {/* Map Section */}

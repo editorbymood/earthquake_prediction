@@ -64,7 +64,7 @@ const Predictor = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
                 {/* Input Form */}
-                <div className="bg-surface border border-slate-700/50 rounded-3xl p-8 shadow-2xl">
+                <div className="glass-card rounded-3xl p-8 shadow-2xl">
                     <div className="flex items-center gap-3 mb-8 pb-4 border-b border-slate-700/50">
                         <Target className="text-primary w-6 h-6" />
                         <h3 className="text-xl font-bold text-white">Input Parameters</h3>
@@ -133,7 +133,7 @@ const Predictor = () => {
                 {/* Results Area */}
                 <div className="relative">
                     {result ? (
-                        <div className="bg-surface border border-slate-700/50 rounded-3xl p-8 shadow-2xl h-full flex flex-col items-center justify-center text-center animate-fade-in-up">
+                        <div className="glass-card rounded-3xl p-8 shadow-2xl h-full flex flex-col items-center justify-center text-center animate-fade-in-up border-primary/20">
                             <div className="mb-6 relative">
                                 <div className="absolute inset-0 bg-accent/20 blur-3xl rounded-full" />
                                 <h2 className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400 relative z-10">
